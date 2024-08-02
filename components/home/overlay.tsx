@@ -36,7 +36,7 @@ const Overlay = () => {
       gsap.to(".bar", 2.5, {
         delay: 2.5,
         height: 0,
-        eas: "power4.inOut",
+        ease: "power3.inOut",
       })
     }, overlayRef)
 

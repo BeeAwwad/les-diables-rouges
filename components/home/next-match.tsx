@@ -1,6 +1,8 @@
 const NextMatch = () => {
   return (
-    <div className="bg-white w-1/2 rounded-lg h-full ">Middle Overview</div>
+    <div className="w-full bg-white md:w-[60%] rounded-lg h-full ">
+      Middle Overview
+    </div>
   )
 }
 
