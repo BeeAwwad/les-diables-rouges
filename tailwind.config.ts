@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "480px",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -15,6 +18,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwind-hamburgers")],
-}
-export default config
+  plugins: [require("tailwind-hamburgers"), "prettier-plugin-tailwindcss"],
+};
+export default config;

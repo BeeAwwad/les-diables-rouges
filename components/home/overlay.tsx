@@ -19,7 +19,6 @@ const Overlay = () => {
       if (currentValue > 100) currentValue = 100
 
       setCounter(currentValue)
-      console.log("counter", counter)
 
       let delay = Math.floor(Math.random() * 200) + 50
 
