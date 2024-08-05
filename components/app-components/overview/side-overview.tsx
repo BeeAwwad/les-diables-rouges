@@ -1,4 +1,4 @@
-const LastGame = () => {
+const SideOverview = () => {
   return (
     <div className="h-full w-full rounded-lg bg-white lg:w-[40%]">
       Side Overview
@@ -6,4 +6,4 @@ const LastGame = () => {
   );
 };
 
-export default LastGame;
+export default SideOverview;
