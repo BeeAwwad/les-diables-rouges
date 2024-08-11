@@ -1,8 +1,8 @@
-import Header from "@/components/app-components/header";
-import SideOverview from "@/components/app-components/overview/side-overview";
-import MiddleOverview from "@/components/app-components/overview/middle-overview";
-import Overlay from "@/components/app-components/overlay";
-import SideNav from "@/components/app-components/side-nav";
+import Header from "@/components/home-page/header";
+import SideOverview from "@/components/home-page/overview/side/side-overview";
+import MiddleOverview from "@/components/home-page/overview/middle/middle-overview";
+import Overlay from "@/components/home-page/overlay";
+import SideNav from "@/components/home-page/side-nav";
 
 export default function Home() {
   return (

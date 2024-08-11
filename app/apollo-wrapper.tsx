@@ -10,7 +10,7 @@ import {
 
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: "https://countries.trevorblades.com/graphql",
+    uri: "http://localhost:3000/api",
     fetchOptions: { cache: "no-store" },
   });
 
