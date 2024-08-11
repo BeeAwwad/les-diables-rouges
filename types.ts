@@ -90,7 +90,6 @@ export type Venue = {
   venue_surface: string;
 };
 
-// Types for Player
 export type Player = {
   player_key: number;
   player_id: string;
@@ -137,14 +136,12 @@ export type Player = {
   player_rating?: string;
 };
 
-// Types for Coach
 export type Coach = {
   coach_name: string;
   coach_country?: string;
   coach_age?: string;
 };
 
-// Types for Team
 export type Team = {
   team_key: string;
   team_name: string;
@@ -154,4 +151,30 @@ export type Team = {
   venue: Venue;
   players: Player[];
   coaches: Coach[];
+};
+
+export type PlTeam = {
+  id: number;
+  name: string;
+  shortName: string;
+  tla: string;
+  crest: string;
+};
+
+export type PlTeamStats = {
+  position: number;
+  team: PlTeam;
+  playedGames: number;
+  form: string | null;
+  won: number;
+  draw: number;
+  lost: number;
+  points: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  goalDifference: number;
+};
+
+export type PlStandings = {
+  table: PlTeamStats[];
 };

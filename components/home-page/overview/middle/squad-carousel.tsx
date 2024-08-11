@@ -1,14 +1,15 @@
 "use client";
 import { useQuery, gql } from "@apollo/client";
 import Autoplay from "embla-carousel-autoplay";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
 
 const SQUAD_LIST = gql`
   query Query($id: ID!) {
@@ -28,6 +29,21 @@ type Player = {
 };
 
 export const SquadCarousel = () => {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    console.log("checking for re-renders");
+    const handleSelect = () => setCurrent(api.selectedScrollSnap());
+    api.on("select", handleSelect);
+
+    return () => {
+      api.off("select", handleSelect);
+    };
+  }, [api]);
+
   const { loading, error, data } = useQuery(SQUAD_LIST, {
     variables: { id: "102" },
   });
@@ -35,19 +51,20 @@ export const SquadCarousel = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const { players, team_key } = data.getTeam;
+  const { players } = data.getTeam;
 
   return (
     <div className="w-full md:w-1/2">
       <Carousel
+        setApi={setApi}
+        opts={{ loop: true }}
         plugins={[
           Autoplay({
-            delay: 3000,
+            delay: 4500,
             stopOnInteraction: true,
-            stopOnMouseEnter: true,
           }),
         ]}
-        className="w-full max-w-xs"
+        className="w-full"
       >
         <CarouselContent>
           {players.map((player: Player, index: number) => (
@@ -67,9 +84,11 @@ export const SquadCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
       </Carousel>
+      <div className="flex justify-center">
+        <Button onClick={() => api?.scrollTo(current - 1)}>prev</Button>
+        <Button onClick={() => api?.scrollTo(current + 1)}>next</Button>
+      </div>
     </div>
   );
 };

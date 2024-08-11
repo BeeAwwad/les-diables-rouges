@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FixturesResponse, Fixture, Team } from "@/types";
+import { FixturesResponse, Fixture, Team, PlStandings } from "@/types";
 
 export const resolvers = {
   Query: {
@@ -63,8 +63,6 @@ export const resolvers = {
           `https://apiv3.apifootball.com/?action=get_teams&league_id=152&APIkey=${process.env.API_FOOTBALL_API_TOKEN}`,
         );
 
-        console.log(process.env.API_FOOTBALL_API_TOKEN, "API token");
-
         const teams = response.data;
 
         if (!teams) {
@@ -84,6 +82,24 @@ export const resolvers = {
         console.error("Error in getTeam:", error);
         throw new Error("Failed to get team");
       }
+    },
+
+    getPlStandings: async (_: unknown): Promise<PlStandings> => {
+      const response = await axios.get(
+        `https://api.football-data.org/v4/competitions/PL/standings`,
+        {
+          headers: {
+            method: "GET",
+            "X-Auth-Token": process.env.FOOTBALL_DATA_API_TOKEN,
+          },
+        },
+      );
+
+      const PL = response.data;
+      if (!PL) {
+        throw new Error("PL standings data is missing from the response");
+      }
+      return PL.standings[0].table;
     },
   },
 };

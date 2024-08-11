@@ -160,11 +160,34 @@ export const typeDefs = gql`
     coaches: [Coach!]!
   }
 
+  type PlTeam {
+    id: Int!
+    name: String!
+    shortName: String!
+    tla: String!
+    crest: String!
+  }
+
+  type PlTeamStats {
+    position: Int!
+    team: PlTeam!
+    playedGames: Int!
+    form: String
+    won: Int!
+    draw: Int!
+    lost: Int!
+    points: Int!
+    goalsFor: Int!
+    goalsAgainst: Int!
+    goalDifference: Int
+  }
+
   type Query {
     hello: String
     getFixtures(id: ID!): FixturesResponse!
     getNextFixture(id: ID!): Fixture!
     getResults(id: ID!): [Fixture!]
     getTeam(id: ID!): Team!
+    getPlStandings: [PlTeamStats!]!
   }
 `;
