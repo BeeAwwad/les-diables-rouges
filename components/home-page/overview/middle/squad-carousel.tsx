@@ -35,7 +35,6 @@ export const SquadCarousel = () => {
   useEffect(() => {
     if (!api) return;
 
-    console.log("checking for re-renders");
     const handleSelect = () => setCurrent(api.selectedScrollSnap());
     api.on("select", handleSelect);
 

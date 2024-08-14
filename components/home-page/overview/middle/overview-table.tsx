@@ -43,7 +43,6 @@ export const OverviewTable = () => {
   const start = Math.max(0, targetIndex - 2);
   const end = Math.min(plTable.length, targetIndex + 3);
   const filteredTable = plTable.slice(start, end);
-  console.log("🚀 ~ OverviewTable ~ filteredTable:", filteredTable);
   return (
     <Table>
       <TableCaption>Premier League Table</TableCaption>
@@ -59,8 +58,8 @@ export const OverviewTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {filteredTable.map((club: PlTeamStats) => (
-          <TableRow key={club.position}>
+        {filteredTable.map((club: PlTeamStats, index: number) => (
+          <TableRow key={index}>
             <TableCell>{club.position}</TableCell>
             <TableCell>{club.team.shortName}</TableCell>
             <TableCell>{club.playedGames}</TableCell>

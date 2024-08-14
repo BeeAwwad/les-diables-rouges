@@ -14,7 +14,7 @@ export const resolvers = {
         {
           headers: {
             method: "GET",
-            "X-Auth-Token": process.env.FOOTBALL_DATA_API_TOKEN,
+            "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
           },
         },
       );
@@ -30,7 +30,7 @@ export const resolvers = {
         {
           headers: {
             method: "GET",
-            "X-Auth-Token": process.env.FOOTBALL_DATA_API_TOKEN,
+            "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
           },
         },
       );
@@ -50,7 +50,7 @@ export const resolvers = {
         {
           headers: {
             method: "GET",
-            "X-Auth-Token": process.env.FOOTBALL_DATA_API_TOKEN,
+            "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
           },
         },
       );
@@ -60,7 +60,7 @@ export const resolvers = {
     getTeam: async (_: unknown, { id }: { id: string }): Promise<Team> => {
       try {
         const response = await axios.get(
-          `https://apiv3.apifootball.com/?action=get_teams&league_id=152&APIkey=${process.env.API_FOOTBALL_API_TOKEN}`,
+          `https://apiv3.apifootball.com/?action=get_teams&league_id=152&APIkey=${process.env.API_FOOTBALL_API_KEY}`,
         );
 
         const teams = response.data;
@@ -90,7 +90,7 @@ export const resolvers = {
         {
           headers: {
             method: "GET",
-            "X-Auth-Token": process.env.FOOTBALL_DATA_API_TOKEN,
+            "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
           },
         },
       );
