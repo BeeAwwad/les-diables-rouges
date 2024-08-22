@@ -1,6 +1,7 @@
 import gql from "graphql-tag";
 
 export const typeDefs = gql`
+  # football-data.org schema
   type Area {
     id: Int!
     name: String!
@@ -97,6 +98,30 @@ export const typeDefs = gql`
     venue_surface: String!
   }
 
+  type PlTeam {
+    id: Int!
+    name: String!
+    shortName: String!
+    tla: String!
+    crest: String!
+  }
+
+  type PlTeamStats {
+    position: Int!
+    team: PlTeam!
+    playedGames: Int!
+    form: String
+    won: Int!
+    draw: Int!
+    lost: Int!
+    points: Int!
+    goalsFor: Int!
+    goalsAgainst: Int!
+    goalDifference: Int
+  }
+
+  # apifootball.com schema
+
   type Player {
     player_key: Int!
     player_id: String!
@@ -160,28 +185,96 @@ export const typeDefs = gql`
     coaches: [Coach!]!
   }
 
-  type PlTeam {
+  # api-football.com schema
+
+  type ApiPeriods {
+    first: Int
+    second: Int
+  }
+
+  type ApiVenue {
     id: Int!
     name: String!
-    shortName: String!
-    tla: String!
-    crest: String!
+    city: String!
   }
 
-  type PlTeamStats {
-    position: Int!
-    team: PlTeam!
-    playedGames: Int!
-    form: String
-    won: Int!
-    draw: Int!
-    lost: Int!
-    points: Int!
-    goalsFor: Int!
-    goalsAgainst: Int!
-    goalDifference: Int
+  type ApiStatus {
+    long: String!
+    short: String!
+    elapsed: Int
   }
 
+  type ApiFixture {
+    id: Int!
+    referee: String
+    timezone: String!
+    date: String!
+    timestamp: Int!
+    periods: ApiPeriods!
+    venue: ApiVenue!
+    status: ApiStatus!
+  }
+
+  type ApiLeague {
+    id: Int!
+    name: String!
+    country: String!
+    logo: String!
+    flag: String!
+    season: Int!
+    round: String!
+  }
+
+  type ApiTeam {
+    id: Int!
+    name: String!
+    logo: String!
+    winner: Boolean
+  }
+
+  type ApiTeams {
+    home: ApiTeam!
+    away: ApiTeam!
+  }
+
+  type ApiGoal {
+    home: Int
+    away: Int
+  }
+
+  type ApiScore {
+    halftime: ApiGoal!
+    fulltime: ApiGoal!
+    extratime: ApiGoal
+    penalty: ApiGoal
+  }
+
+  type ApiLeague {
+    id: Int!
+    name: String!
+    country: String!
+    logo: String!
+    flag: String!
+    season: Int!
+    round: String!
+  }
+
+  type TeamStatisticsSummary {
+    id: Int!
+    name: String!
+    ballPossession: String
+  }
+
+  type ApiFixtureResponse {
+    fixture: ApiFixture!
+    league: ApiLeague!
+    teams: ApiTeams!
+    goals: ApiGoal!
+    score: ApiScore!
+    statisticsSummary: [TeamStatisticsSummary!]
+  }
+
+  # Resover Query
   type Query {
     hello: String
     getFixtures(id: ID!): FixturesResponse!
@@ -189,5 +282,6 @@ export const typeDefs = gql`
     getResults(id: ID!): [Fixture!]
     getTeam(id: ID!): Team!
     getPlStandings: [PlTeamStats!]!
+    getPreviousFixture(id: ID!, season: Int!): ApiFixtureResponse!
   }
 `;

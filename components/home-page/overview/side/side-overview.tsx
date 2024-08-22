@@ -8,7 +8,6 @@ const Chat = dynamic(() => import("./chat"), {
 const SideOverview = () => {
   return (
     <div className="h-full w-full rounded-lg bg-white lg:w-[40%]">
-      <h1>Chat Demo</h1>
       <Chat />
     </div>
   );

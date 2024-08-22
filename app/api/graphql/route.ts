@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server";
 import { handler } from "./graphql";
-import Ably from "ably";
 
 export async function GET(request: NextRequest) {
   return handler(request);

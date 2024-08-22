@@ -1,3 +1,5 @@
+// football-data.org types
+
 export type Area = {
   id: number;
   name: string;
@@ -90,6 +92,34 @@ export type Venue = {
   venue_surface: string;
 };
 
+export type PlTeam = {
+  id: number;
+  name: string;
+  shortName: string;
+  tla: string;
+  crest: string;
+};
+
+export type PlTeamStats = {
+  position: number;
+  team: PlTeam;
+  playedGames: number;
+  form: string | null;
+  won: number;
+  draw: number;
+  lost: number;
+  points: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  goalDifference: number;
+};
+
+export type PlStandings = {
+  table: PlTeamStats[];
+};
+
+// apifootball.com types
+
 export type Player = {
   player_key: number;
   player_id: string;
@@ -153,28 +183,81 @@ export type Team = {
   coaches: Coach[];
 };
 
-export type PlTeam = {
+// api-football.com types
+
+export type ApiPeriods = {
+  first: number | null;
+  second: number | null;
+};
+
+export type ApiVenue = {
   id: number;
   name: string;
-  shortName: string;
-  tla: string;
-  crest: string;
+  city: string;
 };
 
-export type PlTeamStats = {
-  position: number;
-  team: PlTeam;
-  playedGames: number;
-  form: string | null;
-  won: number;
-  draw: number;
-  lost: number;
-  points: number;
-  goalsFor: number;
-  goalsAgainst: number;
-  goalDifference: number;
+export type ApiStatus = {
+  long: string;
+  short: string;
+  elapsed: number | null;
 };
 
-export type PlStandings = {
-  table: PlTeamStats[];
+export type ApiFixture = {
+  id: number;
+  referee: string | null;
+  timezone: string;
+  date: string;
+  timestamp: number;
+  periods: ApiPeriods;
+  venue: ApiVenue;
+  status: ApiStatus;
+};
+
+export type ApiLeague = {
+  id: number;
+  name: string;
+  country: string;
+  logo: string;
+  flag: string;
+  season: number;
+  round: string;
+};
+
+export type ApiTeam = {
+  id: number;
+  name: string;
+  logo: string;
+  winnner: boolean | null;
+};
+
+export type ApiTeams = {
+  home: ApiTeam;
+  away: ApiTeam;
+};
+
+export type ApiGoal = {
+  home: number | null;
+  away: number | null;
+};
+
+export type ApiScore = {
+  halftime: ApiGoal;
+  fulltime: ApiGoal;
+  extratime: ApiGoal | null;
+  penalty: ApiGoal | null;
+};
+
+export type TeamStatisticsSummary = {
+  id: number;
+  name: string;
+  ballPossession: string | null;
+};
+
+export type ApiFixtureResponse = {
+  fixture: ApiFixture;
+  league: ApiLeague;
+  teams: ApiTeams;
+  goals: ApiGoal;
+  score: ApiScore;
+  statisticsSummary?: TeamStatisticsSummary[];
 };

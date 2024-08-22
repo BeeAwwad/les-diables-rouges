@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useChannel } from "ably/react";
 import { Button } from "@/components/ui/button";
 import { Message } from "ably";
+import { Textarea } from "@/components/ui/textarea";
 
 export const ChatBox = () => {
   const inputBox = useRef<HTMLTextAreaElement | null>(null);
@@ -58,19 +59,20 @@ export const ChatBox = () => {
       </div>
       <form
         onSubmit={handleFormSubmission}
-        className="form grid border-t-2 border-solid border-t-indigo-700"
+        className="grid border-t-2 border-solid border-t-indigo-700"
       >
-        <textarea
-          ref={inputBox}
-          value={messageText}
-          placeholder="Type a message..."
-          onChange={(e) => setMessageText(e.target.value)}
-          className="p-4 text-lg"
-          onKeyDown={handleKeyPress}
-        ></textarea>
-        <Button type="submit" disabled={messageTextIsEmpty}>
-          Send
-        </Button>
+        <div className="grid w-full gap-2">
+          <Textarea
+            ref={inputBox}
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+            onKeyDown={handleKeyPress}
+            placeholder="Type your message here."
+          />
+          <Button type="submit" disabled={messageTextIsEmpty}>
+            Send
+          </Button>
+        </div>
       </form>
     </div>
   );
