@@ -265,6 +265,47 @@ export const typeDefs = gql`
     ballPossession: String
   }
 
+  type EventTime {
+    elapsed: Int!
+    extra: Int
+  }
+
+  type EventTeam {
+    id: Int!
+    name: String!
+    logo: String!
+  }
+
+  type EventPlayer {
+    id: Int!
+    name: String!
+  }
+
+  type EventAssist {
+    id: Int
+    name: String
+  }
+
+  type FixtureEvent {
+    time: EventTime!
+    team: EventTeam!
+    player: EventPlayer!
+    assist: EventAssist
+    type: String!
+    detail: String!
+    comments: String
+  }
+
+  type FixtureClub {
+    crest: String!
+    shortName: String!
+  }
+
+  type Crests {
+    home: FixtureClub!
+    away: FixtureClub!
+  }
+
   type ApiFixtureResponse {
     fixture: ApiFixture!
     league: ApiLeague!
@@ -272,11 +313,12 @@ export const typeDefs = gql`
     goals: ApiGoal!
     score: ApiScore!
     statisticsSummary: [TeamStatisticsSummary!]
+    events: [FixtureEvent!]
+    crests: Crests!
   }
 
   # Resover Query
   type Query {
-    hello: String
     getFixtures(id: ID!): FixturesResponse!
     getNextFixture(id: ID!): Fixture!
     getResults(id: ID!): [Fixture!]

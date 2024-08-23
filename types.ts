@@ -253,6 +253,47 @@ export type TeamStatisticsSummary = {
   ballPossession: string | null;
 };
 
+export type EventTime = {
+  elapsed: number;
+  extra?: number | null;
+};
+
+export type EventTeam = {
+  id: number;
+  name: string;
+  logo: string;
+};
+
+export type EventPlayer = {
+  id: number;
+  name: string;
+};
+
+export type EventAssist = {
+  id?: number | null;
+  name?: string | null;
+};
+
+export type FixtureEvent = {
+  time: EventTime;
+  team: EventTeam;
+  player: EventPlayer;
+  assist: EventAssist;
+  type: string;
+  detail: string;
+  comments?: string | null;
+};
+
+export type FixtureClub = {
+  crest: string;
+  shortName: string;
+};
+
+export type Crests = {
+  home: FixtureClub;
+  away: FixtureClub;
+};
+
 export type ApiFixtureResponse = {
   fixture: ApiFixture;
   league: ApiLeague;
@@ -260,4 +301,6 @@ export type ApiFixtureResponse = {
   goals: ApiGoal;
   score: ApiScore;
   statisticsSummary?: TeamStatisticsSummary[];
+  events?: FixtureEvent[];
+  crests?: Crests;
 };

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-// import { ApolloProvider } from "@apollo/client";
-// import client from "./api/client";
 import { ApolloWrapper } from "./apollo-wrapper";
 import "./globals.css";
 import { poppins } from "@/fonts/fonts";

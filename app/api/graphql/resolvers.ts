@@ -9,8 +9,6 @@ import {
 
 export const resolvers = {
   Query: {
-    hello: () => "world",
-
     getFixtures: async (
       _: unknown,
       { id }: { id: string },
@@ -176,6 +174,53 @@ export const resolvers = {
       });
 
       mostRecentFixture.statisticsSummary = statsSummary;
+
+      const eventsResponse = await axios.get(
+        `https://v3.football.api-sports.io/fixtures/events?fixture=${mostRecentFixtureID}`,
+        {
+          headers: {
+            method: "GET",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+            "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
+          },
+        },
+      );
+
+      const { response: events } = eventsResponse.data;
+
+      mostRecentFixture.events = events;
+
+      const teamLogoResponse = await axios.get(
+        `https://api.football-data.org/v4/teams/66/matches`,
+        {
+          headers: {
+            method: "GET",
+            "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
+          },
+        },
+      );
+
+      const { matches } = teamLogoResponse.data;
+      const now = new Date().toISOString();
+
+      const prevMatches = matches.filter(
+        (match: Fixture) => match.utcDate < now,
+      );
+
+      const prevMatch = prevMatches[prevMatches.length - 1];
+
+      const teamLogos = {
+        home: {
+          crest: prevMatch.homeTeam.crest,
+          shortName: prevMatch.homeTeam.shortName,
+        },
+        away: {
+          crest: prevMatch.awayTeam.crest,
+          shortName: prevMatch.awayTeam.shortName,
+        },
+      };
+
+      mostRecentFixture.crests = teamLogos;
 
       return mostRecentFixture;
     },
