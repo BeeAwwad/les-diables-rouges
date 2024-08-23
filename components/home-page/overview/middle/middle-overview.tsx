@@ -3,9 +3,9 @@ import SquadData from "./squad-data";
 import { OverviewTable } from "./overview-table";
 const MiddleOverview = () => {
   return (
-    <div className="h-fit w-full rounded-lg bg-white lg:w-[60%]">
+    <div className="h-full rounded-lg bg-white">
       <NextGame />
-      <SquadData />
+      {/* <SquadData /> */}
       <OverviewTable />
     </div>
   );

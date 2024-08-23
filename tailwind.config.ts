@@ -32,6 +32,10 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      gridTemplateColumns: {
+        "base-sm": "10% 1fr",
+        "base-md": "15% 1fr",
+      },
     },
   },
   plugins: [

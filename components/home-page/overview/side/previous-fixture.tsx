@@ -128,7 +128,8 @@ const PreviousFixture = () => {
                   "justify-self-end": teams.away.id === event.team.id,
                 })}
               >
-                {event.player.name}
+                <span>{event.player.name}</span>
+                <span className="ml-1">{event.time.elapsed}'</span>
               </span>
             </div>
           ))}

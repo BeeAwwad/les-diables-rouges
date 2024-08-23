@@ -9,9 +9,9 @@ export default function Home() {
     <>
       <Overlay />
       <Header />
-      <main className="relative flex h-[80vh] gap-7">
+      <main className="sm:grid-cols-base-sm md:grid-cols-base-md relative grid h-[80vh] grid-cols-1 gap-7">
         <SideNav />
-        <div className="flex w-full flex-col gap-7 sm:w-[90%] md:w-[85%] lg:flex-row">
+        <div className="flex flex-col gap-7 lg:flex-row">
           <MiddleOverview />
           <SideOverview />
         </div>
