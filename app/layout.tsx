@@ -15,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-[#eef2f3] antialiased`}>
+      <body
+        className={`${poppins.className} h-screen bg-[#eef2f3] antialiased`}
+      >
         <ApolloWrapper>{children}</ApolloWrapper>
       </body>
     </html>

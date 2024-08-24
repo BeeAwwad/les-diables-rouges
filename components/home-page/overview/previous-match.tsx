@@ -61,7 +61,7 @@ const PREV_GAME = gql`
   }
 `;
 
-const PreviousFixture = () => {
+const PreviousMatch = () => {
   const { loading, error, data } = useQuery(PREV_GAME, {
     variables: {
       id: "33",
@@ -82,7 +82,7 @@ const PreviousFixture = () => {
   console.log("🚀 ~ PreviousFixture ~ filteredEvents:", filteredEvents);
 
   return (
-    <div>
+    <div className="col-span-1 row-span-1 rounded-lg shadow-md">
       <h2>Last Match</h2>
       <div className="flex justify-between">
         <div>
@@ -139,4 +139,4 @@ const PreviousFixture = () => {
   );
 };
 
-export default PreviousFixture;
+export default PreviousMatch;

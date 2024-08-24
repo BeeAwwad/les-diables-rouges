@@ -53,7 +53,7 @@ export const SquadCarousel = () => {
   const { players } = data.getTeam;
 
   return (
-    <div className="w-full md:w-1/2">
+    <div className="col-span-1 row-span-1 h-full rounded-lg shadow-md">
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
@@ -70,7 +70,7 @@ export const SquadCarousel = () => {
             <CarouselItem key={index}>
               <div className="p-1">
                 <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
+                  <CardContent className="flex items-center justify-center p-6">
                     <span className="text-lg font-medium">
                       {player.player_name}
                     </span>

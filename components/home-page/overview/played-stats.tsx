@@ -67,7 +67,7 @@ export const PlayedStats = () => {
     },
   };
   return (
-    <div className="w-full md:w-1/2">
+    <div className="col-span-1 row-span-1 rounded-lg shadow-md">
       <Doughnut options={options} data={pieChartData} plugins={[texCenter]} />
     </div>
   );

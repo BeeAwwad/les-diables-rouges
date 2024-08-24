@@ -24,7 +24,7 @@ const NEXT_GAME = gql`
   }
 `;
 
-const NextGame = () => {
+const NextMatch = () => {
   const { loading, error, data } = useQuery(NEXT_GAME, {
     variables: { id: "66" },
   });
@@ -48,7 +48,7 @@ const NextGame = () => {
     hour12: false,
   });
   return (
-    <div>
+    <div className="col-span-2 row-span-1 rounded-lg shadow-md">
       <div className="flex justify-between">
         <h2>Upcoming Match</h2>
         <span className="flex">
@@ -86,4 +86,4 @@ const NextGame = () => {
   );
 };
 
-export default NextGame;
+export default NextMatch;
