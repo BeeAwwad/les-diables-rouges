@@ -16,12 +16,12 @@ type navType = {
 const navLinks: navType[] = [
   {
     name: "Overview",
-    href: "#",
+    href: "/",
     icon: <Icon className="size-8 text-white" icon="ph:diamonds-four" />,
   },
   {
     name: "Matches",
-    href: "#",
+    href: "/matches",
     icon: (
       <Icon className="size-8 text-white" icon="fluent:calendar-32-regular" />
     ),
@@ -109,7 +109,7 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="sm:h-[calc((100vh-20vh) - 3.5rem)] absolute z-10 h-screen w-[240px] bg-red-400 sm:relative sm:w-full"
+      className="absolute z-10 h-screen w-[240px] bg-red-400 sm:relative sm:max-h-[calc(80vh-3.5rem)] sm:w-full"
     >
       <nav className="relative h-full">
         {/* toggle icon */}
@@ -132,7 +132,7 @@ const SideNav = () => {
             <li key={index} className="cursor-pointer px-4 py-2">
               <Link
                 className="flex items-center sm:justify-center lg:justify-start"
-                href={link}
+                href={link.href}
               >
                 {link.icon}
                 <span className="px-2 py-1 sm:hidden lg:block">
