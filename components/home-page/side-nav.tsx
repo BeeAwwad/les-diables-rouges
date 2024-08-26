@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import Link from "next/link";
 import clsx from "clsx";
@@ -28,7 +28,7 @@ const navLinks: navType[] = [
   },
   {
     name: "Squad",
-    href: "#",
+    href: "/squad",
     icon: (
       <Icon
         className="size-8 text-white"
@@ -109,7 +109,7 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="absolute z-10 h-screen w-[240px] bg-red-400 sm:relative sm:max-h-[calc(80vh-3.5rem)] sm:w-full"
+      className="z-10 h-screen w-[240px] bg-red-400 sm:relative sm:min-h-[calc(80vh-3.5rem)] sm:w-full"
     >
       <nav className="relative h-full">
         {/* toggle icon */}

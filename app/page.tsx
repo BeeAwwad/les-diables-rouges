@@ -13,7 +13,7 @@ const Chat = dynamic(() => import("../components/home-page/overview/chat"), {
 
 export default function Home() {
   return (
-    <div className="grid h-[calc(80vh-3.5rem)] w-full grid-cols-4 grid-rows-2 gap-4 rounded-lg p-2 shadow-md">
+    <div className="grid h-[calc(80vh-3.5rem)] w-full grid-cols-4 grid-rows-2 gap-4 rounded-lg p-2 shadow-md sm:overflow-y-auto">
       <NextMatch />
       <SquadCarousel />
       <Chat />

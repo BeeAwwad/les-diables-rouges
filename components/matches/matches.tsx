@@ -4,6 +4,15 @@ import { Button } from "@/components/ui/button";
 import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
 import { Fixture } from "@/types";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import clsx from "clsx";
 
 const ALL_MATCHES = gql`
@@ -37,6 +46,9 @@ const ALL_MATCHES = gql`
 
 const Matches = () => {
   const [showFinished, setShowFished] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const fixturesPerPage = 10; // Show 10 fixtures per page
+
   const { loading, error, data } = useQuery(ALL_MATCHES, {
     variables: { id: "66" },
   });
@@ -45,30 +57,64 @@ const Matches = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const { matches } = data.getFixtures;
-  console.log("🚀 ~ Matches ~ matches:", matches);
 
+  // Filter fixtures based on the selected type
   const filteredFixtures = matches.filter((fixture: Fixture) =>
     showFinished
       ? fixture.status === "FINISHED"
       : fixture.status !== "FINISHED",
   );
-  console.log("🚀 ~ Matches ~ filteredFixtures:", filteredFixtures);
+
+  // Calculate the number of pages
+  const totalPages = Math.ceil(filteredFixtures.length / fixturesPerPage);
+
+  // Get the fixtures for the current page
+  const paginatedFixtures = filteredFixtures.slice(
+    (currentPage - 1) * fixturesPerPage,
+    currentPage * fixturesPerPage,
+  );
+
+  // Generate page numbers array
+  const pageNumbers = Array.from(
+    { length: totalPages },
+    (_, index) => index + 1,
+  );
+
+  // Handle pagination button click
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
-    <div>
+    <div className="sm:overflow-y-auto">
       <div>
         <h2>{showFinished ? "Results" : "Fixtures"}</h2>
         <ul className="flex">
           <li>
-            <Button onClick={() => setShowFished(false)}>Matches</Button>
+            <Button
+              onClick={() => {
+                setShowFished(false);
+                setCurrentPage(1);
+              }}
+            >
+              Matches
+            </Button>
           </li>
           <li>
-            <Button onClick={() => setShowFished(true)}>Results</Button>
+            <Button
+              onClick={() => {
+                setShowFished(true);
+                setCurrentPage(1);
+              }}
+            >
+              Results
+            </Button>
           </li>
         </ul>
       </div>
       <div>
         <ul className="mt-5">
-          {filteredFixtures.map((fixture: Fixture, index: number) => (
+          {paginatedFixtures.map((fixture: Fixture, index: number) => (
             <li
               key={index}
               className={clsx({
@@ -94,6 +140,54 @@ const Matches = () => {
           ))}
         </ul>
       </div>
+      <div className="mt-4 flex justify-center">
+        <Button
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Previous
+        </Button>
+
+        {pageNumbers.map((page) => (
+          <Button
+            key={page}
+            onClick={() => handlePageChange(page)}
+            className={clsx("mx-1", {
+              "bg-blue-500 text-white": page === currentPage,
+              "bg-gray-200": page !== currentPage,
+            })}
+          >
+            {page}
+          </Button>
+        ))}
+
+        <Button
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next
+        </Button>
+      </div>
+
+      {/* <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => handlePageChange(currentPage - 1)}
+            />
+          </PaginationItem>
+          {pageNumbers.map((page) => (
+            <PaginationItem>
+              <PaginationLink onClick={() => handlePageChange(page)}>
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination> */}
     </div>
   );
 };
