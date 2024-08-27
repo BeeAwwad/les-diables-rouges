@@ -3,6 +3,7 @@
 import { useQuery, gql } from "@apollo/client";
 import { Player } from "@/types";
 import { Defender, Forward, Goalkeeper, Midfielder, Header } from "./player";
+import clsx from "clsx";
 
 const SQUAD_LIST = gql`
   query Query($id: ID!) {
@@ -58,6 +59,7 @@ const Squad = () => {
   );
   return (
     <div className="flex flex-col gap-10 overflow-y-scroll">
+      <h2 className="text-5xl font-semibold text-[#f2303c]">Squad</h2>
       <div>
         <Header
           title="Goales"
@@ -67,7 +69,13 @@ const Squad = () => {
           statThree="Goals conceded"
         />
         {Goalies.map((goalie: Player, index: number) => (
-          <div className="mb-4 flex items-center justify-between" key={index}>
+          <div
+            className={clsx("mb-4 flex items-center justify-between", {
+              "bg-[#fff]": index % 2 === 0,
+              "bg-[#eef2f3]": index % 2 !== 0,
+            })}
+            key={index}
+          >
             <Goalkeeper
               number={goalie.player_number}
               name={goalie.player_name}
@@ -88,7 +96,13 @@ const Squad = () => {
           statThree="Goals conceded"
         />
         {Defenders.map((defender: Player, index: number) => (
-          <div className="mb-4 flex items-center justify-between" key={index}>
+          <div
+            className={clsx("mb-4 flex items-center justify-between", {
+              "bg-[#fff]": index % 2 === 0,
+              "bg-[#eef2f3]": index % 2 !== 0,
+            })}
+            key={index}
+          >
             <Defender
               number={defender.player_number}
               name={defender.player_name}
@@ -109,7 +123,13 @@ const Squad = () => {
           statThree="Assists"
         />
         {Midfielders.map((midfielder: Player, index: number) => (
-          <div className="mb-4 flex items-center justify-between" key={index}>
+          <div
+            className={clsx("mb-4 flex items-center justify-between", {
+              "bg-[#fff]": index % 2 === 0,
+              "bg-[#eef2f3]": index % 2 !== 0,
+            })}
+            key={index}
+          >
             <Midfielder
               number={midfielder.player_number}
               name={midfielder.player_name}
@@ -130,7 +150,13 @@ const Squad = () => {
           statThree="Assists"
         />
         {Forwards.map((forward: Player, index: number) => (
-          <div className="mb-4 flex items-center justify-between" key={index}>
+          <div
+            className={clsx("mb-4 flex items-center justify-between", {
+              "bg-[#fff]": index % 2 === 0,
+              "bg-[#eef2f3]": index % 2 !== 0,
+            })}
+            key={index}
+          >
             <Forward
               number={forward.player_number}
               name={forward.player_name}

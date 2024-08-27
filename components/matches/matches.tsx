@@ -79,8 +79,10 @@ const Matches = () => {
   return (
     <div className="sm:overflow-y-auto">
       <div>
-        <h2>{showFinished ? "Results" : "Fixtures"}</h2>
-        <ul className="flex">
+        <h2 className="mb-4 text-5xl font-semibold text-[#f2303c]">
+          {showFinished ? "Results" : "Fixtures"}
+        </h2>
+        <ul className="flex gap-4">
           <li>
             <Button
               onClick={() => {
@@ -108,30 +110,32 @@ const Matches = () => {
           {paginatedFixtures.map((fixture: Fixture, index: number) => (
             <li
               key={index}
-              className={clsx({
+              className={clsx("flex justify-between p-4", {
                 "bg-[#fff]": index % 2 === 0,
                 "bg-[#eef2f3]": index % 2 !== 0,
               })}
             >
-              <span>{fixture.homeTeam.shortName}</span>
               <span>
-                {fixture.status === "FINISHED" ? (
-                  <span>
-                    {" "}
-                    {fixture.score.fullTime.home} -{" "}
-                    {fixture.score.fullTime.away}{" "}
-                  </span>
-                ) : (
-                  " V "
-                )}
+                <span>{fixture.homeTeam.shortName}</span>
+                <span>
+                  {fixture.status === "FINISHED" ? (
+                    <span>
+                      {" "}
+                      {fixture.score.fullTime.home} -{" "}
+                      {fixture.score.fullTime.away}{" "}
+                    </span>
+                  ) : (
+                    " V "
+                  )}
+                </span>
+                <span>{fixture.awayTeam.shortName}</span>
               </span>
-              <span>{fixture.awayTeam.shortName}</span>
               <span> {fixture.competition.name}</span>
             </li>
           ))}
         </ul>
       </div>
-      <div className="mt-4 flex justify-center">
+      <div className="my-4 flex justify-center">
         <Button
           disabled={currentPage === 1}
           onClick={() => handlePageChange(currentPage - 1)}
@@ -144,7 +148,7 @@ const Matches = () => {
             key={page}
             onClick={() => handlePageChange(page)}
             className={clsx("mx-1", {
-              "bg-blue-500 text-white": page === currentPage,
+              "bg-[#f2303c] text-white": page === currentPage,
               "bg-gray-200": page !== currentPage,
             })}
           >

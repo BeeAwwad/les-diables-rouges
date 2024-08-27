@@ -38,7 +38,7 @@ const navLinks: navType[] = [
   },
   {
     name: "Standings",
-    href: "#",
+    href: "/standings",
     icon: (
       <Icon
         className="size-8 text-white"
@@ -135,7 +135,7 @@ const SideNav = () => {
                 href={link.href}
               >
                 {link.icon}
-                <span className="px-2 py-1 sm:hidden lg:block">
+                <span className="px-2 py-1 text-white sm:hidden lg:block">
                   {link.name}
                 </span>
               </Link>
