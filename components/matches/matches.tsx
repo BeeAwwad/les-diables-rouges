@@ -4,15 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
 import { Fixture } from "@/types";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import clsx from "clsx";
 
 const ALL_MATCHES = gql`
@@ -168,26 +159,6 @@ const Matches = () => {
           Next
         </Button>
       </div>
-
-      {/* <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => handlePageChange(currentPage - 1)}
-            />
-          </PaginationItem>
-          {pageNumbers.map((page) => (
-            <PaginationItem>
-              <PaginationLink onClick={() => handlePageChange(page)}>
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination> */}
     </div>
   );
 };

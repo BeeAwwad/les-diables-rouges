@@ -109,7 +109,7 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="z-10 h-screen w-[240px] bg-red-400 sm:relative sm:min-h-[calc(80vh-3.5rem)] sm:w-full"
+      className="absolute z-10 h-screen w-[240px] bg-[#fc745f] sm:relative sm:max-h-[calc(80vh-3.5rem)] sm:w-full"
     >
       <nav className="relative h-full">
         {/* toggle icon */}
@@ -127,7 +127,7 @@ const SideNav = () => {
           </div>
         </div>
 
-        <ul className="bg-green-300 py-2">
+        <ul className="py-2">
           {navLinks.map((link, index) => (
             <li key={index} className="cursor-pointer px-4 py-2">
               <Link

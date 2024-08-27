@@ -89,7 +89,6 @@ export const resolvers = {
 
         return lesDablesRouges;
       } catch (error) {
-        console.error("Error in getTeam:", error);
         throw new Error("Failed to get team");
       }
     },
