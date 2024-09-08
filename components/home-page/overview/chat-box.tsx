@@ -52,7 +52,7 @@ export const ChatBox = () => {
   }, [receivedMessages]);
 
   return (
-    <div className="col-span-1 row-span-1 rounded-lg shadow-md">
+    <div className="col-span-1 row-span-1 flex flex-col overflow-y-scroll rounded-lg shadow-md">
       <div className="h[calc(100vh -40px -100px -100px -100px)] flex flex-col items-start gap-4 overflow-y-auto p-4">
         {messages}
         <div ref={messageEnd}></div>

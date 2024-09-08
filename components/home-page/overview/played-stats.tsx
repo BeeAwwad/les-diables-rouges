@@ -13,6 +13,7 @@ const PlAYED_GAMES = gql`
         draws
         losses
         count
+        played
       }
     }
   }
@@ -60,7 +61,7 @@ export const PlayedStats = () => {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText(
-        `${isNaN(resultSet.loss + resultSet.wins) ? 0 : resultSet.loss + resultSet.wins} games`,
+        `${resultSet.played} games`,
         chart.getDatasetMeta(0).data[0].x,
         chart.getDatasetMeta(0).data[0].y,
       );
