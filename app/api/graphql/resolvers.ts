@@ -115,113 +115,140 @@ export const resolvers = {
       _: unknown,
       { id, season }: { id: string; season: number },
     ): Promise<ApiFixtureResponse> => {
-      const response = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?season=${season}&team=${id}`,
-        {
-          headers: {
-            method: "GET",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-            "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
+      try {
+        // Fetch fixtures
+        const response = await axios.get(
+          `https://v3.football.api-sports.io/fixtures?season=${season}&team=${id}`,
+          {
+            headers: {
+              method: "GET",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+              "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
+            },
           },
-        },
-      );
+        );
 
-      const Fixtures = response.data;
-      const { response: AllFixtures } = Fixtures;
-      const currentDate = new Date().toISOString();
+        const Fixtures = response.data;
+        const { response: AllFixtures } = Fixtures;
+        const currentDate = new Date().toISOString();
 
-      const pastFixtures = AllFixtures.filter(
-        (fixture: ApiFixtureResponse) => fixture.fixture.date < currentDate,
-      );
+        // Filter past fixtures
+        const pastFixtures = AllFixtures.filter(
+          (fixture: ApiFixtureResponse) => fixture.fixture.date < currentDate,
+        );
 
-      pastFixtures.sort(
-        (a: ApiFixtureResponse, b: ApiFixtureResponse) =>
-          new Date(b.fixture.date).getTime() -
-          new Date(a.fixture.date).getTime(),
-      );
+        pastFixtures.sort(
+          (a: ApiFixtureResponse, b: ApiFixtureResponse) =>
+            new Date(b.fixture.date).getTime() -
+            new Date(a.fixture.date).getTime(),
+        );
 
-      const mostRecentFixture =
-        pastFixtures.length > 0 ? pastFixtures[0] : null;
+        const mostRecentFixture =
+          pastFixtures.length > 0 ? pastFixtures[0] : null;
 
-      const mostRecentFixtureID = mostRecentFixture.fixture.id;
+        if (!mostRecentFixture || !mostRecentFixture.fixture) {
+          throw new Error("No recent fixture found or fixture data is missing");
+        }
 
-      const statisticsResponse = await axios.get(
-        `https://v3.football.api-sports.io/fixtures/statistics?fixture=${mostRecentFixtureID}`,
-        {
-          headers: {
-            method: "GET",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-            "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
+        const mostRecentFixtureID = mostRecentFixture.fixture.id;
+
+        // Fetch statistics
+        const statisticsResponse = await axios.get(
+          `https://v3.football.api-sports.io/fixtures/statistics?fixture=${mostRecentFixtureID}`,
+          {
+            headers: {
+              method: "GET",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+              "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
+            },
           },
-        },
-      );
+        );
 
-      const { response: statistics } = statisticsResponse.data;
+        const { response: statistics } = statisticsResponse.data;
 
-      // Extract the required fields (team ID, name, and ball possession)
-      const statsSummary = statistics.map((teamStats: any) => {
-        const { id, name } = teamStats.team;
-        const ballPossession = teamStats.statistics.find(
-          (stat: any) => stat.type === "Ball Possession",
-        )?.value;
+        // Log statistics data
+        console.log("Statistics Data:", statistics);
 
-        return {
-          id,
-          name,
-          ballPossession,
+        // Extract required fields (team ID, name, and ball possession)
+        const statsSummary = statistics.map((teamStats: any) => {
+          const { id, name } = teamStats.team;
+          const ballPossession = teamStats.statistics.find(
+            (stat: any) => stat.type === "Ball Possession",
+          )?.value;
+
+          return {
+            id,
+            name,
+            ballPossession,
+          };
+        });
+
+        mostRecentFixture.statisticsSummary = statsSummary;
+
+        // Fetch events
+        const eventsResponse = await axios.get(
+          `https://v3.football.api-sports.io/fixtures/events?fixture=${mostRecentFixtureID}`,
+          {
+            headers: {
+              method: "GET",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+              "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
+            },
+          },
+        );
+
+        const { response: events } = eventsResponse.data;
+
+        // Log events data
+        console.log("Events Data:", events);
+
+        mostRecentFixture.events = events;
+
+        // Fetch team logos
+        const teamLogoResponse = await axios.get(
+          `https://api.football-data.org/v4/teams/66/matches`,
+          {
+            headers: {
+              method: "GET",
+              "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
+            },
+          },
+        );
+
+        const { matches } = teamLogoResponse.data;
+        const now = new Date().toISOString();
+
+        // Log match data
+        console.log("Team Logo Matches Data:", matches);
+
+        const prevMatches = matches.filter(
+          (match: Fixture) => match.utcDate < now,
+        );
+
+        const prevMatch = prevMatches[prevMatches.length - 1];
+
+        const teamLogos = {
+          home: {
+            crest: prevMatch.homeTeam.crest,
+            shortName: prevMatch.homeTeam.shortName,
+          },
+          away: {
+            crest: prevMatch.awayTeam.crest,
+            shortName: prevMatch.awayTeam.shortName,
+          },
         };
-      });
 
-      mostRecentFixture.statisticsSummary = statsSummary;
+        mostRecentFixture.crests = teamLogos;
 
-      const eventsResponse = await axios.get(
-        `https://v3.football.api-sports.io/fixtures/events?fixture=${mostRecentFixtureID}`,
-        {
-          headers: {
-            method: "GET",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-            "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
-          },
-        },
-      );
+        // Log final fixture data
+        console.log("Most Recent Fixture Data:", mostRecentFixture);
 
-      const { response: events } = eventsResponse.data;
-
-      mostRecentFixture.events = events;
-
-      const teamLogoResponse = await axios.get(
-        `https://api.football-data.org/v4/teams/66/matches`,
-        {
-          headers: {
-            method: "GET",
-            "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
-          },
-        },
-      );
-
-      const { matches } = teamLogoResponse.data;
-      const now = new Date().toISOString();
-
-      const prevMatches = matches.filter(
-        (match: Fixture) => match.utcDate < now,
-      );
-
-      const prevMatch = prevMatches[prevMatches.length - 1];
-
-      const teamLogos = {
-        home: {
-          crest: prevMatch.homeTeam.crest,
-          shortName: prevMatch.homeTeam.shortName,
-        },
-        away: {
-          crest: prevMatch.awayTeam.crest,
-          shortName: prevMatch.awayTeam.shortName,
-        },
-      };
-
-      mostRecentFixture.crests = teamLogos;
-
-      return mostRecentFixture;
+        return mostRecentFixture;
+      } catch (error) {
+        // Log any errors encountered
+        console.error("Error fetching fixture or data:", error);
+        throw new Error("Failed to fetch fixture or related data");
+      }
     },
   },
 };
