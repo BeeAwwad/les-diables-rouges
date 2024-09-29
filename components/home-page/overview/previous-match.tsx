@@ -119,8 +119,8 @@ const PreviousMatch = () => {
         </div>
         <Progress value={parseInt(statisticsSummary[0].ballPossession)} />
         <div className="relative w-full">
-          {filteredEvents.map((event: FixtureEvent) => (
-            <div className="grid">
+          {filteredEvents.map((event: FixtureEvent, index: number) => (
+            <div key={index + 1} className="grid">
               <span className="absolute left-1/2">{event.type}</span>
               <span
                 className={clsx({
