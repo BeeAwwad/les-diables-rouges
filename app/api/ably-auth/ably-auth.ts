@@ -8,7 +8,5 @@ export async function handler(request: NextRequest) {
   const tokenRequestData = await client.auth.createTokenRequest({
     clientId: "ably-nextjs-demo",
   });
-  return new Response(JSON.stringify(tokenRequestData), {
-    headers: { "Content-Type": "application/json" },
-  });
+  return Response.json(tokenRequestData);
 }
