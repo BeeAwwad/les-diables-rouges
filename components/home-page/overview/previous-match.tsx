@@ -79,10 +79,8 @@ const PreviousMatch = () => {
     (event: FixtureEvent) => event.type === "Card" || event.type === "Goal",
   );
 
-  console.log("🚀 ~ PreviousFixture ~ filteredEvents:", filteredEvents);
-
   return (
-    <div className="col-span-1 row-span-1 rounded-lg shadow-md">
+    <div className="col-span-1 row-span-1 overflow-y-scroll rounded-lg shadow-md">
       <h2>Last Match</h2>
       <div className="flex justify-between">
         <div>

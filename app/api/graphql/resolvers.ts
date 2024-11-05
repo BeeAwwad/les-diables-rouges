@@ -166,10 +166,6 @@ export const resolvers = {
 
         const { response: statistics } = statisticsResponse.data;
 
-        // Log statistics data
-        console.log("Statistics Data:", statistics);
-
-        // Extract required fields (team ID, name, and ball possession)
         const statsSummary = statistics.map((teamStats: any) => {
           const { id, name } = teamStats.team;
           const ballPossession = teamStats.statistics.find(
@@ -199,9 +195,6 @@ export const resolvers = {
 
         const { response: events } = eventsResponse.data;
 
-        // Log events data
-        console.log("Events Data:", events);
-
         mostRecentFixture.events = events;
 
         // Fetch team logos
@@ -217,9 +210,6 @@ export const resolvers = {
 
         const { matches } = teamLogoResponse.data;
         const now = new Date().toISOString();
-
-        // Log match data
-        console.log("Team Logo Matches Data:", matches);
 
         const prevMatches = matches.filter(
           (match: Fixture) => match.utcDate < now,
@@ -240,12 +230,8 @@ export const resolvers = {
 
         mostRecentFixture.crests = teamLogos;
 
-        // Log final fixture data
-        console.log("Most Recent Fixture Data:", mostRecentFixture);
-
         return mostRecentFixture;
       } catch (error) {
-        // Log any errors encountered
         console.error("Error fetching fixture or data:", error);
         throw new Error("Failed to fetch fixture or related data");
       }
