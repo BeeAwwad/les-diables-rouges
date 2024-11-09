@@ -24,7 +24,7 @@ export default function RootLayout({
         <ApolloWrapper>
           <Overlay />
           <Header />
-          <main className="relative grid h-[calc(80vh-3.5rem)] grid-cols-1 gap-7 overflow-y-hidden sm:grid-cols-base-sm md:grid-cols-base-md">
+          <main className="relative grid grid-cols-1 gap-7 overflow-y-hidden sm:grid-cols-base-sm md:grid-cols-base-md lg:h-[calc(80vh-3.5rem)]">
             <SideNav />
             {children}
           </main>

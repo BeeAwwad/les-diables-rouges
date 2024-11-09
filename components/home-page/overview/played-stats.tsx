@@ -1,8 +1,24 @@
 "use client";
 
-import { Doughnut } from "react-chartjs-2";
-import { Chart, Tooltip, Legend, ArcElement } from "chart.js";
+import { useMemo } from "react";
 import { useQuery, gql } from "@apollo/client";
+import { Label, Pie, PieChart } from "recharts";
+
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const PlAYED_GAMES = gql`
   query Query($id: ID!) {
@@ -10,7 +26,6 @@ const PlAYED_GAMES = gql`
       resultSet {
         competitions
         wins
-        draws
         losses
         count
         played
@@ -19,57 +34,102 @@ const PlAYED_GAMES = gql`
   }
 `;
 
-Chart.register(Tooltip, Legend, ArcElement);
-
-export const PlayedStats = () => {
+const PlayedStats = () => {
   const { loading, error, data } = useQuery(PlAYED_GAMES, {
     variables: { id: "66" },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="item-two">Loading...</p>;
+  if (error) return <p className="item-two">Error: {error.message}</p>;
 
   const { resultSet } = data.getFixtures;
 
-  const pieChartData = {
-    labels: ["win", "loss", "draw"],
-    datasets: [
-      {
-        label: "matches played",
-        data: [resultSet.wins, resultSet.losses, resultSet.draws],
-        backgroundColor: ["#50C878", "#F82938", "#FEBE10"],
-        hoverOffset: 4,
-      },
-    ],
-  };
+  const draws = resultSet.played - resultSet.wins - resultSet.losses;
 
-  const options: Object = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "bottom",
-      },
+  const chartData = [
+    { result: "wins", games: resultSet.wins, fill: "#28A745" },
+    { result: "losses", games: resultSet.losses, fill: "#DC3545" },
+    {
+      result: "draws",
+      games: draws,
+      fill: "#FFC107",
     },
-  };
+  ];
+  const totalGames = resultSet.played;
+  console.log("🚀 ~ PlayedStats ~ totalGames:", totalGames);
 
-  const texCenter = {
-    id: "textCenter",
-    beforeDatasetsDraw(chart: Chart<"doughnut", number[], string>) {
-      const { ctx, data } = chart;
-      ctx.save();
-      ctx.font = "bold 30px";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(
-        `${resultSet.played} games`,
-        chart.getDatasetMeta(0).data[0].x,
-        chart.getDatasetMeta(0).data[0].y,
-      );
+  const chartConfig = {
+    played: {
+      label: "Played",
     },
-  };
+    wins: {
+      label: "Wins",
+      color: "#28A745",
+    },
+    losses: {
+      label: "Losses",
+      color: "#DC3545",
+    },
+    draws: {
+      label: "Draws",
+      color: "#FFC107",
+    },
+  } satisfies ChartConfig;
+
   return (
-    <div className="col-span-1 row-span-1 rounded-lg shadow-md">
-      <Doughnut options={options} data={pieChartData} plugins={[texCenter]} />
-    </div>
+    <Card className="item-four flex flex-row">
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-full"
+        >
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie
+              data={chartData}
+              dataKey="games"
+              nameKey="result"
+              innerRadius={60}
+              strokeWidth={5}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          {totalGames.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          Games
+                        </tspan>
+                      </text>
+                    );
+                  }
+                }}
+              />
+            </Pie>
+          </PieChart>
+        </ChartContainer>
+      </CardContent>
+    </Card>
   );
 };
+
+export default PlayedStats;

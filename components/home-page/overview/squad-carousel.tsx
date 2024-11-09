@@ -53,41 +53,39 @@ export const SquadCarousel = () => {
   const { players } = data.getTeam;
 
   return (
-    <div className="col-span-1 row-span-1 h-full rounded-lg shadow-md">
-      <Carousel
-        setApi={setApi}
-        opts={{ loop: true }}
-        plugins={[
-          Autoplay({
-            delay: 4500,
-            stopOnInteraction: true,
-          }),
-        ]}
-        className="w-full"
-      >
-        <CarouselContent>
-          {players.map((player: Player, index: number) => (
-            <CarouselItem key={index}>
-              <div className="p-1">
-                <Card>
-                  <CardContent className="flex items-center justify-center p-6">
-                    <span className="text-lg font-medium">
-                      {player.player_name}
-                    </span>
-                    <span className="text-3xl font-semibold">
-                      {player.player_number}
-                    </span>
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-      <div className="flex justify-center">
+    <Carousel
+      setApi={setApi}
+      opts={{ loop: true }}
+      plugins={[
+        Autoplay({
+          delay: 4500,
+          stopOnInteraction: true,
+        }),
+      ]}
+      className="item-two"
+    >
+      <CarouselContent>
+        {players.map((player: Player, index: number) => (
+          <CarouselItem className="h-full" key={index}>
+            <Card>
+              <CardContent className="flex items-center justify-center gap-2 p-6">
+                <span className="text-lg font-medium">
+                  {player.player_name.includes(" ")
+                    ? player.player_name.split(" ").slice(1).join(" ")
+                    : player.player_name}
+                </span>
+                <span className="text-3xl font-semibold">
+                  {player.player_number}
+                </span>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="flex justify-between">
         <Button onClick={() => api?.scrollTo(current - 1)}>prev</Button>
         <Button onClick={() => api?.scrollTo(current + 1)}>next</Button>
       </div>
-    </div>
+    </Carousel>
   );
 };

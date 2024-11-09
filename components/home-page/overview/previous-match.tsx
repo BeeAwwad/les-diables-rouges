@@ -4,6 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import { Progress } from "@/components/ui/progress";
 import { FixtureEvent } from "@/types";
 import clsx from "clsx";
+import Image from "next/image";
 
 const PREV_GAME = gql`
   query Query($id: ID!, $season: Int!) {
@@ -80,13 +81,15 @@ const PreviousMatch = () => {
   );
 
   return (
-    <div className="col-span-1 row-span-1 overflow-y-scroll rounded-lg shadow-md">
+    <div className="item-five overflow-y-scroll rounded-lg bg-white p-3 shadow-md">
       <h2>Last Match</h2>
       <div className="flex justify-between">
         <div>
           <span>
-            <img
+            <Image
               className="w-10"
+              width={40}
+              height={40}
               src={crests.home.crest}
               alt="home team crest"
             />
@@ -100,8 +103,10 @@ const PreviousMatch = () => {
         </div>
         <div>
           <span>
-            <img
+            <Image
               className="w-10"
+              width={40}
+              height={40}
               src={crests.away.crest}
               alt="away team crest"
             />
@@ -115,18 +120,27 @@ const PreviousMatch = () => {
           <span>Possession</span>
           <span>{statisticsSummary[1].ballPossession}</span>
         </div>
-        <Progress value={parseInt(statisticsSummary[0].ballPossession)} />
-        <div className="relative w-full">
+        <Progress
+          className="my-4"
+          value={parseInt(statisticsSummary[0].ballPossession)}
+        />
+        <div className="relative w-full space-y-4">
           {filteredEvents.map((event: FixtureEvent, index: number) => (
-            <div key={index + 1} className="grid">
-              <span className="absolute left-1/2">{event.type}</span>
+            <div key={index + 1} className="relative grid">
+              <span className="absolute left-1/2 -translate-x-1/2">
+                {event.type}
+              </span>
               <span
                 className={clsx({
                   "justify-self-start": teams.home.id === event.team.id,
                   "justify-self-end": teams.away.id === event.team.id,
                 })}
               >
-                <span>{event.player.name}</span>
+                <span>
+                  {event.player.name.includes(" ")
+                    ? event.player.name.split(" ").slice(1).join(" ")
+                    : event.player.name}
+                </span>
                 <span className="ml-1">{event.time.elapsed}'</span>
               </span>
             </div>

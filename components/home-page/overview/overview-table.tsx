@@ -44,7 +44,7 @@ export const OverviewTable = () => {
   const end = Math.min(plTable.length, targetIndex + 3);
   const filteredTable = plTable.slice(start, end);
   return (
-    <div className="col-span-2 row-span-1 rounded-lg shadow-md">
+    <div className="item-six overflow-y-scroll rounded-lg bg-white shadow-md">
       <Table>
         <TableCaption>Premier League Table</TableCaption>
         <TableHeader>

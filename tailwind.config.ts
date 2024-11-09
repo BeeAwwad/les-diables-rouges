@@ -36,6 +36,9 @@ const config = {
         "base-sm": "10% 1fr",
         "base-md": "15% 1fr",
       },
+      screens: {
+        "2xl": "1440px",
+      },
     },
   },
   plugins: [

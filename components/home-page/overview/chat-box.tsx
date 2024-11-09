@@ -52,15 +52,12 @@ export const ChatBox = () => {
   }, [receivedMessages]);
 
   return (
-    <div className="col-span-1 row-span-1 flex flex-col overflow-y-scroll rounded-lg shadow-md">
+    <div className="item-three flex flex-col justify-end overflow-y-scroll rounded-lg shadow-md">
       <div className="h[calc(100vh -40px -100px -100px -100px)] flex flex-col items-start gap-4 overflow-y-auto p-4">
         {messages}
         <div ref={messageEnd}></div>
       </div>
-      <form
-        onSubmit={handleFormSubmission}
-        className="grid border-t-2 border-solid border-t-indigo-700"
-      >
+      <form onSubmit={handleFormSubmission} className="p-2">
         <div className="grid w-full gap-2">
           <Textarea
             ref={inputBox}
@@ -85,7 +82,7 @@ export const AblyTokenFetcher = () => {
     fetch("/api/ably-auth")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("🚀 ~ .then ~ data:", data);
         setTokenId(data.clientId);
       })
       .catch((error) => console.error("Error fetching Ably token:", error));
