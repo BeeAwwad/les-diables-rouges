@@ -59,6 +59,10 @@ export const Standings = () => {
               className={clsx(
                 "from-[#2bc0ff] via-[#32b8ff] to-[#8c48ff] transition-all duration-75 ease-linear hover:scale-105 hover:bg-gradient-to-r hover:text-white",
                 {
+                  "bg-gradient-to-r from-[#fc745f] via-[#f2303c] to-[#8B0105] text-white":
+                    club.team.id === 66,
+                },
+                {
                   "bg-[#fff]": index % 2 === 0,
                   "bg-[#eef2f3]": index % 2 !== 0,
                 },

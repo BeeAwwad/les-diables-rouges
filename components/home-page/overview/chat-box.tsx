@@ -11,7 +11,7 @@ export const ChatBox = () => {
   const [receivedMessages, setReceivedMessages] = useState<Message[]>([]);
   const messageTextIsEmpty = messageText.trim().length === 0;
 
-  const { channel, ably } = useChannel("chat", (message) => {
+  const { channel, ably } = useChannel("chat-demo", (message) => {
     const history = receivedMessages.slice(-199);
     setReceivedMessages([...history, message]);
   });
@@ -65,6 +65,7 @@ export const ChatBox = () => {
             onChange={(e) => setMessageText(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="Type your message here."
+            className="h-5"
           />
           <Button type="submit" disabled={messageTextIsEmpty}>
             Send

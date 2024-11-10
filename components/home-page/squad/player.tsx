@@ -71,8 +71,8 @@ export const Header = (props: { [key: string]: string }) => {
   const { title, apps, statOne, statTwo, statThree } = props;
   return (
     <div className="mb-4 flex justify-between">
-      <h3 className="text-2xl">{title}</h3>
-      <span className="flex gap-2 text-xl">
+      <h3 className="text-lg font-semibold xl:text-2xl">{title}</h3>
+      <span className="flex gap-2 lg:text-xl">
         <span className="flex items-center justify-center">{apps}</span>
         <span className="flex items-center justify-center">{statOne}</span>
         <span className="flex items-center justify-center">{statTwo}</span>

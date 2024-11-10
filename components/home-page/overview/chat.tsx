@@ -8,7 +8,7 @@ const Chat = () => {
 
   return (
     <AblyProvider client={client}>
-      <ChannelProvider channelName="chat">
+      <ChannelProvider channelName="chat-demo">
         <ChatBox />
         {/* <AblyTokenFetcher /> */}
       </ChannelProvider>

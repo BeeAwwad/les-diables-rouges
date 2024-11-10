@@ -133,6 +133,7 @@ const SideNav = () => {
               <Link
                 className="flex items-center sm:justify-center lg:justify-start"
                 href={link.href}
+                onClick={() => setOpened(false)}
               >
                 {link.icon}
                 <span className="px-2 py-1 text-white sm:hidden lg:block">

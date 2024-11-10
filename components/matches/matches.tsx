@@ -115,7 +115,7 @@ const Matches = () => {
                 "bg-[#eef2f3]": index % 2 !== 0,
               })}
             >
-              <span>
+              <span className="text-sm md:text-base">
                 <span>{fixture.homeTeam.shortName}</span>
                 <span>
                   {fixture.status === "FINISHED" ? (
@@ -130,7 +130,10 @@ const Matches = () => {
                 </span>
                 <span>{fixture.awayTeam.shortName}</span>
               </span>
-              <span> {fixture.competition.name}</span>
+              <span className="text-sm md:text-base">
+                {" "}
+                {fixture.competition.name}
+              </span>
             </li>
           ))}
         </ul>
