@@ -28,14 +28,16 @@ const Overlay = () => {
     updateCounter();
 
     let ctx = gsap.context(() => {
-      gsap.to("#counterId", 0.25, {
+      gsap.to("#counterId", {
+        duration: 0.25,
         delay: 2.5,
         autoAlpha: 0,
       });
-      gsap.to(".bar", 2.5, {
+      gsap.to(".bar", {
+        duration: 2.5,
         delay: 2.5,
         height: 0,
-        ease: "power3.inOut",
+        ease: "power4.out",
       });
     }, overlayRef);
 

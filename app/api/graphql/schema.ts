@@ -325,5 +325,6 @@ export const typeDefs = gql`
     getTeam(id: ID!): Team!
     getPlStandings: [PlTeamStats!]!
     getPreviousFixture(id: ID!, season: Int!): ApiFixtureResponse!
+    getForm(id: ID!, season: Int!): String!
   }
 `;

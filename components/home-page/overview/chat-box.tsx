@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { useChannel } from "ably/react";
 import { Button } from "@/components/ui/button";
@@ -52,7 +54,7 @@ export const ChatBox = () => {
   }, [receivedMessages]);
 
   return (
-    <div className="item-three flex flex-col justify-end overflow-y-scroll rounded-lg shadow-md">
+    <div className="item-three no-scrollbar flex flex-col justify-end overflow-y-scroll rounded-lg shadow-md">
       <div className="h[calc(100vh -40px -100px -100px -100px)] flex flex-col items-start gap-4 overflow-y-auto p-4">
         {messages}
         <div ref={messageEnd}></div>

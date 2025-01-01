@@ -236,5 +236,33 @@ export const resolvers = {
         throw new Error("Failed to fetch fixture or related data");
       }
     },
+
+    getForm: async (
+      _: unknown,
+      { id, season }: { id: string; season: number },
+    ): Promise<string> => {
+      try {
+        // Fetch Team Form
+        const response = await axios.get(
+          `https://v3.football.api-sports.io/teams/statistics?season=${season}&team=${id}&league=39`,
+          {
+            headers: {
+              method: "GET",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+              "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
+            },
+          },
+        );
+
+        const TeamData = response.data;
+
+        const currentFormData = TeamData?.response?.form;
+
+        return currentFormData;
+      } catch (error) {
+        console.error("Error fetching fixture or data:", error);
+        throw new Error("Failed to fetch fixture or related data");
+      }
+    },
   },
 };

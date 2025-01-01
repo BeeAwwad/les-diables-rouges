@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import PlayedStats from "@/components/home-page/overview/played-stats";
 import { SquadCarousel } from "@/components/home-page/overview/squad-carousel";
 import PreviousMatch from "@/components/home-page/overview/previous-match";
+import CurrentForm from "@/components/home-page/overview/current-form";
 
 const Chat = dynamic(() => import("../components/home-page/overview/chat"), {
   ssr: false,
@@ -17,6 +18,7 @@ export default function Home() {
       <NextMatch />
       <SquadCarousel />
       <Chat />
+      {/* <CurrentForm /> */}
       <PlayedStats />
       <PreviousMatch />
       <OverviewTable />

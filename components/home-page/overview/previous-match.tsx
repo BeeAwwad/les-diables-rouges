@@ -81,7 +81,7 @@ const PreviousMatch = () => {
   );
 
   return (
-    <div className="item-five overflow-y-scroll rounded-lg bg-white p-3 shadow-md">
+    <div className="item-five no-scrollbar overflow-y-scroll rounded-lg bg-white p-3 shadow-md">
       <h2>Last Match</h2>
       <div className="flex justify-between">
         <div>
