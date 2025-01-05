@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
-import { Fixture } from "@/types";
+import { Fixture } from "@/app/api/graphql/types";
 import clsx from "clsx";
 
 const ALL_MATCHES = gql`
@@ -77,9 +77,9 @@ const Matches = () => {
   };
 
   return (
-    <div className="sm:overflow-y-auto">
+    <div className="overflow-y-scroll scrollbar-thin">
       <div>
-        <h2 className="mb-4 text-5xl font-semibold text-[#f2303c]">
+        <h2 className="mb-4 text-5xl font-semibold text-primary-300">
           {showFinished ? "Results" : "Fixtures"}
         </h2>
         <ul className="flex gap-4">
@@ -111,8 +111,8 @@ const Matches = () => {
             <li
               key={index}
               className={clsx("flex justify-between p-4", {
-                "bg-[#fff]": index % 2 === 0,
-                "bg-[#eef2f3]": index % 2 !== 0,
+                "bg-white": index % 2 === 0,
+                "bg-primary-100": index % 2 !== 0,
               })}
             >
               <span className="text-sm md:text-base">
@@ -151,7 +151,7 @@ const Matches = () => {
             key={page}
             onClick={() => handlePageChange(page)}
             className={clsx("mx-1", {
-              "bg-[#f2303c] text-white": page === currentPage,
+              "bg-primary-300 text-white": page === currentPage,
               "bg-gray-200": page !== currentPage,
             })}
           >

@@ -18,6 +18,16 @@ const config = {
       },
     },
     extend: {
+      colors: {
+        primary: {
+          DEFAULT: "#8B0105",
+          100: "#eef2f3",
+          200: "#fc745f",
+          300: "#f2303c",
+          // 400: "#f2303c",
+          // 500: "#f9f9f9",
+        },
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -45,6 +55,7 @@ const config = {
     require("tailwind-hamburgers"),
     "prettier-plugin-tailwindcss",
     require("tailwindcss-animate"),
+    require("tailwind-scrollbar")({ preferredStrategy: "pseudoelements" }),
   ],
 } satisfies Config;
 

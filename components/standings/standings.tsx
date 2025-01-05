@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery, gql } from "@apollo/client";
-import { PlTeamStats } from "@/types";
+import { PlTeamStats } from "@/app/api/graphql/types";
 import clsx from "clsx";
 import {
   Table,
@@ -38,8 +38,10 @@ export const Standings = () => {
   const plTable = data.getPlStandings;
 
   return (
-    <div className="overflow-y-scroll">
-      <h2 className="mb-4 text-5xl font-semibold text-[#f2303c]">Standings</h2>
+    <div className="overflow-y-scroll scrollbar-thin">
+      <h2 className="mb-4 text-5xl font-semibold text-primary-300">
+        Standings
+      </h2>
       <Table>
         <TableCaption>Premier League Table</TableCaption>
         <TableHeader>
@@ -59,12 +61,12 @@ export const Standings = () => {
               className={clsx(
                 "from-[#2bc0ff] via-[#32b8ff] to-[#8c48ff] transition-all duration-75 ease-linear hover:scale-105 hover:bg-gradient-to-r hover:text-white",
                 {
-                  "bg-gradient-to-r from-[#fc745f] via-[#f2303c] to-[#8B0105] text-white":
+                  "bg-gradient-to-r from-primary-200 via-primary-300 to-primary text-white":
                     club.team.id === 66,
                 },
                 {
-                  "bg-[#fff]": index % 2 === 0,
-                  "bg-[#eef2f3]": index % 2 !== 0,
+                  "bg-white": index % 2 === 0,
+                  "bg-primary-100": index % 2 !== 0,
                 },
               )}
               key={index}

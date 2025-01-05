@@ -56,7 +56,6 @@ const PlayedStats = () => {
     },
   ];
   const totalGames = resultSet.played;
-  console.log("🚀 ~ PlayedStats ~ totalGames:", totalGames);
 
   const chartConfig = {
     played: {

@@ -5,7 +5,8 @@ import {
   Team,
   PlStandings,
   ApiFixtureResponse,
-} from "@/types";
+} from "@/app/api/graphql/types";
+import { v4 as uuidv4 } from "uuid";
 
 export const resolvers = {
   Query: {
@@ -13,6 +14,8 @@ export const resolvers = {
       _: unknown,
       { id }: { id: string },
     ): Promise<FixturesResponse> => {
+      const generatedId = uuidv4();
+
       const response = await axios.get(
         `https://api.football-data.org/v4/teams/${id}/matches`,
         {
@@ -22,7 +25,10 @@ export const resolvers = {
           },
         },
       );
-      return response.data;
+      return {
+        id: generatedId,
+        ...response.data,
+      };
     },
 
     getNextFixture: async (

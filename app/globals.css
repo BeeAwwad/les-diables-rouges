@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 /* Header */
-.logo {
-  font-size: 8vw;
-  line-height: 1.125;
-}
 
 /* Overlay */
 .counter {
@@ -32,11 +28,11 @@
   grid-template-rows: repeat(6, 17rem);
   grid-template-areas:
     "itemOne"
-    "itemTwo"
     "itemThree"
-    "itemFour"
     "itemFive"
-    "itemSix";
+    "itemSix"
+    "itemFour"
+    "itemTwo";
 }
 
 @media (min-width: 640px) {
@@ -59,8 +55,8 @@
     grid-template-rows: repeat(3, minmax(0, 1fr));
     grid-template-areas:
       "itemOne itemOne itemTwo"
-      "itemThree itemFour itemFour"
-      "itemSix itemSix itemFive";
+      "itemThree itemFive itemFive"
+      "itemSix itemSix itemFour";
   }
 }
 
@@ -71,8 +67,8 @@
     grid-template-rows: repeat(3, minmax(0, 1fr));
     grid-template-areas:
       "itemOne itemOne itemTwo"
-      "itemThree itemFour itemFour"
-      "itemSix itemSix itemFive";
+      "itemThree itemFive itemFive"
+      "itemSix itemSix itemFour";
   }
 }
 
@@ -82,7 +78,7 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
     grid-template-areas:
-      "itemOne itemOne itemTwo itemThree"
+      "itemOne itemOne itemThree itemTwo"
       "itemFour itemFive itemSix itemSix";
   }
 }

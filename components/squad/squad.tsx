@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery, gql } from "@apollo/client";
-import { Player } from "@/types";
+import { Player } from "@/app/api/graphql/types";
 import { Defender, Forward, Goalkeeper, Midfielder, Header } from "./player";
 import clsx from "clsx";
 
@@ -58,7 +58,7 @@ const Squad = () => {
     (player: Player) => player.player_type === "Goalkeepers",
   );
   return (
-    <div className="flex flex-col gap-10 overflow-y-scroll">
+    <div className="flex flex-col gap-10 overflow-y-scroll scrollbar-thin">
       <h2 className="text-5xl font-semibold text-[#f2303c]">Squad</h2>
       <div>
         <Header
@@ -71,8 +71,8 @@ const Squad = () => {
         {Goalies.map((goalie: Player, index: number) => (
           <div
             className={clsx("mb-4 flex items-center justify-between", {
-              "bg-[#fff]": index % 2 === 0,
-              "bg-[#eef2f3]": index % 2 !== 0,
+              "bg-white": index % 2 === 0,
+              "bg-primary-100": index % 2 !== 0,
             })}
             key={index}
           >
@@ -98,8 +98,8 @@ const Squad = () => {
         {Defenders.map((defender: Player, index: number) => (
           <div
             className={clsx("mb-4 flex items-center justify-between", {
-              "bg-[#fff]": index % 2 === 0,
-              "bg-[#eef2f3]": index % 2 !== 0,
+              "bg-white": index % 2 === 0,
+              "bg-primary-100": index % 2 !== 0,
             })}
             key={index}
           >
@@ -125,8 +125,8 @@ const Squad = () => {
         {Midfielders.map((midfielder: Player, index: number) => (
           <div
             className={clsx("mb-4 flex items-center justify-between", {
-              "bg-[#fff]": index % 2 === 0,
-              "bg-[#eef2f3]": index % 2 !== 0,
+              "bg-white": index % 2 === 0,
+              "bg-primary-100": index % 2 !== 0,
             })}
             key={index}
           >
@@ -152,8 +152,8 @@ const Squad = () => {
         {Forwards.map((forward: Player, index: number) => (
           <div
             className={clsx("mb-4 flex items-center justify-between", {
-              "bg-[#fff]": index % 2 === 0,
-              "bg-[#eef2f3]": index % 2 !== 0,
+              "bg-white": index % 2 === 0,
+              "bg-primary-100": index % 2 !== 0,
             })}
             key={index}
           >

@@ -1,4 +1,4 @@
-import Squad from "@/components/home-page/squad/squad";
+import Squad from "@/components/squad/squad";
 
 const Page = () => {
   return <Squad />;

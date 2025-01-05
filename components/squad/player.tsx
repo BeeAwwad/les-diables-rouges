@@ -43,7 +43,7 @@ const PlayerStats = ({
   return (
     <>
       <span className="flex items-center gap-4">
-        <span className="flex size-12 items-center justify-center bg-[#f2303c] text-white">
+        <span className="bg-primary-300 flex size-12 items-center justify-center text-white">
           {number}
         </span>
         <span>

@@ -48,6 +48,18 @@ const navLinks: navType[] = [
       />
     ),
   },
+  {
+    name: "Predict 11",
+    href: "/predict-eleven",
+    icon: (
+      <Icon
+        className="size-8 text-white"
+        icon="streamline:politics-vote-2"
+        width={""}
+        height={""}
+      />
+    ),
+  },
 ];
 
 const SideNav = () => {
@@ -109,7 +121,7 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="absolute z-10 h-screen w-[240px] bg-[#fc745f] sm:relative sm:max-h-[calc(80vh-3.5rem)] sm:w-full"
+      className="absolute z-10 h-full w-60 bg-primary-200 sm:relative sm:w-full"
     >
       <nav className="relative h-full">
         {/* toggle icon */}

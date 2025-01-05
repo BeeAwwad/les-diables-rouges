@@ -17,7 +17,6 @@ const CurrentForm = () => {
   if (error) return <p className="item-three">Error: {error.message}</p>;
 
   const form = data.getForm;
-  console.log("🚀 ~ CurrentForm ~ form:", form);
   return (
     <div className="item-three">
       <p>{form}</p>

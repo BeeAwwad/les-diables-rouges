@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery, gql } from "@apollo/client";
-import { PlTeamStats } from "@/types";
+import { PlTeamStats } from "@/app/api/graphql/types";
 import {
   Table,
   TableBody,

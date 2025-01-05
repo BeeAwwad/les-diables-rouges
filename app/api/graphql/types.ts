@@ -66,6 +66,7 @@ export type Fixture = {
 };
 
 export type FixturesResponse = {
+  id: number;
   filters: {
     competitions: string;
     permission: string;

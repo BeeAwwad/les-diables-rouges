@@ -2,7 +2,7 @@
 
 import { useQuery, gql } from "@apollo/client";
 import { Progress } from "@/components/ui/progress";
-import { FixtureEvent } from "@/types";
+import { FixtureEvent } from "@/app/api/graphql/types";
 import clsx from "clsx";
 import Image from "next/image";
 

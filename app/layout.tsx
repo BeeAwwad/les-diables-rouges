@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ApolloWrapper } from "./apollo-wrapper";
 import "./globals.css";
 import { poppins } from "@/fonts/fonts";
-import Overlay from "@/components/home-page/overlay";
-import Header from "@/components/home-page/header";
-import SideNav from "@/components/home-page/side-nav";
+import Overlay from "@/components/home/overlay";
+import Header from "@/components/home/header";
+import SideNav from "@/components/home/side-nav";
 
 export const metadata: Metadata = {
   title: "Les diables rouges",
@@ -17,14 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      className="scrollbar scrollbar-track-primary-100 scrollbar-thumb-primary hover:scrollbar-thumb-primary-300"
+      lang="en"
+    >
       <body
-        className={`${poppins.className} h-screen bg-[#eef2f3] antialiased`}
+        className={`${poppins.className} h-full bg-primary-100 antialiased scrollbar-none`}
       >
         <ApolloWrapper>
           <Overlay />
           <Header />
-          <main className="relative grid grid-cols-1 gap-7 overflow-y-hidden sm:grid-cols-base-sm md:grid-cols-base-md lg:h-[calc(80vh-3.5rem)]">
+          <main className="relative grid h-[calc(80vh-3.5rem)] grid-cols-1 gap-7 sm:grid-cols-base-sm md:grid-cols-base-md">
             <SideNav />
             {children}
           </main>

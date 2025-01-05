@@ -85,6 +85,7 @@ export const typeDefs = gql`
   }
 
   type FixturesResponse {
+    id: ID!
     filters: Filters!
     resultSet: ResultSet!
     matches: [Fixture!]
