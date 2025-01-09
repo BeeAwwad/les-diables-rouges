@@ -70,8 +70,8 @@ const PreviousMatch = () => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="item-five">Loading...</p>;
+  if (error) return <p className="item-five">Error: {error.message}</p>;
 
   const { fixture, teams, goals, statisticsSummary, events, crests } =
     data.getPreviousFixture;

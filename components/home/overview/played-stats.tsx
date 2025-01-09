@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Label, Pie, PieChart } from "recharts";
 
@@ -11,14 +10,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const PlAYED_GAMES = gql`
   query Query($id: ID!) {
@@ -39,8 +31,8 @@ const PlayedStats = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <p className="item-two">Loading...</p>;
-  if (error) return <p className="item-two">Error: {error.message}</p>;
+  if (loading) return <p className="item-four">Loading...</p>;
+  if (error) return <p className="item-four">Error: {error.message}</p>;
 
   const { resultSet } = data.getFixtures;
 

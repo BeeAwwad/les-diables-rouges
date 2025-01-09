@@ -31,8 +31,8 @@ const PL_TABLE = gql`
 export const OverviewTable = () => {
   const { loading, error, data } = useQuery(PL_TABLE);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="item-six">Loading...</p>;
+  if (error) return <p className="item-six">Error: {error.message}</p>;
 
   const plTable = data.getPlStandings;
   const lesDiables = 66;

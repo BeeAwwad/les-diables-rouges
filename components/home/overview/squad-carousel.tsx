@@ -47,8 +47,8 @@ export const SquadCarousel = () => {
     variables: { id: "102" },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="item-two">Loading...</p>;
+  if (error) return <p className="item-two">Error: {error.message}</p>;
 
   const { players } = data.getTeam;
 

@@ -21,6 +21,14 @@ export default function RootLayout({
       className="scrollbar scrollbar-track-primary-100 scrollbar-thumb-primary hover:scrollbar-thumb-primary-300"
       lang="en"
     >
+      <head>
+        <link
+          rel="icon"
+          href="/icon?<generate>"
+          type="image/png"
+          sizes="32x32"
+        />
+      </head>
       <body
         className={`${poppins.className} h-full bg-primary-100 antialiased scrollbar-none`}
       >

@@ -30,8 +30,8 @@ const NextMatch = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <p className="item-one">Loading...</p>;
+  if (error) return <p className="item-one">Error: {error.message}</p>;
 
   const { competition, homeTeam, awayTeam, utcDate } = data.getNextFixture;
 

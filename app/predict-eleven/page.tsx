@@ -1,5 +1,7 @@
-const PredictEleven = () => {
-  return <>Vote Your Eleven</>;
+import PredictEleven from "@/components/predictEleven/predictEleven";
+
+const PredictElevenPage = () => {
+  return <PredictEleven />;
 };
 
-export default PredictEleven;
+export default PredictElevenPage;
