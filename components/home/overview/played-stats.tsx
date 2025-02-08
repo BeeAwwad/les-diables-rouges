@@ -2,6 +2,7 @@
 
 import { useQuery, gql } from "@apollo/client";
 import { Label, Pie, PieChart } from "recharts";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import {
   ChartConfig,
@@ -31,8 +32,13 @@ const PlayedStats = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <p className="item-four">Loading...</p>;
-  if (error) return <p className="item-four">Error: {error.message}</p>;
+  if (loading) return <Skeleton className="item-four" />;
+  if (error)
+    return (
+      <div className="item-four flex items-center justify-center bg-white">
+        <p>Error: {error.message}</p>
+      </div>
+    );
 
   const { resultSet } = data.getFixtures;
 

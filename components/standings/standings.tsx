@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { abrilFatface } from "@/fonts/fonts";
 
 const PL_TABLE = gql`
   query Query {
@@ -39,7 +40,9 @@ export const Standings = () => {
 
   return (
     <div className="overflow-y-scroll scrollbar-thin">
-      <h2 className="mb-4 text-5xl font-semibold text-primary-300">
+      <h2
+        className={`mb-4 text-5xl font-semibold text-primary-300 ${abrilFatface.className}`}
+      >
         Standings
       </h2>
       <Table>
@@ -62,7 +65,7 @@ export const Standings = () => {
                 "from-[#2bc0ff] via-[#32b8ff] to-[#8c48ff] transition-all duration-75 ease-linear hover:scale-105 hover:bg-gradient-to-r hover:text-white",
                 {
                   "bg-gradient-to-r from-primary-200 via-primary-300 to-primary text-white":
-                    club.team.id === 66,
+                    club.team.id === "66",
                 },
                 {
                   "bg-white": index % 2 === 0,

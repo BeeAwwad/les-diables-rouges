@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PL_TABLE = gql`
   query Query {
@@ -31,11 +32,17 @@ const PL_TABLE = gql`
 export const OverviewTable = () => {
   const { loading, error, data } = useQuery(PL_TABLE);
 
-  if (loading) return <p className="item-six">Loading...</p>;
-  if (error) return <p className="item-six">Error: {error.message}</p>;
+  if (loading)
+    return <Skeleton className="item-six flex items-center justify-center" />;
+  if (error)
+    return (
+      <div className="item-six flex items-center justify-center bg-white scrollbar-none">
+        <p>Error: {error.message}</p>
+      </div>
+    );
 
   const plTable = data.getPlStandings;
-  const lesDiables = 66;
+  const lesDiables = "66";
   const targetIndex = plTable.findIndex(
     (club: PlTeamStats) => club.team.id === lesDiables,
   );

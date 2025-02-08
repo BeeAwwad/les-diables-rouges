@@ -94,7 +94,7 @@ export type Venue = {
 };
 
 export type PlTeam = {
-  id: number;
+  id: string;
   name: string;
   shortName: string;
   tla: string;
@@ -110,9 +110,6 @@ export type PlTeamStats = {
   draw: number;
   lost: number;
   points: number;
-  goalsFor: number;
-  goalsAgainst: number;
-  goalDifference: number;
 };
 
 export type PlStandings = {
@@ -174,6 +171,7 @@ export type Coach = {
 };
 
 export type Team = {
+  id: number;
   team_key: string;
   team_name: string;
   team_country: string;

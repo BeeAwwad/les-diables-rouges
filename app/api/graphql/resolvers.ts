@@ -74,6 +74,7 @@ export const resolvers = {
     },
 
     getTeam: async (_: unknown, { id }: { id: string }): Promise<Team> => {
+      const generatedId = uuidv4();
       try {
         const response = await axios.get(
           `https://apiv3.apifootball.com/?action=get_teams&league_id=152&APIkey=${process.env.API_FOOTBALL_API_KEY}`,
@@ -93,7 +94,10 @@ export const resolvers = {
           throw new Error(`Team with id ${id} not found`);
         }
 
-        return lesDablesRouges;
+        return {
+          id: generatedId,
+          ...lesDablesRouges,
+        };
       } catch (error) {
         throw new Error("Failed to get team");
       }
@@ -142,6 +146,7 @@ export const resolvers = {
         const pastFixtures = AllFixtures.filter(
           (fixture: ApiFixtureResponse) => fixture.fixture.date < currentDate,
         );
+        // console.log("🚀 ~ pastFixtures:", pastFixtures);
 
         pastFixtures.sort(
           (a: ApiFixtureResponse, b: ApiFixtureResponse) =>

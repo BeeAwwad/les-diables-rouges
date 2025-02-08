@@ -5,6 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { FixtureEvent } from "@/app/api/graphql/types";
 import clsx from "clsx";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PREV_GAME = gql`
   query Query($id: ID!, $season: Int!) {
@@ -70,8 +71,13 @@ const PreviousMatch = () => {
     },
   });
 
-  if (loading) return <p className="item-five">Loading...</p>;
-  if (error) return <p className="item-five">Error: {error.message}</p>;
+  if (loading) return <Skeleton className="item-five" />;
+  if (error)
+    return (
+      <div className="item-five flex items-center justify-center bg-white">
+        <p>Error: {error.message}</p>
+      </div>
+    );
 
   const { fixture, teams, goals, statisticsSummary, events, crests } =
     data.getPreviousFixture;
@@ -128,7 +134,7 @@ const PreviousMatch = () => {
           {filteredEvents.map((event: FixtureEvent, index: number) => (
             <div key={index + 1} className="relative grid">
               <span className="absolute left-1/2 -translate-x-1/2">
-                {event.type}
+                {event.detail}
               </span>
               <span
                 className={clsx({

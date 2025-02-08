@@ -4,6 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import { Player } from "@/app/api/graphql/types";
 import { Defender, Forward, Goalkeeper, Midfielder, Header } from "./player";
 import clsx from "clsx";
+import { abrilFatface } from "@/fonts/fonts";
 
 const SQUAD_LIST = gql`
   query Query($id: ID!) {
@@ -59,7 +60,11 @@ const Squad = () => {
   );
   return (
     <div className="flex flex-col gap-10 overflow-y-scroll scrollbar-thin">
-      <h2 className="text-5xl font-semibold text-[#f2303c]">Squad</h2>
+      <h2
+        className={`text-5xl font-semibold text-primary-300 ${abrilFatface.className} `}
+      >
+        Squad
+      </h2>
       <div>
         <Header
           title="Goales"

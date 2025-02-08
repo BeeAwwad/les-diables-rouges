@@ -1,5 +1,6 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery, gql } from "@apollo/client";
 import Image from "next/image";
 
@@ -30,8 +31,13 @@ const NextMatch = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <p className="item-one">Loading...</p>;
-  if (error) return <p className="item-one">Error: {error.message}</p>;
+  if (loading) return <Skeleton className="item-one" />;
+  if (error)
+    return (
+      <div className="item-one flex items-center justify-center bg-white">
+        <p>Error: {error.message}</p>
+      </div>
+    );
 
   const { competition, homeTeam, awayTeam, utcDate } = data.getNextFixture;
 

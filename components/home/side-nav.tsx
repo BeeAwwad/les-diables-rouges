@@ -121,7 +121,7 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="absolute z-10 h-full w-60 bg-primary-200 sm:relative sm:w-full"
+      className="fixed top-[6.75rem] z-10 h-full w-60 bg-primary-200 sm:relative sm:top-0 sm:w-full"
     >
       <nav className="relative h-full">
         {/* toggle icon */}

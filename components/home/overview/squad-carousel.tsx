@@ -10,6 +10,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const SQUAD_LIST = gql`
   query Query($id: ID!) {
@@ -47,8 +48,13 @@ export const SquadCarousel = () => {
     variables: { id: "102" },
   });
 
-  if (loading) return <p className="item-two">Loading...</p>;
-  if (error) return <p className="item-two">Error: {error.message}</p>;
+  if (loading) return <Skeleton className="item-two" />;
+  if (error)
+    return (
+      <div className="item-two flex items-center justify-center bg-white scrollbar-none">
+        <p>Error: {error.message}</p>
+      </div>
+    );
 
   const { players } = data.getTeam;
 

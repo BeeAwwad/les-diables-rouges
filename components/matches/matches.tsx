@@ -5,6 +5,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
 import { Fixture } from "@/app/api/graphql/types";
 import clsx from "clsx";
+import { abrilFatface } from "@/fonts/fonts";
 
 const ALL_MATCHES = gql`
   query Query($id: ID!) {
@@ -79,7 +80,9 @@ const Matches = () => {
   return (
     <div className="overflow-y-scroll scrollbar-thin">
       <div>
-        <h2 className="mb-4 text-5xl font-semibold text-primary-300">
+        <h2
+          className={`mb-4 text-5xl font-semibold text-primary-300 ${abrilFatface.className}`}
+        >
           {showFinished ? "Results" : "Fixtures"}
         </h2>
         <ul className="flex gap-4">

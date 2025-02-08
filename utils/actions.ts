@@ -33,5 +33,6 @@ const signOut = async () => {
 };
 
 const signInWithGoogle = () => signInWith(AuthProvider.Google);
+const signInWithGitHub = () => signInWith(AuthProvider.GitHub);
 
-export { signInWithGoogle, signOut };
+export { signInWithGoogle, signInWithGitHub, signOut };

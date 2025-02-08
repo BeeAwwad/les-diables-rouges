@@ -53,7 +53,7 @@ export const typeDefs = gql`
     area: Area!
     competition: Competition!
     season: Season!
-    id: Int!
+    id: ID!
     utcDate: String!
     status: String!
     matchday: Int!
@@ -100,7 +100,7 @@ export const typeDefs = gql`
   }
 
   type PlTeam {
-    id: Int!
+    id: ID!
     name: String!
     shortName: String!
     tla: String!
@@ -176,6 +176,7 @@ export const typeDefs = gql`
   }
 
   type Team {
+    id: ID!
     team_key: String!
     team_name: String!
     team_country: String!
