@@ -33,7 +33,7 @@ export default function RootLayout({
         className={`${poppins.className} h-full bg-primary-100 antialiased scrollbar-none selection:bg-primary-300 selection:text-primary-100`}
       >
         <ApolloWrapper>
-          {/* <Overlay /> */}
+          <Overlay />
           <Header />
           <main className="grid grid-cols-1 gap-7 overflow-y-hidden sm:h-[calc(80vh-3.5rem)] sm:grid-cols-base-sm md:grid-cols-base-md">
             <SideNav />

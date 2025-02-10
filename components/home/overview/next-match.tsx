@@ -56,19 +56,17 @@ const NextMatch = () => {
   });
   return (
     <div className="item-one rounded-lg bg-white p-3 shadow-md">
-      <div className="flex justify-between">
-        <h2>Upcoming Match</h2>
+      <div className="flex justify-between p-4 text-lg">
+        <h2 className="">Upcoming Match</h2>
         <span className="flex space-x-3">
-          <span>
-            <p>{formattedDay}</p>
-          </span>
-          <span>
-            <p>{competition.name}</p>
-          </span>
+          <p>{formattedDay}</p>
+        </span>
+        <span>
+          <p>{competition.name}</p>
         </span>
       </div>
       <div className="flex justify-between">
-        <span className="flex flex-col items-center md:flex-row">
+        <span className="flex flex-col items-center gap-4 md:flex-row">
           <span>
             <Image
               className="size-28 sm:size-32 md:size-28 lg:size-24 xl:size-28 2xl:size-40"
@@ -85,7 +83,7 @@ const NextMatch = () => {
         <time>
           <p>{formattedHour}</p>
         </time>
-        <span className="flex flex-col items-center md:flex-row">
+        <span className="flex flex-col items-center gap-4 md:flex-row">
           <span className="order-2 md:order-1">
             <p>{awayTeam.shortName}</p>
           </span>

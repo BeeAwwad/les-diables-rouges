@@ -79,8 +79,10 @@ const PreviousMatch = () => {
       </div>
     );
 
-  const { fixture, teams, goals, statisticsSummary, events, crests } =
+  const { teams, goals, statisticsSummary, events, crests } =
     data.getPreviousFixture;
+
+  console.log("events.detail: ", events[0].detail);
 
   const filteredEvents = events.filter(
     (event: FixtureEvent) => event.type === "Card" || event.type === "Goal",
@@ -88,7 +90,7 @@ const PreviousMatch = () => {
 
   return (
     <div className="item-five no-scrollbar overflow-y-scroll rounded-lg bg-white p-3 shadow-md">
-      <h2>Last Match</h2>
+      <h2 className="p-4 text-lg">Last Match</h2>
       <div className="flex justify-between">
         <div>
           <span>
@@ -134,7 +136,11 @@ const PreviousMatch = () => {
           {filteredEvents.map((event: FixtureEvent, index: number) => (
             <div key={index + 1} className="relative grid">
               <span className="absolute left-1/2 -translate-x-1/2">
-                {event.detail}
+                {event.detail === "Yellow Card"
+                  ? "🟨"
+                  : event.detail === "Red Card"
+                    ? "🟥"
+                    : "⚽"}
               </span>
               <span
                 className={clsx({

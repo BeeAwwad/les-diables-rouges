@@ -144,9 +144,10 @@ export const resolvers = {
 
         // Filter past fixtures
         const pastFixtures = AllFixtures.filter(
-          (fixture: ApiFixtureResponse) => fixture.fixture.date < currentDate,
+          (fixture: ApiFixtureResponse) =>
+            fixture.fixture.date < currentDate &&
+            fixture.league.name === "Premier League",
         );
-        // console.log("🚀 ~ pastFixtures:", pastFixtures);
 
         pastFixtures.sort(
           (a: ApiFixtureResponse, b: ApiFixtureResponse) =>

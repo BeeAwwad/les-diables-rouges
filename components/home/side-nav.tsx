@@ -128,7 +128,7 @@ const SideNav = () => {
         <div
           onClick={handleNavClick}
           className={clsx(
-            `tham tham-e-arrow tham-w-6 absolute left-full bg-blue-300 px-10 py-7 hover:opacity-100 sm:hidden`,
+            `tham tham-e-arrow tham-w-6 absolute left-full bg-blue-700 px-10 py-7 hover:opacity-100 sm:hidden`,
             {
               "tham-active": opened,
             },
