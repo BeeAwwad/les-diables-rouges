@@ -12,7 +12,6 @@ const PredictEleven = async () => {
     redirect("/auth");
   }
 
-  console.log("session: ", session);
   const {
     data: {
       user: { user_metadata, app_metadata },
@@ -25,24 +24,28 @@ const PredictEleven = async () => {
 
   return (
     <div>
-      <div>
-        {avatar_url && (
-          <Image
-            src={avatar_url}
-            alt={name}
-            width={100}
-            height={100}
-            className="rounded-full"
-            // quality={100}
-          />
-        )}
-        <h1>{name}</h1>
-        <p>{userName}</p>
-        <p>{email}</p>
-        <p>Created with: {app_metadata.provider}</p>
+      <div className="flex items-center justify-between px-4">
+        <div className="flex cursor-pointer items-center gap-2 rounded-md border border-neutral-400 px-3 py-2 hover:border-opacity-35">
+          {" "}
+          {avatar_url && (
+            <Image
+              src={avatar_url}
+              alt={name}
+              width={100}
+              height={100}
+              className="size-8 rounded-full"
+            />
+          )}
+          <p className="text-xs">{userName}</p>
+        </div>
 
         <form action={signOut}>
-          <Button type="submit">Sign Out</Button>
+          <Button
+            className="rounded border-b-4 border-primary bg-primary-300 px-4 py-2 font-semibold shadow-lg transition-all hover:border-primary-300 hover:bg-primary-200"
+            type="submit"
+          >
+            Sign Out
+          </Button>
         </form>
       </div>
     </div>

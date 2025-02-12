@@ -46,6 +46,7 @@ export const resolvers = {
       );
 
       const { matches } = response.data;
+
       const now = new Date().toISOString();
 
       const nextMatch = matches.find((match: Fixture) => match.utcDate > now);
@@ -89,6 +90,7 @@ export const resolvers = {
         const lesDablesRouges = teams.find(
           (team: Team) => team.team_key === id,
         );
+        console.log("🚀 ~ getTeam: ~ lesDablesRouges:", lesDablesRouges);
 
         if (!lesDablesRouges) {
           throw new Error(`Team with id ${id} not found`);
@@ -269,6 +271,7 @@ export const resolvers = {
         const TeamData = response.data;
 
         const currentFormData = TeamData?.response?.form;
+        console.log("🚀 ~ currentFormData:", currentFormData);
 
         return currentFormData;
       } catch (error) {

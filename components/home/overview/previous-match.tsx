@@ -89,9 +89,9 @@ const PreviousMatch = () => {
   );
 
   return (
-    <div className="item-five no-scrollbar overflow-y-scroll rounded-lg bg-white p-3 shadow-md">
-      <h2 className="p-4 text-lg">Last Match</h2>
-      <div className="flex justify-between">
+    <div className="item-five no-scrollbar space-y-2 overflow-y-scroll rounded-lg bg-white p-3 shadow-md">
+      <h2 className="px-4 pt-4 text-lg">Last Match</h2>
+      <div className="flex justify-between px-4">
         <div>
           <span>
             <Image
@@ -110,7 +110,7 @@ const PreviousMatch = () => {
           <span>{goals.away}</span>
         </div>
         <div>
-          <span>
+          <span className="flex flex-col items-end">
             <Image
               className="w-10"
               width={40}
@@ -122,7 +122,7 @@ const PreviousMatch = () => {
           </span>
         </div>
       </div>
-      <div>
+      <div className="px-4">
         <div className="flex justify-between">
           <span>{statisticsSummary[0].ballPossession}</span>
           <span>Possession</span>

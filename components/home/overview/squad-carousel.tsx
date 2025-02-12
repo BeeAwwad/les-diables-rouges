@@ -19,6 +19,7 @@ const SQUAD_LIST = gql`
       players {
         player_name
         player_number
+        player_type
       }
     }
   }
