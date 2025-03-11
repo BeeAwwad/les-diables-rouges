@@ -123,7 +123,7 @@ const SideNav = () => {
       ref={sideNavRef}
       className="fixed top-[6.75rem] z-10 h-full w-60 bg-primary-200 sm:relative sm:top-0 sm:w-full sm:rounded-tr-md"
     >
-      <nav className="relative h-full">
+      <nav className="relative z-10 h-full">
         {/* toggle icon */}
         <div
           onClick={handleNavClick}

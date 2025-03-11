@@ -32,10 +32,10 @@ const PlayedStats = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <Skeleton className="item-four" />;
+  if (loading) return <Skeleton className="item-four shadow-sm" />;
   if (error)
     return (
-      <div className="item-four flex items-center justify-center bg-white">
+      <div className="item-four flex items-center justify-center bg-white shadow-sm">
         <p>Error: {error.message}</p>
       </div>
     );
@@ -74,7 +74,7 @@ const PlayedStats = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="item-four flex flex-row">
+    <Card className="item-four flex flex-row shadow-sm">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}

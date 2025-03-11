@@ -31,10 +31,10 @@ const NextMatch = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <Skeleton className="item-one" />;
+  if (loading) return <Skeleton className="item-one shadow-sm" />;
   if (error)
     return (
-      <div className="item-one flex items-center justify-center bg-white">
+      <div className="item-one flex items-center justify-center bg-white shadow-sm">
         <p>Error: {error.message}</p>
       </div>
     );
@@ -42,6 +42,7 @@ const NextMatch = () => {
   const { competition, homeTeam, awayTeam, utcDate } = data.getNextFixture;
 
   const date = new Date(utcDate);
+  console.log(utcDate);
 
   const formattedDay = date.toLocaleString("en-US", {
     year: "numeric",
@@ -55,15 +56,11 @@ const NextMatch = () => {
     hour12: false,
   });
   return (
-    <div className="item-one rounded-lg bg-white p-3 shadow-md">
+    <div className="item-one rounded-lg bg-white p-3 shadow-sm">
       <div className="flex justify-between p-4 text-lg">
-        <h2 className="">Upcoming Match</h2>
-        <span className="flex space-x-3">
-          <p>{formattedDay}</p>
-        </span>
-        <span>
-          <p>{competition.name}</p>
-        </span>
+        <h2 className="w-fit">Upcoming Match</h2>
+        <span className="flex w-fit space-x-3 text-center">{formattedDay}</span>
+        <span className="w-fit text-right">{competition.name}</span>
       </div>
       <div className="flex justify-between">
         <span className="flex flex-col items-center gap-4 md:flex-row">

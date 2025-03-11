@@ -1,10 +1,10 @@
 import axios from "axios";
 import {
-  FixturesResponse,
-  Fixture,
-  Team,
-  PlStandings,
   ApiFixtureResponse,
+  Fixture,
+  FixturesResponse,
+  PlStandings,
+  Team,
 } from "@/app/api/graphql/types";
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,6 +50,7 @@ export const resolvers = {
       const now = new Date().toISOString();
 
       const nextMatch = matches.find((match: Fixture) => match.utcDate > now);
+      console.log("🚀 ~ nextMatch:", nextMatch);
 
       if (!nextMatch) {
         return matches[matches.length - 1];
@@ -90,7 +91,6 @@ export const resolvers = {
         const lesDablesRouges = teams.find(
           (team: Team) => team.team_key === id,
         );
-        console.log("🚀 ~ getTeam: ~ lesDablesRouges:", lesDablesRouges);
 
         if (!lesDablesRouges) {
           throw new Error(`Team with id ${id} not found`);
@@ -157,8 +157,9 @@ export const resolvers = {
             new Date(a.fixture.date).getTime(),
         );
 
-        const mostRecentFixture =
-          pastFixtures.length > 0 ? pastFixtures[0] : null;
+        const mostRecentFixture = pastFixtures.length > 0
+          ? pastFixtures[0]
+          : null;
 
         if (!mostRecentFixture || !mostRecentFixture.fixture) {
           throw new Error("No recent fixture found or fixture data is missing");
@@ -271,7 +272,6 @@ export const resolvers = {
         const TeamData = response.data;
 
         const currentFormData = TeamData?.response?.form;
-        console.log("🚀 ~ currentFormData:", currentFormData);
 
         return currentFormData;
       } catch (error) {

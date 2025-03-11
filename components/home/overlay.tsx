@@ -65,16 +65,16 @@ const Overlay = () => {
   }, []);
 
   return (
-    <div ref={overlayRef}>
+    <div className="z-50" ref={overlayRef}>
       <div
         id="counterId"
-        className="counter fixed z-50 flex h-full w-full items-end justify-end text-white"
+        className="counter fixed flex h-full w-full items-end justify-end text-white"
       >
         <span>{counter}</span>
       </div>
 
-      <div id="overlayId" className="overlay z-10">
-        <div className="bar h-[105vh] w-full bg-primary-200"></div>
+      <div id="overlayId" className="overlay z-50">
+        <div className="bar z-50 h-[105vh] w-full bg-primary-200"></div>
       </div>
     </div>
   );
