@@ -1,9 +1,9 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import "https://deno.land/std@0.177.0/dotenv/load.ts";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { Fixture } from "../_shared/types.ts";
+import { Fixture } from "./types.ts";
 
-console.log("Hello from Functions!");
+console.log("Hello from Update Fixtures!");
 
 // Initialize Supabase client
 const supabaseUrl = Deno.env.get("SB_URL")!;
