@@ -1,11 +1,12 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, type JSX } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import Link from "next/link";
 import clsx from "clsx";
 import gsap from "gsap";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useNav } from "./nav-context";
 
 type navType = {
   name: string;
@@ -63,13 +64,7 @@ const navLinks: navType[] = [
 ];
 
 const SideNav = () => {
-  const [opened, setOpened] = useState(false);
-
-  const handleNavClick = () => {
-    setOpened((prev) => {
-      return !prev;
-    });
-  };
+  const { opened, setOpened } = useNav();
 
   const isMobile = useIsMobile();
   const sideNavRef = useRef<HTMLDivElement>(null);
@@ -121,29 +116,14 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="fixed top-[6.75rem] z-10 h-full w-60 bg-primary-200 sm:relative sm:top-0 sm:w-full sm:rounded-tr-md"
+      className="bg-primary-200 fixed top-[6.5rem] z-10 h-full w-60 sm:relative sm:top-0 sm:w-full sm:rounded-tr-md"
     >
       <nav className="relative z-10 h-full">
-        {/* toggle icon */}
-        <div
-          onClick={handleNavClick}
-          className={clsx(
-            `tham tham-e-arrow tham-w-6 absolute left-full bg-blue-700 px-10 py-7 hover:opacity-100 sm:hidden`,
-            {
-              "tham-active": opened,
-            },
-          )}
-        >
-          <div className="tham-box mr-5">
-            <div className="tham-inner bg-white" />
-          </div>
-        </div>
-
         <ul className="space-y-2 p-4">
           {navLinks.map((link, index) => (
             <li
               key={index}
-              className="cursor-pointer rounded-lg p-2 transition-colors hover:bg-primary-300"
+              className="hover:bg-primary-300 cursor-pointer rounded-lg p-2 transition-colors"
             >
               <Link
                 className="flex items-center sm:justify-center lg:justify-start"

@@ -71,10 +71,10 @@ const PreviousMatch = () => {
     },
   });
 
-  if (loading) return <Skeleton className="item-five shadow-sm" />;
+  if (loading) return <Skeleton className="item-five shadow-xs" />;
   if (error)
     return (
-      <div className="item-five flex items-center justify-center bg-white shadow-sm">
+      <div className="item-five flex items-center justify-center bg-white shadow-xs">
         <p>Error: {error.message}</p>
       </div>
     );
@@ -89,8 +89,11 @@ const PreviousMatch = () => {
   );
 
   return (
-    <div className="item-five no-scrollbar space-y-2 overflow-y-scroll rounded-lg bg-white p-3 shadow-sm">
-      <h2 className="px-4 pt-4 text-lg">Last Match</h2>
+    <div className="item-five no-scrollbar space-y-2 overflow-y-scroll rounded-lg bg-white p-3 shadow-xs">
+      <div className="flex justify-between">
+        <h2 className="px-4 pt-4 text-lg">Last Match</h2>
+        <h2 className="px-4 pt-4 text-lg">EPL</h2>
+      </div>
       <div className="flex justify-between px-4">
         <div>
           <span>

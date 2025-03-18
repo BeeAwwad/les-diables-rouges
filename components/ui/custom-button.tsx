@@ -1,0 +1,18 @@
+const CustomButton = ({
+  children,
+  type,
+}: {
+  children: React.ReactNode;
+  type?: "submit" | "reset" | "button" | undefined;
+}) => {
+  return (
+    <button
+      className="border-primary-300 hover:border-primary-300 bg-primary-200 cursor-pointer rounded-lg border-b-[4px] px-6 py-2 text-white transition-all hover:-translate-y-[1px] hover:border-b-[6px] hover:brightness-110 active:translate-y-[2px] active:border-b-[2px] active:brightness-90"
+      type={type}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default CustomButton;

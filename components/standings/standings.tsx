@@ -62,9 +62,9 @@ export const Standings = () => {
           {plTable.map((club: PlTeamStats, index: number) => (
             <TableRow
               className={clsx(
-                "from-[#2bc0ff] via-[#32b8ff] to-[#8c48ff] transition-all duration-75 ease-linear hover:scale-105 hover:bg-gradient-to-r hover:text-white",
+                "from-[#2bc0ff] via-[#32b8ff] to-[#8c48ff] transition-all duration-75 ease-linear hover:scale-105 hover:bg-linear-to-r hover:text-white",
                 {
-                  "bg-gradient-to-r from-primary-200 via-primary-300 to-primary text-white":
+                  "bg-linear-to-r from-primary-200 via-primary-300 to-primary text-white":
                     club.team.id === "66",
                 },
                 {

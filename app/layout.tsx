@@ -5,6 +5,7 @@ import { poppins } from "@/fonts/fonts";
 import Overlay from "@/components/home/overlay";
 import Header from "@/components/home/header";
 import SideNav from "@/components/home/side-nav";
+import { NavProvider } from "@/components/home/nav-context";
 
 export const metadata: Metadata = {
   title: "Les diables rouges",
@@ -17,10 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      className="scrollbar-thin scrollbar-track-primary-100 scrollbar-thumb-primary hover:scrollbar-thumb-primary-300"
-      lang="en"
-    >
+    <html className="no-scrollbar" lang="en">
       <head>
         <link
           rel="icon"
@@ -30,15 +28,17 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.className} h-full bg-primary-100 antialiased scrollbar-none selection:bg-primary-300 selection:text-primary-100`}
+        className={`${poppins.className} bg-primary-100 selection:bg-primary-300 selection:text-primary-100 h-full antialiased`}
       >
         <ApolloWrapper>
-          <Overlay />
-          <Header />
-          <main className="grid grid-cols-1 gap-7 overflow-y-hidden sm:h-[calc(80vh-3.5rem)] sm:grid-cols-base-sm md:grid-cols-base-md">
-            <SideNav />
-            {children}
-          </main>
+          <NavProvider>
+            <Overlay />
+            <Header />
+            <main className="sm:grid-cols-base-sm md:grid-cols-base-md grid grid-cols-1 gap-7 overflow-y-hidden sm:h-[calc(80vh-3.5rem)]">
+              <SideNav />
+              {children}
+            </main>
+          </NavProvider>
         </ApolloWrapper>
       </body>
     </html>

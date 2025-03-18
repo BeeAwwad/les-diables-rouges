@@ -34,11 +34,11 @@ export const OverviewTable = () => {
 
   if (loading)
     return (
-      <Skeleton className="item-six flex items-center justify-center shadow-sm" />
+      <Skeleton className="item-six flex items-center justify-center shadow-xs" />
     );
   if (error)
     return (
-      <div className="item-six flex items-center justify-center bg-white shadow-sm scrollbar-none">
+      <div className="item-six scrollbar-none flex items-center justify-center bg-white shadow-xs">
         <p>Error: {error.message}</p>
       </div>
     );
@@ -53,7 +53,7 @@ export const OverviewTable = () => {
   const end = Math.min(plTable.length, targetIndex + 3);
   const filteredTable = plTable.slice(start, end);
   return (
-    <div className="item-six no-scrollbar overflow-y-scroll rounded-lg bg-white p-4 shadow-sm">
+    <div className="item-six no-scrollbar overflow-y-scroll rounded-lg bg-white p-4 shadow-xs">
       <Table>
         <TableCaption>Premier League Table</TableCaption>
         <TableHeader>

@@ -31,10 +31,10 @@ const NextMatch = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <Skeleton className="item-one shadow-sm" />;
+  if (loading) return <Skeleton className="item-one shadow-xs" />;
   if (error)
     return (
-      <div className="item-one flex items-center justify-center bg-white shadow-sm">
+      <div className="item-one flex items-center justify-center bg-white shadow-xs">
         <p>Error: {error.message}</p>
       </div>
     );
@@ -56,7 +56,7 @@ const NextMatch = () => {
     hour12: false,
   });
   return (
-    <div className="item-one rounded-lg bg-white p-3 shadow-sm">
+    <div className="item-one rounded-lg bg-white p-3 shadow-xs">
       <div className="flex justify-between p-4 text-lg">
         <h2 className="w-fit">Upcoming Match</h2>
         <span className="flex w-fit space-x-3 text-center">{formattedDay}</span>

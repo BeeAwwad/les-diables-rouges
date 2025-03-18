@@ -26,10 +26,13 @@ export const SquadCarousel = () => {
     variables: { id: "102" },
   });
 
-  if (loading) return <Skeleton className="item-two shadow-sm" />;
+  if (loading)
+    return (
+      <Skeleton className="item-two no-scrollbar items-center justify-center rounded-lg bg-white shadow-xs" />
+    );
   if (error)
     return (
-      <div className="item-two flex items-center justify-center bg-white shadow-sm scrollbar-none">
+      <div className="item-two no-scrollbar items-center justify-center rounded-lg bg-white shadow-xs">
         <p>Error: {error.message}</p>
       </div>
     );
@@ -51,7 +54,7 @@ export const SquadCarousel = () => {
   });
 
   return (
-    <div className="item-two flex items-center justify-center rounded-lg bg-white shadow-sm scrollbar-none">
+    <div className="item-two no-scrollbar flex items-center justify-center rounded-lg bg-white shadow-xs">
       <Carousel items={PlayersInComponent} />
     </div>
   );

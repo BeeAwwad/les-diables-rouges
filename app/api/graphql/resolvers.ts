@@ -50,7 +50,6 @@ export const resolvers = {
       const now = new Date().toISOString();
 
       const nextMatch = matches.find((match: Fixture) => match.utcDate > now);
-      console.log("🚀 ~ nextMatch:", nextMatch);
 
       if (!nextMatch) {
         return matches[matches.length - 1];

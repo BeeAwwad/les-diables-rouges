@@ -5,33 +5,24 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { cn } from "@/utils/cn";
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * The items to display in the carousel
-   */
   items: React.ReactNode[];
   /**
-   * The interval in milliseconds between automatic slides
-   * Set to 0 to disable automatic sliding
    * @default 5000
    */
   interval?: number;
   /**
-   * Whether to pause automatic sliding when hovering over the carousel
    * @default true
    */
   pauseOnHover?: boolean;
   /**
-   * Whether to show navigation buttons
    * @default true
    */
   showNavigation?: boolean;
   /**
-   * Whether to show indicators
    * @default true
    */
   showIndicators?: boolean;
   /**
-   * Whether to loop the carousel
    * @default true
    */
   loop?: boolean;
@@ -46,7 +37,7 @@ export const PlayerSlide = ({ name, number }: RatingProps) => {
   return (
     <div className="flex h-full w-full flex-col items-center gap-2 rounded-lg bg-white p-3 py-5 sm:gap-4 sm:p-6 sm:py-8">
       <span className="text-lg font-medium">{name}</span>
-      <span className="text-3xl font-semibold">{number}</span>
+      <span className="text-3xl font-semibold lg:text-5xl">{number}</span>
     </div>
   );
 };
@@ -61,24 +52,21 @@ export const Carousel = ({
   className,
   ...props
 }: CarouselProps) => {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [isPaused, setIsPaused] = React.useState(false);
   const totalItems = items.length;
+  const extendedItems = [items[totalItems - 1], ...items, items[0]];
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isTransitioning, setIsTransitioning] = React.useState(true);
+  const [isPaused, setIsPaused] = React.useState(false);
 
-  // Handle automatic sliding
+  // Auto-slide effect
   React.useEffect(() => {
     if (interval <= 0 || isPaused) return;
-
     const timer = setInterval(() => {
-      if (currentIndex === totalItems - 1) {
-        if (loop) setCurrentIndex(0);
-      } else {
-        setCurrentIndex(currentIndex + 1);
-      }
+      goToNextSlide();
     }, interval);
 
     return () => clearInterval(timer);
-  }, [currentIndex, interval, isPaused, loop, totalItems]);
+  }, [currentIndex, interval, isPaused]);
 
   // Navigation functions
   const goToSlide = (index: number) => {
@@ -86,29 +74,36 @@ export const Carousel = ({
   };
 
   const goToPrevSlide = () => {
-    if (currentIndex === 0) {
-      if (loop) setCurrentIndex(totalItems - 1);
+    if (currentIndex === 1) {
+      // If going from first real item to last, jump instantly then animate
+      setIsTransitioning(false);
+      setCurrentIndex(totalItems);
+      setTimeout(() => {
+        setIsTransitioning(true);
+        setCurrentIndex(totalItems - 1);
+      }, 50);
     } else {
       setCurrentIndex(currentIndex - 1);
     }
   };
 
   const goToNextSlide = () => {
-    if (currentIndex === totalItems - 1) {
-      if (loop) setCurrentIndex(0);
+    if (currentIndex === totalItems) {
+      // If at the last real item, jump instantly then animate
+      setIsTransitioning(false);
+      setCurrentIndex(0);
+      setTimeout(() => {
+        setIsTransitioning(true);
+        setCurrentIndex(1);
+      }, 50);
     } else {
       setCurrentIndex(currentIndex + 1);
     }
   };
 
   // Pause on hover handlers
-  const handleMouseEnter = () => {
-    if (pauseOnHover) setIsPaused(true);
-  };
-
-  const handleMouseLeave = () => {
-    if (pauseOnHover) setIsPaused(false);
-  };
+  const handleMouseEnter = () => pauseOnHover && setIsPaused(true);
+  const handleMouseLeave = () => pauseOnHover && setIsPaused(false);
 
   return (
     <div
@@ -120,10 +115,13 @@ export const Carousel = ({
       {/* Carousel content */}
       <div
         className="flex transition-transform duration-500 ease-in-out"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        style={{
+          transform: `translateX(-${currentIndex * 100}%)`,
+          transition: isTransitioning ? "transform 0.5s ease-in-out" : "none",
+        }}
       >
-        {items.map((item, index) => (
-          <div key={index} className="w-full flex-shrink-0">
+        {extendedItems.map((item, index) => (
+          <div key={index} className="w-full shrink-0">
             {item}
           </div>
         ))}
@@ -134,14 +132,14 @@ export const Carousel = ({
         <>
           <button
             onClick={goToPrevSlide}
-            className="absolute left-4 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-all hover:bg-black/30 focus:outline-none focus:ring-2 focus:ring-primary-300"
+            className="focus:ring-primary-300 absolute top-1/2 left-4 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-xs transition-all hover:bg-black/30 focus:ring-2 focus:outline-hidden"
             aria-label="Previous slide"
           >
             <Icon icon="iconamoon:arrow-left-2" className="size-6" />
           </button>
           <button
             onClick={goToNextSlide}
-            className="absolute right-4 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition-all hover:bg-black/30 focus:outline-none focus:ring-2 focus:ring-primary-200"
+            className="focus:ring-primary-200 absolute top-1/2 right-4 flex size-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-xs transition-all hover:bg-black/30 focus:ring-2 focus:outline-hidden"
             aria-label="Next slide"
           >
             <Icon icon="iconamoon:arrow-right-2" className="size-6" />

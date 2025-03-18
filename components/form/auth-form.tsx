@@ -38,20 +38,21 @@ const AuthForm = () => {
     }
   };
   return (
-    <Card className="mx-auto w-full max-w-md">
+    <Card className="w-full max-w-md sm:mx-auto">
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
         <CardDescription>Choose a provider to sign in with</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <form
-          className="flex justify-between"
+          className="flex justify-between gap-2"
           onSubmit={(e) => e.preventDefault()}
         >
           <Button
             variant="outline"
             onClick={handleGoogleSignIn}
             disabled={isGoogleLoading}
+            className="w-1/2"
           >
             {isGoogleLoading ? (
               <Icon
@@ -61,12 +62,15 @@ const AuthForm = () => {
             ) : (
               <Icon className="mr-2 size-4" icon="logos:google-icon" />
             )}
-            {isGoogleLoading ? "Signing in..." : "Sign in with Google"}
+            <span className="text-xs sm:text-sm">
+              {isGoogleLoading ? "Signing in..." : "Sign in with Google"}
+            </span>
           </Button>
           <Button
             variant="outline"
             onClick={handleGithubSignIn}
             disabled={isGithubLoading}
+            className="w-1/2"
           >
             {isGithubLoading ? (
               <Icon
@@ -76,7 +80,9 @@ const AuthForm = () => {
             ) : (
               <Icon className="mr-2 size-4" icon="logos:github-icon" />
             )}
-            {isGithubLoading ? "Signing in..." : "Sign in with Github"}
+            <span className="text-xs sm:text-sm">
+              {isGithubLoading ? "Signing in..." : "Sign in with Github"}
+            </span>
           </Button>
         </form>
       </CardContent>
