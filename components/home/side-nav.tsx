@@ -116,7 +116,7 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="bg-primary-200 fixed top-[6.5rem] z-10 h-full w-60 sm:relative sm:top-0 sm:w-full sm:rounded-tr-md"
+      className="bg-primary-200 fixed top-[5rem] z-10 h-full w-60 sm:relative sm:top-0 sm:w-full sm:rounded-tr-md"
     >
       <nav className="relative z-10 h-full">
         <ul className="space-y-2 p-4">
