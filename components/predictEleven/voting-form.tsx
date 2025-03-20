@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/browser";
 import CustomButton from "../ui/custom-button";
 import { toast } from "sonner";
@@ -29,13 +29,33 @@ const VotingForm = ({
   userId,
   players,
   matchId,
+  userVotes,
 }: {
   userId: string;
   players: Player[];
   matchId: string;
+  userVotes: {
+    player_id: string;
+    position_number: number;
+  }[];
 }) => {
   const supabase = createClient();
-  const [selectedPlayers, setSelectedPlayers] = useState({});
+  const [selectedPlayers, setSelectedPlayers] = useState<{
+    [key: number]: Player;
+  }>({});
+
+  useEffect(() => {
+    if (userVotes.length > 0) {
+      const initialSelection: { [key: number]: Player } = {};
+      userVotes.forEach((vote) => {
+        const player = players.find((p) => p.id === vote.player_id);
+        if (player) {
+          initialSelection[vote.position_number] = player;
+        }
+      });
+      setSelectedPlayers(initialSelection);
+    }
+  }, [userVotes, players]);
 
   // Handle player selection for each position
   const handlePlayerSelection = (positionNumber: number, playerId: string) => {
@@ -52,7 +72,6 @@ const VotingForm = ({
     }));
   };
 
-  // Submit the vote to Supabase
   const submitVote = async () => {
     if (Object.keys(selectedPlayers).length !== 11) {
       toast.warning("Please select 11 players.");
@@ -131,6 +150,7 @@ const VotingForm = ({
                 onChange={(e) =>
                   handlePlayerSelection(positionNumber, e.target.value)
                 }
+                value={selectedPlayers[positionNumber]?.id || ""}
               >
                 <option value="">Select Player</option>
                 {filteredPlayers.map((player) => (

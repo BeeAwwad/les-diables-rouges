@@ -7,6 +7,7 @@ import Header from "@/components/home/header";
 import SideNav from "@/components/home/side-nav";
 import { NavProvider } from "@/components/home/nav-context";
 import { Toaster } from "sonner";
+import NavOverlay from "@/components/home/nav-overlay";
 
 export const metadata: Metadata = {
   title: "Les diables rouges",
@@ -36,7 +37,8 @@ export default function RootLayout({
             <Toaster richColors />
             <Overlay />
             <Header />
-            <main className="sm:grid-cols-base-sm md:grid-cols-base-md grid grid-cols-1 gap-7 overflow-y-hidden sm:h-[calc(80vh-3.5rem)]">
+            <NavOverlay />
+            <main className="sm:grid-cols-base-sm md:grid-cols-base-md mt-24 grid grid-cols-1 gap-7 sm:h-[calc(80vh-2.25rem)] md:mt-0">
               <SideNav />
               {children}
             </main>

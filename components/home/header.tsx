@@ -3,12 +3,28 @@
 import { abrilFatface } from "@/fonts/fonts";
 import { useNav } from "./nav-context";
 import { Slant as Hamburger } from "hamburger-react";
+import { useEffect } from "react";
 
 const Header = () => {
   const { opened, setOpened } = useNav();
 
+  useEffect(() => {
+    if (opened) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
+  }, [opened]);
+
   return (
-    <header className="bg-primary sticky top-0 z-50 mb-14 flex w-full items-center justify-between sm:justify-center md:relative xl:h-[20vh]">
+    <header className="bg-primary fixed top-0 left-0 z-50 flex w-full items-center justify-between sm:justify-center md:relative md:mb-9 xl:h-[20vh]">
       <div
         className={`flex sm:flex ${abrilFatface.className} text-primary-100 w-fit gap-0.5 px-9 py-6 text-2xl font-bold antialiased sm:w-full sm:justify-between sm:text-6xl md:gap-2 md:py-7 md:text-7xl lg:py-9 lg:text-8xl xl:text-9xl`}
       >

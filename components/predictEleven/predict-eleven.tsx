@@ -34,6 +34,17 @@ const PredictEleven = async () => {
     return null;
   }
 
+  const { data: votes, error: votesError } = await supabase
+    .from("votes")
+    .select("player_id, position_number")
+    .eq("match_id", match.id)
+    .eq("user_id", session.data.user.id);
+
+  if (votesError) {
+    console.error("Error fetching votes:", votesError.message);
+    toast.info("This is your first vote of this fixture.");
+  }
+
   const {
     data: {
       user: { user_metadata, id },
@@ -66,7 +77,12 @@ const PredictEleven = async () => {
         </form>
       </div>
 
-      <VotingForm userId={id} players={players || []} matchId={match?.id} />
+      <VotingForm
+        userId={id}
+        players={players || []}
+        matchId={match?.id}
+        userVotes={votes || []}
+      />
     </div>
   );
 };
