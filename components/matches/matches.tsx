@@ -78,10 +78,10 @@ const Matches = () => {
   };
 
   return (
-    <div className="overflow-y-scroll scrollbar-thin">
+    <div className="scrollbar-thin overflow-y-scroll">
       <div>
         <h2
-          className={`mb-4 text-5xl font-semibold text-primary-300 ${abrilFatface.className}`}
+          className={`text-primary-300 mb-4 text-3xl font-semibold md:text-5xl ${abrilFatface.className}`}
         >
           {showFinished ? "Results" : "Fixtures"}
         </h2>

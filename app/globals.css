@@ -6,8 +6,8 @@
 @theme {
   --color-primary-100: #eef2f3;
   --color-primary-200: #fc745f;
-  --color-primary-300: #f2303c;
-  --color-primary: #8b0105;
+  --color-primary-300: #c72736;
+  --color-primary: #7b131f;
 
   --grid-template-columns-base-sm: 10% 1fr;
   --grid-template-columns-base-md: 15% 1fr;
@@ -54,7 +54,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #f2303c;
+  background: #c72736;
   /* border-radius: 5px; */
 }
 

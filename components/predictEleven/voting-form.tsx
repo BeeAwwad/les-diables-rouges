@@ -4,6 +4,8 @@ import { useState } from "react";
 import { createClient } from "@/utils/supabase/browser";
 import CustomButton from "../ui/custom-button";
 import { toast } from "sonner";
+import { abrilFatface } from "@/fonts/fonts";
+import FormationDisplay from "./formation-display";
 
 type Player = {
   id: string;
@@ -34,13 +36,19 @@ const VotingForm = ({
 }) => {
   const supabase = createClient();
   const [selectedPlayers, setSelectedPlayers] = useState({});
-  console.log("🚀 ~ selectedPlayers:", selectedPlayers);
 
   // Handle player selection for each position
   const handlePlayerSelection = (positionNumber: number, playerId: string) => {
+    const player = players.find((player) => player.id === playerId);
+
+    if (!player) {
+      toast.error("Player not found.");
+      return;
+    }
+
     setSelectedPlayers((prev) => ({
       ...prev,
-      [positionNumber]: playerId,
+      [positionNumber]: player,
     }));
   };
 
@@ -52,20 +60,22 @@ const VotingForm = ({
     }
 
     const votes = Object.entries(selectedPlayers).map(
-      ([positionNumber, playerId]) => ({
+      ([positionNumber, player]) => ({
         user_id: userId,
         match_id: matchId,
-        player_id: playerId,
+        player_id: (player as Player).id,
         position_number: Number(positionNumber),
         position: getPositionName(Number(positionNumber)),
       }),
     );
 
-    const { error } = await supabase.from("votes").upsert(votes);
+    const { error } = await supabase.from("votes").upsert(votes, {
+      onConflict: "user_id, match_id, position, position_number",
+    });
 
     if (error) {
       console.error("Error submitting vote:", error.message);
-      toast.error("Error submitting vote. Please try again.");
+      toast.error(`Error submitting vote, ${error.message}`);
     } else {
       toast.success("Vote submitted successfully!");
     }
@@ -99,8 +109,14 @@ const VotingForm = ({
   };
 
   return (
-    <div className="mx-auto my-4 flex max-w-2xl flex-col items-center justify-center gap-4 rounded border p-2 xl:max-w-4xl 2xl:max-w-6xl">
-      <h2 className="text-lg font-bold">Vote for Your Starting XI</h2>
+    <div className="xl:gap-10rounded mx-auto my-4 flex max-w-2xl flex-col items-center justify-center gap-5 p-2 md:gap-7 xl:max-w-4xl 2xl:max-w-6xl">
+      <h2
+        className={`${abrilFatface.className} text-primary-300 text-center text-3xl font-bold md:text-5xl`}
+      >
+        Vote for Your Starting XI
+      </h2>
+
+      <FormationDisplay selectedPlayers={selectedPlayers} />
 
       <div className="grid w-full grid-cols-2 gap-4">
         {[...Array(11).keys()].map((pos) => {

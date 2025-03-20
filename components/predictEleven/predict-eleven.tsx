@@ -2,8 +2,9 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { signOut } from "@/utils/actions";
-import VotingForm from "./votingForm";
+import VotingForm from "./voting-form";
 import CustomButton from "../ui/custom-button";
+import { toast } from "sonner";
 
 const PredictEleven = async () => {
   const supabase = await createClient();
@@ -18,6 +19,7 @@ const PredictEleven = async () => {
     .select("*");
   if (playersError) {
     console.error("Error fetching players:", playersError.message);
+    toast.error("Error fetching players.");
     return null;
   }
 
@@ -28,10 +30,9 @@ const PredictEleven = async () => {
 
   if (matchError) {
     console.error("Error fetching match:", matchError.message);
+    toast.error("Error fetching match.");
     return null;
   }
-
-  console.log("🚀 ~ PredictEleven ~ match.id:", typeof match?.id);
 
   const {
     data: {
@@ -46,7 +47,7 @@ const PredictEleven = async () => {
   return (
     <div className="no-scrollbar space-y-4 overflow-y-scroll px-2">
       <div className="flex items-center justify-between xl:px-4">
-        <div className="hover:border-opacity-35 flex cursor-pointer items-center gap-2 rounded-md border border-neutral-400 px-3 py-2 text-xs xl:text-base">
+        <div className="hover:border-opacity-35 flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-xs xl:text-base">
           {" "}
           {avatar_url && (
             <Image

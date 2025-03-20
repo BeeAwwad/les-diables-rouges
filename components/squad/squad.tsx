@@ -59,9 +59,9 @@ const Squad = () => {
     (player: Player) => player.player_type === "Goalkeepers",
   );
   return (
-    <div className="flex flex-col gap-10 overflow-y-scroll scrollbar-thin">
+    <div className="scrollbar-thin flex flex-col gap-10 overflow-y-scroll">
       <h2
-        className={`text-5xl font-semibold text-primary-300 ${abrilFatface.className} `}
+        className={`text-primary-300 text-3xl font-semibold md:text-5xl ${abrilFatface.className} `}
       >
         Squad
       </h2>

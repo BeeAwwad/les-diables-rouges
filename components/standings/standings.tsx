@@ -39,9 +39,9 @@ export const Standings = () => {
   const plTable = data.getPlStandings;
 
   return (
-    <div className="overflow-y-scroll scrollbar-thin">
+    <div className="scrollbar-thin overflow-y-scroll">
       <h2
-        className={`mb-4 text-5xl font-semibold text-primary-300 ${abrilFatface.className}`}
+        className={`text-primary-300 mb-4 text-3xl font-semibold md:text-5xl ${abrilFatface.className}`}
       >
         Standings
       </h2>
@@ -64,12 +64,12 @@ export const Standings = () => {
               className={clsx(
                 "from-[#2bc0ff] via-[#32b8ff] to-[#8c48ff] transition-all duration-75 ease-linear hover:scale-105 hover:bg-linear-to-r hover:text-white",
                 {
-                  "bg-linear-to-r from-primary-200 via-primary-300 to-primary text-white":
-                    club.team.id === "66",
-                },
-                {
                   "bg-white": index % 2 === 0,
                   "bg-primary-100": index % 2 !== 0,
+                },
+                {
+                  "from-primary-200 via-primary-300 to-primary bg-linear-to-r text-white":
+                    club.team.id === "66",
                 },
               )}
               key={index}

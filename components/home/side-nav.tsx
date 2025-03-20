@@ -123,7 +123,7 @@ const SideNav = () => {
           {navLinks.map((link, index) => (
             <li
               key={index}
-              className="hover:bg-primary-300 cursor-pointer rounded-lg p-2 transition-colors"
+              className="hover:bg-primary-300 cursor-pointer rounded-lg p-2 transition-all hover:-translate-y-[1px] active:translate-y-[2px] active:brightness-90"
             >
               <Link
                 className="flex items-center sm:justify-center lg:justify-start"

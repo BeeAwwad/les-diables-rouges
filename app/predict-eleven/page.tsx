@@ -1,4 +1,4 @@
-import PredictEleven from "@/components/predictEleven/predictEleven";
+import PredictEleven from "@/components/predictEleven/predict-eleven";
 
 const PredictElevenPage = () => {
   return <PredictEleven />;
