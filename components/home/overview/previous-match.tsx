@@ -82,8 +82,6 @@ const PreviousMatch = () => {
   const { teams, goals, statisticsSummary, events, crests } =
     data.getPreviousFixture;
 
-  console.log("events.detail: ", events[0].detail);
-
   const filteredEvents = events.filter(
     (event: FixtureEvent) => event.type === "Card" || event.type === "Goal",
   );

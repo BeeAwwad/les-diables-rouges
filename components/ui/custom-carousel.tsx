@@ -30,7 +30,7 @@ export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export type RatingProps = {
   name: string;
-  number: number;
+  number: string;
 };
 
 export const PlayerSlide = ({ name, number }: RatingProps) => {

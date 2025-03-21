@@ -132,7 +132,7 @@ const VotingForm = ({
       <h2
         className={`${abrilFatface.className} text-primary-300 text-center text-3xl font-bold md:text-5xl`}
       >
-        Vote for Your Starting XI
+        Vote Your Starting XI
       </h2>
 
       <FormationDisplay selectedPlayers={selectedPlayers} />

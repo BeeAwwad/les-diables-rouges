@@ -42,7 +42,6 @@ const NextMatch = () => {
   const { competition, homeTeam, awayTeam, utcDate } = data.getNextFixture;
 
   const date = new Date(utcDate);
-  console.log(utcDate);
 
   const formattedDay = date.toLocaleString("en-US", {
     year: "numeric",
@@ -56,13 +55,13 @@ const NextMatch = () => {
     hour12: false,
   });
   return (
-    <div className="item-one rounded-lg bg-white p-3 shadow-xs">
-      <div className="flex justify-between p-4 text-lg">
+    <div className="item-one flex w-full flex-col justify-center rounded-lg bg-white p-3 shadow-xs">
+      <div className="flex items-center justify-between p-4 text-sm md:text-base">
         <h2 className="w-fit">Upcoming Match</h2>
         <span className="flex w-fit space-x-3 text-center">{formattedDay}</span>
         <span className="w-fit text-right">{competition.name}</span>
       </div>
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
         <span className="flex flex-col items-center gap-4 md:flex-row">
           <span>
             <Image
@@ -73,17 +72,13 @@ const NextMatch = () => {
               alt={`${homeTeam.shortName} crest`}
             />
           </span>
-          <span>
-            <p>{homeTeam.shortName}</p>
-          </span>
+          <p className="lg:text-lg">{homeTeam.shortName}</p>
         </span>
-        <time>
+        <time className="text-sm md:text-base">
           <p>{formattedHour}</p>
         </time>
         <span className="flex flex-col items-center gap-4 md:flex-row">
-          <span className="order-2 md:order-1">
-            <p>{awayTeam.shortName}</p>
-          </span>
+          <p className="order-2 md:order-1 lg:text-lg">{awayTeam.shortName}</p>
           <span className="order-1 md:order-2">
             <Image
               className="size-28 sm:size-32 md:size-28 lg:size-24 xl:size-28 2xl:size-40"

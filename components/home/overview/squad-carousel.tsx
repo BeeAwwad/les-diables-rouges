@@ -18,7 +18,7 @@ const SQUAD_LIST = gql`
 
 type Player = {
   player_name: string;
-  player_number: number;
+  player_number: string;
 };
 
 export const SquadCarousel = () => {
@@ -39,19 +39,21 @@ export const SquadCarousel = () => {
 
   const { players } = data.getTeam;
 
-  const PlayersInComponent = players.map((player: Player, index: number) => {
-    return (
-      <PlayerSlide
-        key={index}
-        name={
-          player.player_name.includes(" ")
-            ? player.player_name.split(" ").slice(1).join(" ")
-            : player.player_name
-        }
-        number={player.player_number}
-      />
-    );
-  });
+  const PlayersInComponent = players
+    .filter((player: Player) => player.player_number?.trim() !== "")
+    .map((player: Player, index: number) => {
+      return (
+        <PlayerSlide
+          key={index}
+          name={
+            player.player_name.includes(" ")
+              ? player.player_name.split(" ").slice(1).join(" ")
+              : player.player_name
+          }
+          number={player.player_number}
+        />
+      );
+    });
 
   return (
     <div className="item-two no-scrollbar flex items-center justify-center rounded-lg bg-white shadow-xs">

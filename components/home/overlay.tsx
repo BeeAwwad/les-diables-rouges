@@ -13,9 +13,11 @@ const Overlay = () => {
 
     // Disable scrolling
     const disableScroll = () => {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     };
     const enableScroll = () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
 
@@ -65,7 +67,7 @@ const Overlay = () => {
   }, []);
 
   return (
-    <div className="z-[100]" ref={overlayRef}>
+    <div className="z-[999]" ref={overlayRef}>
       <div
         id="counterId"
         className="counter fixed flex h-full w-full items-end justify-end text-white"
@@ -73,8 +75,8 @@ const Overlay = () => {
         <span>{counter}</span>
       </div>
 
-      <div id="overlayId" className="overlay z-50">
-        <div className="bar bg-primary-200 z-50 h-[105vh] w-full"></div>
+      <div id="overlayId" className="overlay z-[999]">
+        <div className="bar bg-primary-200 z-[999] h-[105vh] w-full"></div>
       </div>
     </div>
   );

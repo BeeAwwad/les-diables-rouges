@@ -32,10 +32,10 @@ export default function RootLayout({
       <body
         className={`${poppins.className} bg-primary-100 selection:bg-primary-300 selection:text-primary-100 h-full antialiased`}
       >
+        {/* <Overlay /> */}
         <ApolloWrapper>
           <NavProvider>
             <Toaster richColors />
-            <Overlay />
             <Header />
             <NavOverlay />
             <main className="sm:grid-cols-base-sm md:grid-cols-base-md mt-24 grid grid-cols-1 gap-7 sm:h-[calc(80vh-2.25rem)] md:mt-0">
