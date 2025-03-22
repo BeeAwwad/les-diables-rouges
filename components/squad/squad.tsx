@@ -28,6 +28,7 @@ const SQUAD_LIST = gql`
         player_interceptions
         player_passes_accuracy
         player_goals_conceded
+        player_blocks
       }
     }
   }
@@ -43,23 +44,23 @@ const Squad = () => {
 
   const { players } = data.getTeam;
 
-  const Forwards = players.filter(
-    (player: Player) => player.player_type === "Forwards",
-  );
+  const Forwards = players
+    .filter((player: Player) => player.player_number?.trim() !== "")
+    .filter((player: Player) => player.player_type === "Forwards");
 
-  const Midfielders = players.filter(
-    (player: Player) => player.player_type === "Midfielders",
-  );
+  const Midfielders = players
+    .filter((player: Player) => player.player_number?.trim() !== "")
+    .filter((player: Player) => player.player_type === "Midfielders");
 
-  const Defenders = players.filter(
-    (player: Player) => player.player_type === "Defenders",
-  );
+  const Defenders = players
+    .filter((player: Player) => player.player_number?.trim() !== "")
+    .filter((player: Player) => player.player_type === "Defenders");
 
-  const Goalies = players.filter(
-    (player: Player) => player.player_type === "Goalkeepers",
-  );
+  const Goalies = players
+    .filter((player: Player) => player.player_number?.trim() !== "")
+    .filter((player: Player) => player.player_type === "Goalkeepers");
   return (
-    <div className="scrollbar-thin flex flex-col gap-10 overflow-y-scroll">
+    <div className="scrollbar-thin flex flex-col gap-10 overflow-y-scroll px-0.5 md:px-2.5">
       <h2
         className={`text-primary-300 text-3xl font-semibold md:text-5xl ${abrilFatface.className} `}
       >
@@ -67,54 +68,24 @@ const Squad = () => {
       </h2>
       <div>
         <Header
-          title="Goales"
+          title="Forwards"
           apps="Apps"
-          statOne="Saves"
-          statTwo="Saves in 18"
-          statThree="Goals conceded"
+          statOne="Key passes"
+          statTwo="Goals"
+          statThree="Assists"
         />
-        {Goalies.map((goalie: Player, index: number) => (
+        {Forwards.map((forward: Player, index: number) => (
           <div
-            className={clsx("mb-4 flex items-center justify-between", {
-              "bg-white": index % 2 === 0,
-              "bg-primary-100": index % 2 !== 0,
-            })}
+            className={"mb-4 flex items-center justify-between bg-gray-50"}
             key={index}
           >
-            <Goalkeeper
-              number={goalie.player_number}
-              name={goalie.player_name}
-              matchesPlayed={goalie.player_match_played}
-              saves={goalie.player_saves}
-              savesInsideBox={goalie.player_inside_box_saves}
-              goalsConceded={goalie.player_goals_conceded}
-            />
-          </div>
-        ))}
-      </div>
-      <div>
-        <Header
-          title="Defenders"
-          apps="Apps"
-          statOne="Tackles"
-          statTwo="Interceptions"
-          statThree="Goals conceded"
-        />
-        {Defenders.map((defender: Player, index: number) => (
-          <div
-            className={clsx("mb-4 flex items-center justify-between", {
-              "bg-white": index % 2 === 0,
-              "bg-primary-100": index % 2 !== 0,
-            })}
-            key={index}
-          >
-            <Defender
-              number={defender.player_number}
-              name={defender.player_name}
-              matchesPlayed={defender.player_match_played}
-              tackles={defender.player_tackles}
-              interceptions={defender.player_interceptions}
-              goalsConceded={defender.player_goals_conceded}
+            <Forward
+              number={forward.player_number}
+              name={forward.player_name}
+              matchesPlayed={forward.player_match_played}
+              keyPasses={forward.player_key_passes}
+              goals={forward.player_goals}
+              assists={forward.player_assists}
             />
           </div>
         ))}
@@ -129,10 +100,7 @@ const Squad = () => {
         />
         {Midfielders.map((midfielder: Player, index: number) => (
           <div
-            className={clsx("mb-4 flex items-center justify-between", {
-              "bg-white": index % 2 === 0,
-              "bg-primary-100": index % 2 !== 0,
-            })}
+            className={"mb-4 flex items-center justify-between bg-gray-50"}
             key={index}
           >
             <Midfielder
@@ -148,27 +116,50 @@ const Squad = () => {
       </div>
       <div>
         <Header
-          title="Forwards"
+          title="Defenders"
           apps="Apps"
-          statOne="Key passes"
-          statTwo="Goals"
-          statThree="Assists"
+          statOne="Tackles"
+          statTwo="Interceptions"
+          statThree="Blocks"
         />
-        {Forwards.map((forward: Player, index: number) => (
+        {Defenders.map((defender: Player, index: number) => (
           <div
-            className={clsx("mb-4 flex items-center justify-between", {
-              "bg-white": index % 2 === 0,
-              "bg-primary-100": index % 2 !== 0,
-            })}
+            className={clsx(
+              "mb-4 flex items-center justify-between bg-gray-50",
+            )}
             key={index}
           >
-            <Forward
-              number={forward.player_number}
-              name={forward.player_name}
-              matchesPlayed={forward.player_match_played}
-              keyPasses={forward.player_key_passes}
-              goals={forward.player_goals}
-              assists={forward.player_assists}
+            <Defender
+              number={defender.player_number}
+              name={defender.player_name}
+              matchesPlayed={defender.player_match_played}
+              tackles={defender.player_tackles}
+              interceptions={defender.player_interceptions}
+              blocks={defender.player_blocks}
+            />
+          </div>
+        ))}
+      </div>
+      <div>
+        <Header
+          title="Goales"
+          apps="Apps"
+          statOne="Saves"
+          statTwo="Saves in 18"
+          statThree="G/C"
+        />
+        {Goalies.map((goalie: Player, index: number) => (
+          <div
+            className={"mb-4 flex items-center justify-between bg-gray-50"}
+            key={index}
+          >
+            <Goalkeeper
+              number={goalie.player_number}
+              name={goalie.player_name}
+              matchesPlayed={goalie.player_match_played}
+              saves={goalie.player_saves}
+              savesInsideBox={goalie.player_inside_box_saves}
+              goalsConceded={goalie.player_goals_conceded}
             />
           </div>
         ))}

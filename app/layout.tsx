@@ -38,7 +38,7 @@ export default function RootLayout({
             <Toaster richColors />
             <Header />
             <NavOverlay />
-            <main className="sm:grid-cols-base-sm md:grid-cols-base-md mt-24 grid grid-cols-1 gap-7 sm:h-[calc(80vh-2.25rem)] md:mt-0">
+            <main className="sm:grid-cols-base-sm md:grid-cols-base-md mt-24 grid grid-cols-1 gap-7 sm:mt-0 sm:h-[calc(80vh-2.25rem)]">
               <SideNav />
               {children}
             </main>

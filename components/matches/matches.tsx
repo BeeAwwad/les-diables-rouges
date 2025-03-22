@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Fixture } from "@/app/api/graphql/types";
 import clsx from "clsx";
 import { abrilFatface } from "@/fonts/fonts";
+import CustomButton from "../ui/custom-button";
 
 const ALL_MATCHES = gql`
   query Query($id: ID!) {
@@ -51,11 +52,17 @@ const Matches = () => {
   const { matches } = data.getFixtures;
 
   // Filter fixtures based on the selected type
-  const filteredFixtures = matches.filter((fixture: Fixture) =>
-    showFinished
-      ? fixture.status === "FINISHED"
-      : fixture.status !== "FINISHED",
-  );
+  const filteredFixtures = matches
+    .filter((fixture: Fixture) =>
+      showFinished
+        ? fixture.status === "FINISHED"
+        : fixture.status !== "FINISHED",
+    )
+    .sort((a: Fixture, b: Fixture) =>
+      showFinished
+        ? new Date(b.utcDate).getTime() - new Date(a.utcDate).getTime()
+        : new Date(a.utcDate).getTime() - new Date(b.utcDate).getTime(),
+    );
 
   // Calculate the number of pages
   const totalPages = Math.ceil(filteredFixtures.length / fixturesPerPage);
@@ -78,8 +85,8 @@ const Matches = () => {
   };
 
   return (
-    <div className="scrollbar-thin overflow-y-scroll">
-      <div>
+    <div className="no-scrollbar overflow-y-scroll">
+      <div className="pl-2 sm:pl-0">
         <h2
           className={`text-primary-300 mb-4 text-3xl font-semibold md:text-5xl ${abrilFatface.className}`}
         >
@@ -87,24 +94,24 @@ const Matches = () => {
         </h2>
         <ul className="flex gap-4">
           <li>
-            <Button
+            <CustomButton
               onClick={() => {
                 setShowFished(false);
                 setCurrentPage(1);
               }}
             >
               Matches
-            </Button>
+            </CustomButton>
           </li>
           <li>
-            <Button
+            <CustomButton
               onClick={() => {
                 setShowFished(true);
                 setCurrentPage(1);
               }}
             >
               Results
-            </Button>
+            </CustomButton>
           </li>
         </ul>
       </div>
@@ -113,14 +120,25 @@ const Matches = () => {
           {paginatedFixtures.map((fixture: Fixture, index: number) => (
             <li
               key={index}
-              className={clsx("flex justify-between p-4", {
+              className={clsx("min-w-full p-4", {
                 "bg-white": index % 2 === 0,
                 "bg-primary-100": index % 2 !== 0,
               })}
             >
-              <span className="text-sm md:text-base">
-                <span>{fixture.homeTeam.shortName}</span>
-                <span>
+              <span className="mx-auto grid w-fit grid-cols-[minmax(0,105px)_minmax(0,95px)_minmax(0,105px)] grid-rows-[minmax(0,1fr)_30px] gap-4 text-xs sm:grid-cols-[minmax(0,135px)_minmax(0,95px)_minmax(0,135px)] lg:grid-cols-[minmax(0,155px)_minmax(0,105px)_minmax(0,155px)] lg:text-sm">
+                <span className="text-gray-600">
+                  {new Date(fixture.utcDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                  })}
+                </span>
+                <span className="text-center text-gray-600">
+                  {fixture.competition.name}
+                </span>
+                <span className="row-start-2 text-right font-medium uppercase sm:text-base lg:text-lg">
+                  {fixture.homeTeam.shortName}
+                </span>
+                <span className="col-start-2 row-start-2 text-center font-medium sm:text-base">
                   {fixture.status === "FINISHED" ? (
                     <span>
                       {" "}
@@ -128,14 +146,18 @@ const Matches = () => {
                       {fixture.score.fullTime.away}{" "}
                     </span>
                   ) : (
-                    " V "
+                    <span>
+                      {" "}
+                      {new Date(fixture.utcDate).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}{" "}
+                    </span>
                   )}
                 </span>
-                <span>{fixture.awayTeam.shortName}</span>
-              </span>
-              <span className="text-sm md:text-base">
-                {" "}
-                {fixture.competition.name}
+                <span className="row-start-2 text-left font-medium uppercase sm:text-base lg:text-lg">
+                  {fixture.awayTeam.shortName}
+                </span>
               </span>
             </li>
           ))}

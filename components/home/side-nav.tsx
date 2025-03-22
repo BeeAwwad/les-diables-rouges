@@ -50,7 +50,7 @@ const navLinks: navType[] = [
     ),
   },
   {
-    name: "Predict 11",
+    name: "Predict XI",
     href: "/predict-eleven",
     icon: (
       <Icon
@@ -131,7 +131,7 @@ const SideNav = () => {
                 onClick={() => setOpened(false)}
               >
                 {link.icon}
-                <span className="px-2 py-1 text-white sm:hidden lg:block">
+                <span className="px-2 py-1 text-white sm:hidden lg:block lg:text-[0.85rem] xl:text-base">
                   {link.name}
                 </span>
               </Link>

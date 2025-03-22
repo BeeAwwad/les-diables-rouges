@@ -34,7 +34,7 @@ const FormationDisplay = ({
   const formation = formations["3-4-2-1"];
 
   return (
-    <div className="relative mx-auto mb-4 w-full max-w-md rounded-lg bg-green-700 p-4 text-white">
+    <div className="relative mx-auto mb-4 w-full max-w-md rounded-md bg-green-700 p-4 text-white">
       <h3 className="text-center text-lg font-bold">Your Prediction</h3>
       <div className="relative w-full rounded-lg bg-green-600 pt-[150%]">
         {/* Football pitch lines */}

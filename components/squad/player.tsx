@@ -13,7 +13,7 @@ type Goalie = Player & {
 type Defender = Player & {
   tackles: string | undefined;
   interceptions: string | undefined;
-  goalsConceded: string | undefined;
+  blocks: string | undefined;
 };
 
 type Midfielder = Player & {
@@ -42,22 +42,22 @@ const PlayerStats = ({
 }: PlayerStatsProps) => {
   return (
     <>
-      <span className="flex items-center gap-4">
-        <span className="bg-primary-300 flex size-12 items-center justify-center text-white">
+      <span className="flex items-center gap-2.5 text-xs md:gap-4 md:text-sm lg:text-base">
+        <span className="bg-primary-300 flex size-10 items-center justify-center text-white sm:size-12">
           {number}
         </span>
         <span>
           {name.includes(" ") ? name.split(" ").slice(1).join(" ") : name}
         </span>
       </span>
-      <span className="flex gap-5">
-        <span className="flex size-10 items-center justify-center bg-green-300">
+      <span className="flex gap-5 text-xs md:text-sm lg:gap-7">
+        <span className="flex size-10 items-center justify-center bg-green-300 sm:size-12">
           {matchesPlayed === "" ? "0" : matchesPlayed}
         </span>
         {stats.map((stat, index) => (
           <span
             key={index}
-            className="flex size-10 items-center justify-center bg-green-300"
+            className="flex size-10 items-center justify-center bg-green-300 sm:size-12"
           >
             {stat === "" || stat === undefined ? "0" : stat}
           </span>
@@ -70,9 +70,9 @@ const PlayerStats = ({
 export const Header = (props: { [key: string]: string }) => {
   const { title, apps, statOne, statTwo, statThree } = props;
   return (
-    <div className="mb-4 flex justify-between">
-      <h3 className="text-lg font-semibold xl:text-2xl">{title}</h3>
-      <span className="flex gap-2 lg:text-xl">
+    <div className="mb-4 flex justify-between px-1">
+      <h3 className="font-medium lg:text-lg xl:text-2xl">{title}</h3>
+      <span className="flex gap-5 text-xs font-medium lg:gap-4 lg:text-sm xl:text-base">
         <span className="flex items-center justify-center">{apps}</span>
         <span className="flex items-center justify-center">{statOne}</span>
         <span className="flex items-center justify-center">{statTwo}</span>
@@ -95,7 +95,7 @@ export const Goalkeeper = (props: Goalie) => {
 };
 
 export const Defender = (props: Defender) => {
-  const stats = [props.tackles, props.interceptions, props.goalsConceded];
+  const stats = [props.tackles, props.interceptions, props.blocks];
   return (
     <PlayerStats
       number={props.number}

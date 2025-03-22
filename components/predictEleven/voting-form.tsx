@@ -163,7 +163,7 @@ const VotingForm = ({
           );
         })}
       </div>
-      <CustomButton onclick={submitVote}>Submit Vote</CustomButton>
+      <CustomButton onClick={submitVote}>Submit Vote</CustomButton>
     </div>
   );
 };
