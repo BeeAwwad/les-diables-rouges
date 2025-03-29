@@ -85,7 +85,7 @@ const Matches = () => {
   };
 
   return (
-    <div className="no-scrollbar overflow-y-scroll">
+    <div className="overflow-y-scroll">
       <div className="pl-2 sm:pl-0">
         <h2
           className={`text-primary-300 mb-4 text-3xl font-semibold md:text-5xl ${abrilFatface.className}`}
@@ -125,7 +125,7 @@ const Matches = () => {
                 "bg-primary-100": index % 2 !== 0,
               })}
             >
-              <span className="mx-auto grid w-fit grid-cols-[minmax(0,105px)_minmax(0,95px)_minmax(0,105px)] grid-rows-[minmax(0,1fr)_30px] gap-4 text-xs sm:grid-cols-[minmax(0,135px)_minmax(0,95px)_minmax(0,135px)] lg:grid-cols-[minmax(0,155px)_minmax(0,105px)_minmax(0,155px)] lg:text-sm">
+              <span className="mx-auto grid w-fit grid-cols-[minmax(0,105px)_minmax(0,95px)_minmax(0,105px)] grid-rows-[minmax(0,1fr)_30px] gap-4 text-xs sm:grid-cols-[minmax(0,135px)_minmax(0,95px)_minmax(0,135px)] lg:grid-cols-[minmax(0,155px)_minmax(0,115px)_minmax(0,155px)] lg:text-sm">
                 <span className="text-gray-600">
                   {new Date(fixture.utcDate).toLocaleDateString("en-GB", {
                     day: "2-digit",

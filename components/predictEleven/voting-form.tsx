@@ -15,6 +15,14 @@ type Player = {
   created_at: string;
 };
 
+type Vote = {
+  user_id: string;
+  match_id: string;
+  player_id: string;
+  position_number: number;
+  position: string;
+};
+
 const positionMapping = {
   GK: ["Goalkeeper"],
   CB: ["Defender"],
@@ -30,6 +38,7 @@ const VotingForm = ({
   players,
   matchId,
   userVotes,
+  isGuest,
 }: {
   userId: string;
   players: Player[];
@@ -38,8 +47,9 @@ const VotingForm = ({
     player_id: string;
     position_number: number;
   }[];
+  isGuest: boolean;
 }) => {
-  const supabase = createClient();
+  // const supabase = createClient();
   const [selectedPlayers, setSelectedPlayers] = useState<{
     [key: number]: Player;
   }>({});
@@ -57,6 +67,20 @@ const VotingForm = ({
     }
   }, [userVotes, players]);
 
+  const submitVoteAction = async (votes: Vote[]) => {
+    const supabase = await createClient();
+    const { error } = await supabase.from("votes").upsert(votes, {
+      onConflict: "user_id, match_id, position, position_number, player_id",
+    });
+
+    if (error) {
+      console.error("Error submitting vote:", error.message);
+      return { success: false, error: error.message };
+    } else {
+      return { success: true };
+    }
+  };
+
   // Handle player selection for each position
   const handlePlayerSelection = (positionNumber: number, playerId: string) => {
     const player = players.find((player) => player.id === playerId);
@@ -73,8 +97,14 @@ const VotingForm = ({
   };
 
   const submitVote = async () => {
+    console.log(selectedPlayers);
     if (Object.keys(selectedPlayers).length !== 11) {
       toast.warning("Please select 11 players.");
+      return;
+    }
+
+    if (!userId) {
+      toast.info("Please sign in to submit your vote.");
       return;
     }
 
@@ -88,15 +118,12 @@ const VotingForm = ({
       }),
     );
 
-    const { error } = await supabase.from("votes").upsert(votes, {
-      onConflict: "user_id, match_id, position, position_number",
-    });
+    const result = await submitVoteAction(votes);
 
-    if (error) {
-      console.error("Error submitting vote:", error.message);
-      toast.error(`Error submitting vote, ${error.message}`);
-    } else {
+    if (result.success) {
       toast.success("Vote submitted successfully!");
+    } else {
+      toast.error(`Error submitting vote, ${result.error}`);
     }
   };
 
@@ -163,7 +190,11 @@ const VotingForm = ({
           );
         })}
       </div>
-      <CustomButton onClick={submitVote}>Submit Vote</CustomButton>
+      {!isGuest && (
+        <CustomButton onClick={async () => await submitVote()}>
+          Submit Vote
+        </CustomButton>
+      )}
     </div>
   );
 };

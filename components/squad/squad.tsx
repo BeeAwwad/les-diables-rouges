@@ -37,6 +37,7 @@ const SQUAD_LIST = gql`
 const Squad = () => {
   const { loading, error, data } = useQuery(SQUAD_LIST, {
     variables: { id: "102" },
+    fetchPolicy: "cache-and-network",
   });
 
   if (loading) return <p>Loading...</p>;
@@ -44,21 +45,18 @@ const Squad = () => {
 
   const { players } = data.getTeam;
 
-  const Forwards = players
-    .filter((player: Player) => player.player_number?.trim() !== "")
-    .filter((player: Player) => player.player_type === "Forwards");
+  const filteredPlayers = players.filter(
+    (player: Player) => player.player_number?.trim() !== "",
+  );
 
-  const Midfielders = players
-    .filter((player: Player) => player.player_number?.trim() !== "")
-    .filter((player: Player) => player.player_type === "Midfielders");
+  const categorizePlayers = (type: string) =>
+    filteredPlayers.filter((player: Player) => player.player_type === type);
 
-  const Defenders = players
-    .filter((player: Player) => player.player_number?.trim() !== "")
-    .filter((player: Player) => player.player_type === "Defenders");
+  const Forwards = categorizePlayers("Forwards");
+  const Midfielders = categorizePlayers("Midfielders");
+  const Defenders = categorizePlayers("Defenders");
+  const Goalies = categorizePlayers("Goalkeepers");
 
-  const Goalies = players
-    .filter((player: Player) => player.player_number?.trim() !== "")
-    .filter((player: Player) => player.player_type === "Goalkeepers");
   return (
     <div className="scrollbar-thin flex flex-col gap-10 overflow-y-scroll px-0.5 md:px-2.5">
       <h2

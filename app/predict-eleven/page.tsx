@@ -1,7 +1,7 @@
-import PredictEleven from "@/components/predictEleven/predict-eleven";
+import PredictXiWrapper from "@/components/predictEleven/predict-xi-wrapper";
 
 const PredictElevenPage = () => {
-  return <PredictEleven />;
+  return <PredictXiWrapper />;
 };
 
 export default PredictElevenPage;

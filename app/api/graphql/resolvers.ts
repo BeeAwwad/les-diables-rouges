@@ -7,6 +7,32 @@ import {
   Team,
 } from "@/app/api/graphql/types";
 import { v4 as uuidv4 } from "uuid";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: `${process.env.SITE_URL}/api/graphql`,
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          getFixtures: {
+            merge(existing = {}, incoming) {
+              return { ...existing, ...incoming };
+            },
+          },
+          getTeam: {
+            merge(existing = {}, incoming) {
+              return { ...existing, ...incoming };
+            },
+          },
+        },
+      },
+      Team: {
+        keyFields: ["team_key"],
+      },
+    },
+  }),
+});
 
 export const resolvers = {
   Query: {
@@ -14,8 +40,6 @@ export const resolvers = {
       _: unknown,
       { id }: { id: string },
     ): Promise<FixturesResponse> => {
-      const generatedId = uuidv4();
-
       const response = await axios.get(
         `https://api.football-data.org/v4/teams/${id}/matches`,
         {
@@ -26,7 +50,6 @@ export const resolvers = {
         },
       );
       return {
-        id: generatedId,
         ...response.data,
       };
     },
@@ -75,7 +98,6 @@ export const resolvers = {
     },
 
     getTeam: async (_: unknown, { id }: { id: string }): Promise<Team> => {
-      const generatedId = uuidv4();
       try {
         const response = await axios.get(
           `https://apiv3.apifootball.com/?action=get_teams&league_id=152&APIkey=${process.env.API_FOOTBALL_API_KEY}`,
@@ -96,8 +118,8 @@ export const resolvers = {
         }
 
         return {
-          id: generatedId,
           ...lesDablesRouges,
+          team_key: lesDablesRouges.team_key,
         };
       } catch (error) {
         throw new Error("Failed to get team");
@@ -280,3 +302,5 @@ export const resolvers = {
     },
   },
 };
+
+export default client;

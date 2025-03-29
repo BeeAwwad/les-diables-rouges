@@ -7,10 +7,22 @@ enum AuthProvider {
   GitHub = "github",
 }
 
+const signInAnonymously = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInAnonymously();
+  console.log("🚀 ~ signInAnonymously ~ data:", data);
+  if (error) {
+    console.error("Error signing in anonymously:", error.message);
+    throw new Error(error.message);
+  }
+
+  return data.user;
+};
+
 const signInWith = async (provider: AuthProvider) => {
   const supabase = await createClient();
-
-  const auth_callback_url = `${process.env.SITE_URL}/auth/callback?next=/predict-eleven`;
+  const auth_callback_url =
+    `${process.env.SITE_URL}/auth/callback?next=/predict-eleven`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
@@ -20,7 +32,7 @@ const signInWith = async (provider: AuthProvider) => {
   });
 
   if (error) {
-    console.log("🚀 ~ signInWith ~ error:", error);
+    console.error("🚀 ~ signInWith ~ error:", error);
     throw new Error(error.message);
   }
 
@@ -30,9 +42,11 @@ const signInWith = async (provider: AuthProvider) => {
 const signOut = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
+
+  redirect("/auth");
 };
 
 const signInWithGoogle = () => signInWith(AuthProvider.Google);
 const signInWithGitHub = () => signInWith(AuthProvider.GitHub);
 
-export { signInWithGoogle, signInWithGitHub, signOut };
+export { signInAnonymously, signInWithGitHub, signInWithGoogle, signOut };

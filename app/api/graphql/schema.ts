@@ -85,7 +85,6 @@ export const typeDefs = gql`
   }
 
   type FixturesResponse {
-    id: ID!
     filters: Filters!
     resultSet: ResultSet!
     matches: [Fixture!]
@@ -100,7 +99,7 @@ export const typeDefs = gql`
   }
 
   type PlTeam {
-    id: ID!
+ 
     name: String!
     shortName: String!
     tla: String!
@@ -176,7 +175,6 @@ export const typeDefs = gql`
   }
 
   type Team {
-    id: ID!
     team_key: String!
     team_name: String!
     team_country: String!

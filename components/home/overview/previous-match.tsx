@@ -88,9 +88,9 @@ const PreviousMatch = () => {
 
   return (
     <div className="item-five no-scrollbar space-y-2 overflow-y-scroll rounded-lg bg-white p-3 shadow-xs">
-      <div className="flex justify-between">
-        <h2 className="px-4 pt-4 text-lg">Last Match</h2>
-        <h2 className="px-4 pt-4 text-lg">EPL</h2>
+      <div className="flex justify-between text-xs text-gray-600 sm:text-sm">
+        <h2 className="px-4 pt-4">Last Match</h2>
+        <h2 className="px-4 pt-4">EPL</h2>
       </div>
       <div className="flex justify-between px-4">
         <div>

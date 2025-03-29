@@ -16,6 +16,28 @@ import { Card, CardContent } from "@/components/ui/card";
 const PlAYED_GAMES = gql`
   query Query($id: ID!) {
     getFixtures(id: $id) {
+      matches {
+        homeTeam {
+          shortName
+          crest
+        }
+        awayTeam {
+          shortName
+          crest
+        }
+        score {
+          fullTime {
+            home
+            away
+          }
+        }
+        status
+        utcDate
+        competition {
+          name
+          emblem
+        }
+      }
       resultSet {
         competitions
         wins

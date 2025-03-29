@@ -66,7 +66,6 @@ export type Fixture = {
 };
 
 export type FixturesResponse = {
-  id: number;
   filters: {
     competitions: string;
     permission: string;
@@ -171,7 +170,6 @@ export type Coach = {
 };
 
 export type Team = {
-  id: number;
   team_key: string;
   team_name: string;
   team_country: string;

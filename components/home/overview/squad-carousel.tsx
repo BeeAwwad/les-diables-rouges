@@ -8,9 +8,25 @@ const SQUAD_LIST = gql`
     getTeam(id: $id) {
       team_key
       players {
+        player_id
         player_name
+        player_complete_name
         player_number
         player_type
+        player_goals
+        player_assists
+        player_saves
+        player_inside_box_saves
+        player_injured
+        player_match_played
+        player_key_passes
+        player_shots_total
+        player_rating
+        player_tackles
+        player_interceptions
+        player_passes_accuracy
+        player_goals_conceded
+        player_blocks
       }
     }
   }
