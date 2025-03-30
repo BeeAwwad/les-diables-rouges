@@ -6,7 +6,6 @@ import {
   PlStandings,
   Team,
 } from "@/app/api/graphql/types";
-import { v4 as uuidv4 } from "uuid";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
@@ -44,7 +43,6 @@ export const resolvers = {
         `https://api.football-data.org/v4/teams/${id}/matches`,
         {
           headers: {
-            method: "GET",
             "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
           },
         },
@@ -62,7 +60,6 @@ export const resolvers = {
         `https://api.football-data.org/v4/teams/${id}/matches`,
         {
           headers: {
-            method: "GET",
             "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
           },
         },
@@ -127,21 +124,31 @@ export const resolvers = {
     },
 
     getPlStandings: async (_: unknown): Promise<PlStandings> => {
-      const response = await axios.get(
-        `https://api.football-data.org/v4/competitions/PL/standings`,
-        {
-          headers: {
-            method: "GET",
-            "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
+      try {
+        const response = await axios.get(
+          `https://api.football-data.org/v4/competitions/PL/standings`,
+          {
+            headers: {
+              "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY,
+            },
           },
-        },
-      );
+        );
 
-      const PL = response.data;
-      if (!PL) {
-        throw new Error("PL standings data is missing from the response");
+        const PL = response.data;
+        console.log("🚀 ~ getPlStandings: ~ PL:", PL);
+        if (!PL) {
+          throw new Error("PL standings data is missing from the response");
+        }
+        return PL.standings[0].table;
+      } catch (error) {
+        console.error(
+          "Error fetching premier league standings or data:",
+          error,
+        );
+        throw new Error(
+          "Failed to fetch premier league standings or related data",
+        );
       }
-      return PL.standings[0].table;
     },
 
     getPreviousFixture: async (
@@ -154,7 +161,6 @@ export const resolvers = {
           `https://v3.football.api-sports.io/fixtures?season=${season}&team=${id}`,
           {
             headers: {
-              method: "GET",
               "x-rapidapi-host": "v3.football.api-sports.io",
               "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
             },
@@ -193,7 +199,6 @@ export const resolvers = {
           `https://v3.football.api-sports.io/fixtures/statistics?fixture=${mostRecentFixtureID}`,
           {
             headers: {
-              method: "GET",
               "x-rapidapi-host": "v3.football.api-sports.io",
               "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
             },
@@ -222,7 +227,6 @@ export const resolvers = {
           `https://v3.football.api-sports.io/fixtures/events?fixture=${mostRecentFixtureID}`,
           {
             headers: {
-              method: "GET",
               "x-rapidapi-host": "v3.football.api-sports.io",
               "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
             },
@@ -283,7 +287,6 @@ export const resolvers = {
           `https://v3.football.api-sports.io/teams/statistics?season=${season}&team=${id}&league=39`,
           {
             headers: {
-              method: "GET",
               "x-rapidapi-host": "v3.football.api-sports.io",
               "x-rapidapi-key": process.env.API_FOOTBALL_KEY,
             },

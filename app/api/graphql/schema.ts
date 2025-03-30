@@ -99,7 +99,7 @@ export const typeDefs = gql`
   }
 
   type PlTeam {
- 
+    id: String!
     name: String!
     shortName: String!
     tla: String!

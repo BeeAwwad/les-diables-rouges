@@ -36,7 +36,6 @@ export async function updateSession(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.includes(pathname);
 
   const session = await supabase.auth.getUser();
-  console.log("Middleware session check:", session);
 
   if (isProtectedRoute && session.error) {
     return NextResponse.redirect(new URL("/auth", request.url));
