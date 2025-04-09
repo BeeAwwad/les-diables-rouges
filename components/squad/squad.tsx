@@ -5,10 +5,12 @@ import { Player } from "@/app/api/graphql/types";
 import { Defender, Forward, Goalkeeper, Midfielder, Header } from "./player";
 import clsx from "clsx";
 import { abrilFatface } from "@/fonts/fonts";
+import Loader from "../ui/loader";
 
 const SQUAD_LIST = gql`
   query Query($id: ID!) {
     getTeam(id: $id) {
+      team_key
       players {
         player_id
         player_name
@@ -40,7 +42,12 @@ const Squad = () => {
     fetchPolicy: "cache-and-network",
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center">
+        <Loader />
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   const { players } = data.getTeam;

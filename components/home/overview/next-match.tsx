@@ -76,12 +76,12 @@ const NextMatch = () => {
         />
         <div className="flex flex-col items-center gap-2 xl:gap-2">
           <p
-            className={`z-10 text-2xl font-semibold uppercase xl:text-3xl 2xl:text-4xl`}
+            className={`${abrilFatface.className} z-10 text-2xl font-semibold uppercase xl:text-3xl 2xl:text-4xl`}
           >
             {homeTeam.shortName}
           </p>
           <p
-            className={`z-10 order-2 text-2xl font-semibold uppercase md:order-1 xl:text-3xl 2xl:text-4xl`}
+            className={`${abrilFatface.className} z-10 order-2 text-2xl font-semibold uppercase md:order-1 xl:text-3xl 2xl:text-4xl`}
           >
             {awayTeam.shortName}
           </p>
