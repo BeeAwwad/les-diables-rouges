@@ -198,7 +198,7 @@ const PredictEleven = ({ initialUser }: { initialUser: User }) => {
       <VotingForm
         userId={userId}
         players={players || []}
-        matchId={match?.id}
+        match={match}
         userVotes={votes || []}
         isGuest={isGuest}
       />

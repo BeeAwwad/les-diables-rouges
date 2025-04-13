@@ -13,9 +13,31 @@ type Player = {
   updated_at: string;
 };
 
+type Match = {
+  id: string;
+  home_team: string;
+  away_team: string;
+  status: string;
+  match_date: string;
+};
+
+const formation = [
+  { position: "GK", x: 50, y: 90 },
+  { position: "CB", x: 30, y: 70 },
+  { position: "CB", x: 50, y: 70 },
+  { position: "CB", x: 70, y: 70 },
+  { position: "RWB", x: 85, y: 50 },
+  { position: "LWB", x: 15, y: 50 },
+  { position: "CM", x: 40, y: 51 },
+  { position: "CM", x: 60, y: 51 },
+  { position: "CAM", x: 35, y: 33 },
+  { position: "CAM", x: 65, y: 33 },
+  { position: "ST", x: 50, y: 19 },
+];
+
 const MostVotedXI = () => {
   const [players, setPlayers] = useState<Player[]>([]);
-  const [latestMatchId, setLatestMatchId] = useState<string | null>(null);
+  const [latestMatch, setLatestMatch] = useState<Match | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,7 +48,7 @@ const MostVotedXI = () => {
 
       const { data: match, error } = await createClient()
         .from("matches")
-        .select("id")
+        .select("id,home_team, away_team, status, match_date")
         .order("match_date", { ascending: false })
         .limit(1)
         .single();
@@ -38,7 +60,7 @@ const MostVotedXI = () => {
         return;
       }
 
-      setLatestMatchId(match?.id ?? null);
+      setLatestMatch(match ?? null);
     };
 
     fetchLatestMatchId();
@@ -53,9 +75,7 @@ const MostVotedXI = () => {
         .from("player_vote_totals")
         .select("*")
         .eq("match_id", matchId)
-        .order("position_number", { ascending: true })
-        .order("vote_count", { ascending: false })
-        .order("updated_at", { ascending: true });
+        .order("position_number", { ascending: true });
 
       if (error) {
         console.error("Player Votes Error:", error);
@@ -75,10 +95,10 @@ const MostVotedXI = () => {
       setLoading(false);
     };
 
-    if (latestMatchId) {
-      getStartingXI(latestMatchId);
+    if (latestMatch) {
+      getStartingXI(latestMatch.id);
     }
-  }, [latestMatchId]);
+  }, [latestMatch]);
 
   if (loading) {
     return <Skeleton className="item-three shadow-xs" />;
@@ -100,18 +120,47 @@ const MostVotedXI = () => {
     );
   }
 
+  // Map players by position number
+  const playerMap: { [key: number]: Player } = {};
+  players.forEach((p) => {
+    playerMap[p.position_number] = p;
+  });
+
   return (
-    <div className="item-three no-scrollbar grid grid-cols-1 gap-2 overflow-y-scroll rounded-lg bg-gray-50">
-      {players.map((player, index) => (
-        <div key={index + 1} className="rounded-lg bg-white p-4 shadow-xs">
-          <p>
-            <strong>Position {player.position_number}:</strong>{" "}
-            {player.position}
-          </p>
-          <p>Player ID: {player.player_name}</p>
-          <p>Votes: {player.vote_count}</p>
-        </div>
-      ))}
+    <div className="item-three no-scrollbar overflow-y-scroll rounded-lg">
+      <div className="relative aspect-[3/4] w-full bg-emerald-600 shadow-md">
+        <p className="mx-auto w-fit py-3 text-xs text-white">
+          {latestMatch?.home_team} vs {latestMatch?.away_team}
+        </p>
+        <div className="absolute inset-0 border-2 border-white" />
+        <div className="absolute top-1/2 left-0 h-[2px] w-full bg-white" />
+        <div className="absolute top-1/2 left-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white" />
+
+        {formation.map((pos, i) => {
+          const player = playerMap[i + 1];
+          return (
+            <div
+              key={i}
+              className="absolute flex flex-col items-center justify-center text-xs text-white"
+              style={{
+                left: `${pos.x}%`,
+                top: `${pos.y}%`,
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              <div className="bg-primary-500 bg-primary-300 z-20 flex size-10 items-center justify-center rounded-full border border-white text-sm font-bold">
+                {player.position}
+              </div>
+              <span className="mt-1 text-center">
+                {player?.player_name?.split(" ").slice(-1)[0] ?? ""}
+              </span>
+              <span className="text-[10px] opacity-75">
+                {player?.vote_count ?? 0} votes
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

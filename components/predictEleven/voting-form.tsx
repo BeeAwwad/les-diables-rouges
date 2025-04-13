@@ -33,16 +33,24 @@ const positionMapping = {
   ST: ["Attacker"],
 };
 
+type Match = {
+  id: string;
+  home_team: string;
+  away_team: string;
+  match_date: string;
+  status: string;
+};
+
 const VotingForm = ({
   userId,
   players,
-  matchId,
+  match,
   userVotes,
   isGuest,
 }: {
   userId: string;
   players: Player[];
-  matchId: string;
+  match: Match;
   userVotes: {
     player_id: string;
     position_number: number;
@@ -111,7 +119,7 @@ const VotingForm = ({
     const votes = Object.entries(selectedPlayers).map(
       ([positionNumber, player]) => ({
         user_id: userId,
-        match_id: matchId,
+        match_id: match.id,
         player_name: (player as Player).name,
         player_id: (player as Player).id,
         position_number: Number(positionNumber),
@@ -162,6 +170,10 @@ const VotingForm = ({
       >
         Vote Your Starting XI
       </h2>
+
+      <p className="text-center text-lg font-semibold text-gray-700">
+        {match.home_team} vs {match.away_team}
+      </p>
 
       <FormationDisplay selectedPlayers={selectedPlayers} />
 
