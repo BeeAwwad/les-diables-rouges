@@ -112,7 +112,7 @@ const VotingForm = ({
       ([positionNumber, player]) => ({
         user_id: userId,
         match_id: matchId,
-        // player_name: (player as Player).name,
+        player_name: (player as Player).name,
         player_id: (player as Player).id,
         position_number: Number(positionNumber),
         position: getPositionName(Number(positionNumber)),

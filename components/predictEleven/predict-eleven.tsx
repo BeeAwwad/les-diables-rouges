@@ -9,6 +9,7 @@ import CustomButton from "../ui/custom-button";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
+import Loader from "../ui/loader";
 
 const PredictEleven = ({ initialUser }: { initialUser: User }) => {
   type Vote = {
@@ -113,7 +114,11 @@ const PredictEleven = ({ initialUser }: { initialUser: User }) => {
   }, [user]);
 
   if (!user || !match) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center">
+        <Loader />
+      </div>
+    );
   }
 
   const isGuest = !user.email;
@@ -125,8 +130,6 @@ const PredictEleven = ({ initialUser }: { initialUser: User }) => {
 
   const handleLinkIdentity = async (provider: AuthProvider) => {
     const { data: userData, error: userError } = await supabase.auth.getUser();
-
-    console.log("🚀 ~ handleLinkIdentity ~ data:", userData);
 
     if (userError || !userData?.user) {
       console.error("Error fetching userData:", userError?.message);

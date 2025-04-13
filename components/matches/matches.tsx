@@ -7,6 +7,7 @@ import { Fixture } from "@/app/api/graphql/types";
 import clsx from "clsx";
 import { abrilFatface } from "@/fonts/fonts";
 import CustomButton from "../ui/custom-button";
+import Loader from "../ui/loader";
 
 const ALL_MATCHES = gql`
   query Query($id: ID!) {
@@ -46,7 +47,12 @@ const Matches = () => {
     variables: { id: "66" },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center">
+        <Loader />
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   const { matches } = data.getFixtures;

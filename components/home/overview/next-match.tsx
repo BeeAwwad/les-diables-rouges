@@ -35,7 +35,7 @@ const NextMatch = () => {
   if (loading) return <Skeleton className="item-one shadow-xs" />;
   if (error)
     return (
-      <div className="item-one flex items-center justify-center bg-white shadow-xs">
+      <div className="item-one flex items-center justify-center rounded-md bg-red-100 p-4 text-center text-red-500 shadow-xs lg:text-lg">
         <p>Error: {error.message}</p>
       </div>
     );

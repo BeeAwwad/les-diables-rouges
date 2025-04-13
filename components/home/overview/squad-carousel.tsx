@@ -48,7 +48,7 @@ export const SquadCarousel = () => {
     );
   if (error)
     return (
-      <div className="item-two no-scrollbar items-center justify-center rounded-lg bg-white shadow-xs">
+      <div className="item-two no-scrollbar flex items-center justify-center rounded-md bg-red-100 p-4 text-center text-red-500 shadow-xs lg:text-lg">
         <p>Error: {error.message}</p>
       </div>
     );

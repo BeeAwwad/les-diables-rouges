@@ -3,6 +3,7 @@
 import { useQuery, gql } from "@apollo/client";
 import { PlTeamStats } from "@/app/api/graphql/types";
 import clsx from "clsx";
+import Loader from "../ui/loader";
 import {
   Table,
   TableBody,
@@ -33,7 +34,12 @@ const PL_TABLE = gql`
 export const Standings = () => {
   const { loading, error, data } = useQuery(PL_TABLE);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center">
+        <Loader />
+      </div>
+    );
   if (error) return <p>Error: {error.message}</p>;
 
   const plTable = data.getPlStandings;

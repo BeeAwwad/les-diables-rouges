@@ -3,9 +3,18 @@ import { createClient } from "@/utils/supabase/browser";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
+type Player = {
+  id: string;
+  player_name: string;
+  match_id: string;
+  position: string;
+  position_number: number;
+  vote_count: number;
+  updated_at: string;
+};
+
 const MostVotedXI = () => {
-  const [players, setPlayers] = useState<any[]>([]);
-  console.log("🚀 ~ MostVotedXI ~ players:", players);
+  const [players, setPlayers] = useState<Player[]>([]);
   const [latestMatchId, setLatestMatchId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +86,7 @@ const MostVotedXI = () => {
 
   if (error) {
     return (
-      <div className="item-three rounded-md bg-red-100 p-4 text-red-500 shadow-sm">
+      <div className="item-three flex items-center justify-center rounded-md bg-red-100 p-4 text-center text-red-500 shadow-xs lg:text-lg">
         <p>Error: {error}</p>
       </div>
     );
@@ -92,14 +101,14 @@ const MostVotedXI = () => {
   }
 
   return (
-    <div className="item-three no-scrollbar grid grid-cols-1 gap-2 overflow-y-scroll bg-white">
+    <div className="item-three no-scrollbar grid grid-cols-1 gap-2 overflow-y-scroll rounded-lg bg-gray-50">
       {players.map((player, index) => (
-        <div key={index + 1} className="rounded-xl p-4 shadow-sm">
+        <div key={index + 1} className="rounded-lg bg-white p-4 shadow-xs">
           <p>
             <strong>Position {player.position_number}:</strong>{" "}
             {player.position}
           </p>
-          <p>Player ID: {player.player_id}</p>
+          <p>Player ID: {player.player_name}</p>
           <p>Votes: {player.vote_count}</p>
         </div>
       ))}
