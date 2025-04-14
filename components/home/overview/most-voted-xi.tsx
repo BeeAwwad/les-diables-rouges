@@ -11,6 +11,7 @@ type Player = {
   position_number: number;
   vote_count: number;
   updated_at: string;
+  vote_percentage?: number;
 };
 
 type Match = {
@@ -71,27 +72,45 @@ const MostVotedXI = () => {
       setLoading(true);
       setError(null);
 
-      const { data, error } = await createClient()
+      const client = createClient();
+
+      // 1. Fetch all vote counts for all players
+      const { data: allVotes, error: allVotesError } = await client
         .from("player_vote_totals")
         .select("*")
-        .eq("match_id", matchId)
-        .order("position_number", { ascending: true });
+        .eq("match_id", matchId);
 
-      if (error) {
-        console.error("Player Votes Error:", error);
+      if (allVotesError) {
+        console.error("Player Votes Error:", allVotesError);
         setError("Failed to fetch player votes.");
         setLoading(false);
         return;
       }
 
+      // 2. Get top-voted players (same logic as before)
       const seen = new Set<number>();
-      const filtered = data.filter((row) => {
+      const topVoted = allVotes.filter((row) => {
         if (seen.has(row.position_number)) return false;
         seen.add(row.position_number);
         return true;
       });
 
-      setPlayers(filtered);
+      // 3. Compute total votes per position
+      const totalVotesPerPosition: Record<number, number> = {};
+      allVotes.forEach((p) => {
+        totalVotesPerPosition[p.position_number] =
+          (totalVotesPerPosition[p.position_number] || 0) + p.vote_count;
+      });
+
+      // 4. Attach percentage to topVoted players
+      const enriched = topVoted.map((p) => ({
+        ...p,
+        vote_percentage: Math.round(
+          (p.vote_count / totalVotesPerPosition[p.position_number]) * 100,
+        ),
+      }));
+
+      setPlayers(enriched);
       setLoading(false);
     };
 
@@ -155,7 +174,7 @@ const MostVotedXI = () => {
                 {player?.player_name?.split(" ").slice(-1)[0] ?? ""}
               </span>
               <span className="text-[10px] opacity-75">
-                {player?.vote_count ?? 0} votes
+                {player?.vote_percentage ?? 0}% votes
               </span>
             </div>
           );
