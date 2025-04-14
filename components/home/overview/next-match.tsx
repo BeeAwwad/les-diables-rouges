@@ -56,7 +56,7 @@ const NextMatch = () => {
   });
   return (
     <div className="item-one flex w-full flex-col justify-center gap-4 rounded-lg bg-white p-3 shadow-xs sm:gap-2 2xl:gap-5 2xl:p-4">
-      <div className="flex items-center justify-center gap-4.5 p-4 text-sm font-medium text-gray-600 lg:p-2">
+      <div className="flex items-center justify-center gap-3.5 p-4 text-sm font-medium text-gray-600 sm:gap-4.5 lg:p-2">
         <h2 className="w-fit text-xs sm:text-sm">Upcoming Match</h2>
         <span className="flex w-fit text-center text-xs sm:text-sm">
           {formattedDay}
@@ -65,7 +65,7 @@ const NextMatch = () => {
           {competition.name}
         </span>
       </div>
-      <div className="relative flex items-center justify-center gap-6 md:gap-10">
+      <div className="relative flex items-center justify-center gap-4 md:gap-10">
         <Image
           className="size-14 sm:size-20 lg:size-24 2xl:size-28"
           width={150}
