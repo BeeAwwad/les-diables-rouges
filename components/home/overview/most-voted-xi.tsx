@@ -47,15 +47,15 @@ const MostVotedXI = () => {
       setLoading(true);
       setError(null);
 
-      const { data: match, error } = await createClient()
+      const { data: match, error: matchErr } = await createClient()
         .from("matches")
         .select("id,home_team, away_team, status, match_date")
         .order("match_date", { ascending: false })
         .limit(1)
         .single();
 
-      if (error) {
-        console.error("Match Error:", error);
+      if (matchErr) {
+        console.error("Match Error:", matchErr);
         setError("Failed to fetch latest match.");
         setLoading(false);
         return;
@@ -88,12 +88,22 @@ const MostVotedXI = () => {
       }
 
       // 2. Get top-voted players (same logic as before)
-      const seen = new Set<number>();
-      const topVoted = allVotes.filter((row) => {
-        if (seen.has(row.position_number)) return false;
-        seen.add(row.position_number);
-        return true;
-      });
+      const topVoted = allVotes.reduce((acc, row) => {
+        const position = row.position_number;
+        const existing = acc[position];
+        if (!existing) {
+          acc[position] = row;
+        } else {
+          if (row.vote_count > existing.vote_count) {
+            acc[position] = row;
+          }
+        }
+        return acc;
+      }, {});
+
+      console.log("🚀 ~ topVoted ~ topVoted:", topVoted);
+      const topVotedPlayers = Object.values(topVoted);
+      console.log("🚀 ~ getStartingXI ~ topVotedPlayers:", topVotedPlayers);
 
       // 3. Compute total votes per position
       const totalVotesPerPosition: Record<number, number> = {};
@@ -103,7 +113,7 @@ const MostVotedXI = () => {
       });
 
       // 4. Attach percentage to topVoted players
-      const enriched = topVoted.map((p) => ({
+      const enriched = (topVotedPlayers as Player[]).map((p) => ({
         ...p,
         vote_percentage: Math.round(
           (p.vote_count / totalVotesPerPosition[p.position_number]) * 100,
@@ -149,9 +159,10 @@ const MostVotedXI = () => {
     <div className="item-three no-scrollbar overflow-y-scroll rounded-lg">
       <div className="relative aspect-[3/4] w-full bg-emerald-600 shadow-md">
         <p className="mx-auto w-fit py-3 text-xs text-white">
-          {latestMatch?.home_team} vs {latestMatch?.away_team}
+          <span>{latestMatch?.home_team}</span> vs{" "}
+          <span>{latestMatch?.away_team}</span>
         </p>
-        <div className="absolute inset-0 border-2 border-white" />
+        {/* <div className="absolute inset-0 border-2 border-white" /> */}
         <div className="absolute top-1/2 left-0 h-[2px] w-full bg-white" />
         <div className="absolute top-1/2 left-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white" />
 
