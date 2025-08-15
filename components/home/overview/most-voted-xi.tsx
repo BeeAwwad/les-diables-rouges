@@ -101,9 +101,7 @@ const MostVotedXI = () => {
         return acc;
       }, {});
 
-      console.log("🚀 ~ topVoted ~ topVoted:", topVoted);
       const topVotedPlayers = Object.values(topVoted);
-      console.log("🚀 ~ getStartingXI ~ topVotedPlayers:", topVotedPlayers);
 
       // 3. Compute total votes per position
       const totalVotesPerPosition: Record<number, number> = {};
