@@ -3,10 +3,15 @@
 import { useLayoutEffect, useRef, useState, type JSX } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import Link from "next/link";
-import clsx from "clsx";
 import gsap from "gsap";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { useNav } from "./nav-context";
+import { useNav } from "@/context/nav-context";
+import {
+  LayoutPanelTop,
+  Calendar,
+  ShieldHalf,
+  Trophy,
+  Vote,
+} from "lucide-react";
 
 type navType = {
   name: string;
@@ -18,47 +23,36 @@ const navLinks: navType[] = [
   {
     name: "Overview",
     href: "/",
-    icon: <Icon className="size-8 text-white" icon="ph:diamonds-four" />,
+    icon: (
+      <LayoutPanelTop className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
+    ),
   },
   {
     name: "Matches",
     href: "/matches",
     icon: (
-      <Icon className="size-8 text-white" icon="fluent:calendar-32-regular" />
+      <Calendar className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
     ),
   },
   {
     name: "Squad",
     href: "/squad",
     icon: (
-      <Icon
-        className="size-8 text-white"
-        icon="fluent:people-team-24-regular"
-      />
+      <ShieldHalf className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
     ),
   },
   {
     name: "Standings",
     href: "/standings",
     icon: (
-      <Icon
-        className="size-8 text-white"
-        icon="fluent-mdl2:trophy-2"
-        width={""}
-        height={""}
-      />
+      <Trophy className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
     ),
   },
   {
     name: "Predict XI",
     href: "/predict-eleven",
     icon: (
-      <Icon
-        className="size-8 text-white"
-        icon="streamline:politics-vote-2"
-        width={""}
-        height={""}
-      />
+      <Vote className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
     ),
   },
 ];
@@ -101,7 +95,7 @@ const SideNav = () => {
         { x: "-100%" },
         {
           x: "0%",
-          duration: 0.75,
+          duration: 0.55,
           ease: "power3.inOut",
         },
       );
@@ -116,14 +110,14 @@ const SideNav = () => {
   return (
     <aside
       ref={sideNavRef}
-      className="bg-primary-200 fixed top-[5rem] z-20 h-full w-60 sm:relative sm:top-0 sm:w-full sm:rounded-tr-md"
+      className="bg-primary-400 fixed top-20 z-20 h-full w-60 sm:relative sm:top-0 sm:w-full sm:rounded-tr-sm"
     >
       <nav className="relative z-10 h-full">
         <ul className="space-y-2 p-4">
           {navLinks.map((link, index) => (
             <li
               key={index}
-              className="hover:bg-primary-300 cursor-pointer rounded-lg p-2 transition-all hover:-translate-y-[1px] active:translate-y-[2px] active:brightness-90"
+              className="group active:bg-primary-100 hover:bg-primary-100 cursor-pointer rounded-sm p-2 transition-all hover:-translate-y-px active:translate-y-0.5 active:brightness-90"
             >
               <Link
                 className="flex items-center sm:justify-center lg:justify-start"
@@ -131,7 +125,7 @@ const SideNav = () => {
                 onClick={() => setOpened(false)}
               >
                 {link.icon}
-                <span className="px-2 py-1 text-white sm:hidden lg:block lg:text-[0.85rem] xl:text-base">
+                <span className="px-2 py-1 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400 sm:hidden lg:block lg:text-[0.85rem] xl:text-base font-medium">
                   {link.name}
                 </span>
               </Link>

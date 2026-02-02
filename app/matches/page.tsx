@@ -1,4 +1,4 @@
-import Matches from "@/components/matches/matches";
+import Matches from "./components/matches";
 
 const Page = () => {
   return <Matches />;
