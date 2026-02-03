@@ -45,6 +45,6 @@ export type PlayerProps = {
     id: string;
     name: string;
     shirt_number: number;
-    position: string;
+    position: "Goalkeeper" | "Attacker" | "Defender" | "Midfielder";
     created_at: Date;
 }

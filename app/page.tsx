@@ -7,7 +7,7 @@ import { SquadCarousel } from "@/components/home/squad-carousel";
 
 export default function Home() {
   return (
-    <main className="grid-container scrollbar-none no-scrollbar grid w-full gap-4 overflow-y-scroll px-2 pb-2 lg:h-[calc(80vh-3.5rem)]">
+    <main className="grid-container scrollbar-none no-scrollbar grid w-full gap-4 overflow-y-scroll pr-2 pb-2 lg:h-[calc(80vh-3.5rem)]">
       <NextMatch />
       <SquadCarousel />
       {/* 

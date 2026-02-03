@@ -26,6 +26,7 @@ const Matches = () => {
         <Loader />
       </div>
     );
+
   if (isError) return <p>Error: {error.message}</p>;
 
   const filteredFixtures = matches
@@ -44,7 +45,6 @@ const Matches = () => {
     ? Math.ceil(filteredFixtures.length / fixturesPerPage)
     : 0;
 
-  // Get the fixtures for the current page
   const paginatedFixtures = filteredFixtures
     ? filteredFixtures.slice(
         (currentPage - 1) * fixturesPerPage,
@@ -52,13 +52,11 @@ const Matches = () => {
       )
     : [];
 
-  // Generate page numbers array
   const pageNumbers = Array.from(
     { length: totalPages },
     (_, index) => index + 1,
   );
 
-  // Handle pagination button click
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -78,6 +76,11 @@ const Matches = () => {
                 setShowFished(false);
                 setCurrentPage(1);
               }}
+              className={clsx(
+                showFinished
+                  ? ""
+                  : "bg-primary-600 text-primary-400 hover:bg-primary-600 border-primary-400 hover:border-primary-400",
+              )}
             >
               Matches
             </CustomButton>
@@ -88,6 +91,11 @@ const Matches = () => {
                 setShowFished(true);
                 setCurrentPage(1);
               }}
+              className={clsx(
+                showFinished
+                  ? "bg-primary-600 text-primary-400 hover:bg-primary-600 border-primary-400 hover:border-primary-400"
+                  : "",
+              )}
             >
               Results
             </CustomButton>

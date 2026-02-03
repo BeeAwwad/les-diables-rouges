@@ -58,12 +58,9 @@ const PlayedStats = () => {
   } satisfies ChartConfig;
 
   return (
-    <Card className="item-four shadow-xs no-scrollbar rounded-sm overflow-y-scroll">
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-full"
-        >
+    <Card className="item-four shadow-xs no-scrollbar rounded-sm overflow-y-scroll py-1 flex items-center justify-center">
+      <CardContent className="pb-0 h-full w-full">
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square">
           <PieChart>
             <ChartTooltip
               cursor={false}

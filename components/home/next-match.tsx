@@ -54,11 +54,11 @@ const NextMatch = () => {
   return (
     <div className="item-one flex w-full flex-col justify-center lg:justify-between rounded-sm overflow-y-scroll no-scrollbar bg-white p-3 shadow-xs 2xl:p-4">
       <div className="flex items-center justify-center gap-3.5 p-4 text-sm font-medium text-gray-600 sm:gap-4.5 lg:p-2">
-        <h2 className="w-fit text-xs sm:text-sm">Upcoming Match</h2>
-        <span className="flex w-fit text-center text-xs sm:text-sm">
+        <h2 className="w-fit text-xs xl:text-sm">Upcoming Match</h2>
+        <span className="flex w-fit text-center text-xs xl:text-sm">
           {formattedDay}
         </span>
-        <span className="w-fit text-right text-xs sm:text-sm">
+        <span className="w-fit text-right text-xs xl:text-sm">
           {competition?.name}
         </span>
       </div>
@@ -95,7 +95,7 @@ const NextMatch = () => {
           VS
         </p>
       </div>
-      <time className="text-center text-xs font-medium text-gray-600 sm:text-sm">
+      <time className="text-center text-xs font-medium text-gray-600 xl:text-sm">
         {formattedHour}
       </time>
     </div>
