@@ -2,7 +2,7 @@ import NextMatch from "@/components/home/next-match";
 import { OverviewTable } from "@/components/home/overview-table";
 import PlayedStats from "@/components/home/played-stats";
 import { SquadCarousel } from "@/components/home/squad-carousel";
-// import PreviousMatch from "@/components/home/overview/previous-match";
+import PreviousMatch from "@/components/home/previous-match";
 // import MostVotedXI from "@/components/home/overview/most-voted-xi";
 
 export default function Home() {
@@ -12,12 +12,10 @@ export default function Home() {
       <SquadCarousel />
       {/* 
       <MostVotedXI />
-      <PreviousMatch />
        */}
-
+      <PreviousMatch />
       <PlayedStats />
       <OverviewTable />
-      <h1>Home Page</h1>
     </main>
   );
 }

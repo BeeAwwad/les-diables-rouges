@@ -15,13 +15,11 @@ const NextMatch = () => {
   useEffect(() => {
     setNow(new Date());
   }, []);
-  console.log({ now });
 
   const nextMatch = now
     ? matches?.find((match) => new Date(match.utc_date) > now)
     : null;
 
-  console.log({ matches });
   const { data: competitions } = useCompetitions();
   const competition = competitions?.find(
     (competition) => competition.id === nextMatch?.competition_id,

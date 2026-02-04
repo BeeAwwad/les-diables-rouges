@@ -18,7 +18,7 @@ import { useLeagueTable } from "@/queries/useLeagueTable";
 const PlayedStats = () => {
   const { data: plTable, isLoading, isError } = useLeagueTable();
   const lesDiables = plTable?.find((team) => team.team_id === 66);
-  console.log({ lesDiables });
+
   if (isLoading) return <Skeleton className="item-four shadow-xs" />;
 
   if (isError)

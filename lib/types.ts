@@ -48,3 +48,93 @@ export type PlayerProps = {
     position: "Goalkeeper" | "Attacker" | "Defender" | "Midfielder";
     created_at: Date;
 }
+
+ type ScorePair = {
+    away: number | null;
+    home: number | null;
+ } 
+
+type Period = 'penalty' | 'fulltime' | 'halftime' | 'extratime';
+
+type Event = {
+    team: {
+        id: number;
+        logo: string;
+        name: string;
+    };
+    time: {
+        extra: number | null;
+        elapsed: number;
+    };
+    type: "subst" | "Card" | "Goal";
+    assist: {
+        id:  number | null;
+        name: string | null;
+    };
+    detail: string;
+    player: {
+        id: number;
+        name: string;
+    };
+    comments: string | null;
+}
+
+type League = {
+    id: number;
+    flag: string;
+    logo: string;
+    name: string;
+    round: string;
+    season: number;
+    country: string;
+    standings: boolean;
+}
+
+type Fixture = {
+    id: number;
+    date: Date;
+    venue: {
+      id: number;
+      city: string;
+      name: string;
+    };
+    status: {
+      long: string;
+      extra: number | null;
+      short: string;
+      elapsed: number;
+    };
+    periods: {
+      first: number;
+      second: number;
+    };
+    referee: string | null;
+    timezone: string;
+    timestamp: number;
+}
+
+type StatisticsSummary = {
+      id: number;
+      name: string;
+      ballPossession: string;
+}
+
+ type MatchData = {
+    goals: ScorePair;
+    score: {
+        [K in Period]: ScorePair;   
+    };
+    events: Event[];
+    league: League;
+    fixture: Fixture;
+    statisticsSummary: StatisticsSummary[];
+}
+
+export type MatchHistoryProps = {
+    id: number;
+    team_id: number;
+    season: number;
+    data: MatchData;
+    match_date: Date;
+    created_at: Date;
+}
