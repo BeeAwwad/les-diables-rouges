@@ -16,6 +16,19 @@ const formations = {
     { position: "CAM", x: 65, y: 30 },
     { position: "ST", x: 50, y: 10 },
   ],
+  "4-3-3": [
+    { position: "GK", x: 50, y: 90 },
+    { position: "RB", x: 85, y: 70 },
+    { position: "LB", x: 15, y: 70 },
+    { position: "CB", x: 35, y: 70 },
+    { position: "CB", x: 65, y: 70 },
+    { position: "CM", x: 30, y: 50 },
+    { position: "RW", x: 82, y: 30 },
+    { position: "CM", x: 50, y: 40 },
+    { position: "ST", x: 50, y: 13 },
+    { position: "CM", x: 70, y: 50 },
+    { position: "LW", x: 18, y: 30 },
+  ],
 };
 
 const FormationDisplay = ({
@@ -23,7 +36,7 @@ const FormationDisplay = ({
 }: {
   selectedPlayers: { [key: number]: PlayerProps };
 }) => {
-  const formation = formations["3-4-2-1"];
+  const formation = formations["4-3-3"];
 
   return (
     <div className="relative mx-auto mb-4 w-full max-w-md rounded-md bg-green-700 p-4 text-white">

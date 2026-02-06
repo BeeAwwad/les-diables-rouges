@@ -9,52 +9,73 @@ import { getSupabaseBrowerClient } from "@/lib/supabase/browser-client";
 import { FixtureProps, PlayerProps, VoteProps } from "@/lib/types";
 import { usePlayers } from "@/queries/usePlayers";
 import { useTeams } from "@/queries/useTeams";
+import { useVotes } from "@/queries/useVotes";
 
 const positionMapping = {
   GK: ["Goalkeeper"],
+  RB: ["Defender"],
   CB: ["Defender"],
+  LB: ["Defender"],
   RWB: ["Defender"],
   LWB: ["Defender"],
   CM: ["Midfielder"],
   CAM: ["Midfielder", "Attacker"],
+  LW: ["Midfielder", "Attacker"],
+  RW: ["Midfielder", "Attacker"],
   ST: ["Attacker"],
+};
+
+type Vote = {
+  user_id: string;
+  match_id: number;
+  player_id: string;
+  position_number: number;
+  position:
+    | "GK"
+    | "RB"
+    | "CB"
+    | "LB"
+    | "RWB"
+    | "LWB"
+    | "CDM"
+    | "CM"
+    | "CAM"
+    | "LW"
+    | "RW"
+    | "ST";
 };
 
 const VotingForm = ({
   userId,
   match,
-  userVotes,
   isGuest,
 }: {
   userId: string;
   match: FixtureProps;
-  userVotes: {
-    player_id: string;
-    position_number: number;
-  }[];
   isGuest: boolean;
 }) => {
   const { data: players } = usePlayers();
   const { data: teams } = useTeams();
   const supabase = getSupabaseBrowerClient();
+  const { data: votes } = useVotes({ matchId: match.id, userId: userId });
   const [selectedPlayers, setSelectedPlayers] = useState<{
     [key: number]: PlayerProps;
   }>({});
 
   useEffect(() => {
-    if (userVotes.length > 0) {
-      const initialSelection: { [key: number]: PlayerProps } = {};
-      userVotes.forEach((vote) => {
-        const player = players?.find((p) => p.id === vote.player_id);
-        if (player) {
-          initialSelection[vote.position_number] = player;
-        }
-      });
-      setSelectedPlayers(initialSelection);
-    }
-  }, [userVotes, players]);
+    if (!votes) return;
 
-  const submitVoteAction = async (votes: VoteProps[]) => {
+    const initialSelection: { [key: number]: PlayerProps } = {};
+    votes.forEach((vote) => {
+      const player = players?.find((p) => p.id === vote.player_id);
+      if (player) {
+        initialSelection[vote.position_number] = player;
+      }
+    });
+    setSelectedPlayers(initialSelection);
+  }, [votes, players]);
+
+  const submitVoteAction = async (votes: Vote[]) => {
     const { error } = await supabase.from("votes").upsert(votes, {
       onConflict: "user_id, match_id, position, position_number, player_id",
     });
@@ -67,7 +88,6 @@ const VotingForm = ({
     }
   };
 
-  // Handle player selection for each position
   const handlePlayerSelection = (positionNumber: number, playerId: string) => {
     const player = players?.find((player) => player.id === playerId);
 
@@ -98,7 +118,6 @@ const VotingForm = ({
       ([positionNumber, player]) => ({
         user_id: userId,
         match_id: match.id,
-        player_name: player.name,
         player_id: player.id,
         position_number: Number(positionNumber),
         position: getPositionName(Number(positionNumber)),
@@ -114,27 +133,25 @@ const VotingForm = ({
     }
   };
 
-  // Helper function to return position names
   const getPositionName = (
     positionNumber: number,
   ): keyof typeof positionMapping => {
     const positions: (keyof typeof positionMapping)[] = [
       "GK",
+      "RB",
+      "LB",
       "CB",
       "CB",
-      "CB",
-      "RWB",
-      "LWB",
       "CM",
+      "RW",
       "CM",
-      "CAM",
-      "CAM",
       "ST",
+      "CM",
+      "LW",
     ];
     return positions[positionNumber - 1] ?? "GK";
   };
 
-  // Filter players based on position mapping
   const getFilteredPlayers = (position: keyof typeof positionMapping) => {
     return players?.filter((player) =>
       positionMapping[position]?.includes(player.position),

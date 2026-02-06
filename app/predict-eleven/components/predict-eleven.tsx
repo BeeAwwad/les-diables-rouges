@@ -22,10 +22,7 @@ const PredictEleven = ({ user }: { user: User }) => {
 
   const { mutate: signOut } = useSignOut();
   const { data: Fixtures, isLoading: isFixturesLoading } = useFixtures();
-
-  const [votes, setVotes] = useState<VoteProps[] | null>([]);
   const [now, setNow] = useState<Date | null>(null);
-
   const [currentUser, setCurrentUser] = useState<User | null>(user);
 
   useEffect(() => {
@@ -48,37 +45,6 @@ const PredictEleven = ({ user }: { user: User }) => {
     ? Fixtures?.find((f) => new Date(f.utc_date) > now)
     : null;
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchInitialData = async () => {
-      try {
-        if (currentUser && nextMatch) {
-          const { data: votesData, error: votesError } = await supabase
-            .from("votes")
-            .select("player_id, position_number")
-            .eq("match_id", nextMatch.id)
-            .eq("user_id", currentUser.id);
-
-          if (votesError) {
-            console.error("Error fetching votes:", votesError.message);
-            toast.info("This is your first vote of this fixture.");
-          }
-          if (!isMounted) return;
-          setVotes(votesData);
-        }
-      } catch (error) {
-        console.error("Unexpected error in fetching data:", error);
-      }
-    };
-
-    fetchInitialData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [currentUser]);
-
   if (isFixturesLoading) {
     return (
       <div className="flex items-center justify-center">
@@ -99,7 +65,6 @@ const PredictEleven = ({ user }: { user: User }) => {
   const userName = isGuest
     ? "Guest User"
     : user.user_metadata?.user_name || "Unknown User";
-  const userId = user.id;
   const avatarUrl = user.user_metadata?.avatar_url || "/guest.png";
 
   const handleLinkIdentity = async (provider: AuthProvider) => {
@@ -167,12 +132,7 @@ const PredictEleven = ({ user }: { user: User }) => {
           ⚠️ Your votes will not be saved unless you sign in.
         </div>
       )}
-      <VotingForm
-        userId={userId}
-        match={nextMatch}
-        userVotes={votes || []}
-        isGuest={isGuest}
-      />
+      <VotingForm userId={user.id} match={nextMatch} isGuest={isGuest} />
       {/* Guest Actions */}
       {isGuest && (
         <div className="my-5 flex flex-col items-center">

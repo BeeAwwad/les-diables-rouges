@@ -42,6 +42,7 @@ export type LeagueTableProps = {
 }
 
 export type VoteProps = {
+    id?: string;
     user_id: string;
     match_id: string;
     player_id: string;
