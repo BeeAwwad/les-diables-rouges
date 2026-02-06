@@ -19,12 +19,12 @@ const PreviousMatch = () => {
   const { data: AllFixtures } = useFixtures();
   const { data: teams } = useTeams();
 
-  if (isLoading) return <Skeleton className="item-five shadow-xs" />;
+  if (isLoading) return <Skeleton className="item-five rounded-md shadow-xs" />;
 
   if (isError)
     return (
-      <div className="item-five flex items-center justify-center rounded-md bg-red-100 p-4 text-center text-red-500 shadow-xs lg:text-lg">
-        <p>Error: {error.message}</p>
+      <div className="item-five flex items-center justify-center rounded-md bg-red-100 p-4 text-center text-primary-300 shadow-xs lg:text-lg">
+        <p>Error loading previous match.</p>
       </div>
     );
 
@@ -47,17 +47,16 @@ const PreviousMatch = () => {
 
   if (!previousMatchData?.data) return null;
 
-  const { goals, score, events, league, fixture, statisticsSummary } =
-    previousMatchData?.data;
+  const { events, statisticsSummary } = previousMatchData?.data;
 
   //const MatchData = Match?.data;
 
-  //const filteredEvents = MatchData?.events.filter(
-  //  (event) => event.type === "Card" || event.type === "Goal",
-  //);
+  const filteredEvents = events.filter(
+    (event) => event.type === "Card" || event.type === "Goal",
+  );
 
   return (
-    <div className="item-five no-scrollbar space-y-2 overflow-y-scroll rounded-lg bg-white p-3 shadow-xs">
+    <div className="item-five no-scrollbar space-y-2 overflow-y-scroll rounded-md bg-white py-1.5 px-3 shadow-xs">
       <div className="flex justify-between text-xs text-gray-600 sm:text-sm">
         <h2 className="px-4 pt-4">Last Match</h2>
         <p className="px-4 pt-4">EPL</p>
@@ -66,7 +65,7 @@ const PreviousMatch = () => {
         <div>
           <div>
             <Image
-              className="w-10"
+              className="w-9"
               width={40}
               height={40}
               src={homeTeam?.crest ?? "/placeholder_1.png"}
@@ -83,7 +82,7 @@ const PreviousMatch = () => {
         <div>
           <div className="flex flex-col items-end">
             <Image
-              className="w-10"
+              className="w-9"
               width={40}
               height={40}
               alt="away team crest"
@@ -108,16 +107,24 @@ const PreviousMatch = () => {
           value={parseInt(statisticsSummary[0].ballPossession)}
         />
         <div className="relative w-full space-y-4">
-          {events.map((event, index: number) => (
+          {filteredEvents.map((event, index: number) => (
             <div key={index + 1} className="relative grid">
               <span className="absolute left-1/2 -translate-x-1/2">
-                {event.detail === "Yellow Card"
-                  ? "🟨"
-                  : event.detail === "Red Card"
-                    ? "🟥"
-                    : event.type === "subst"
-                      ? "↕️"
-                      : "⚽"}
+                {event.detail === "Yellow Card" ? (
+                  "🟨"
+                ) : event.detail === "Red Card" ? (
+                  "🟥"
+                ) : event.type === "subst" ? (
+                  "↕️"
+                ) : (
+                  <Image
+                    className="size-5"
+                    alt="goal"
+                    src={"/football.svg"}
+                    height={24}
+                    width={24}
+                  />
+                )}
               </span>
               <span
                 className={clsx({

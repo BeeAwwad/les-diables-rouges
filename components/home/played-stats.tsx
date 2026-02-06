@@ -19,7 +19,7 @@ const PlayedStats = () => {
   const { data: plTable, isLoading, isError } = useLeagueTable();
   const lesDiables = plTable?.find((team) => team.team_id === 66);
 
-  if (isLoading) return <Skeleton className="item-four shadow-xs" />;
+  if (isLoading) return <Skeleton className="item-four roudned-md shadow-xs" />;
 
   if (isError)
     return (

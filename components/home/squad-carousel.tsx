@@ -9,7 +9,7 @@ export const SquadCarousel = () => {
 
   if (isLoading)
     return (
-      <Skeleton className="item-two no-scrollbar items-center justify-center rounded-sm bg-white shadow-xs" />
+      <Skeleton className="item-two no-scrollbar items-center justify-center rounded-sm shadow-xs" />
     );
 
   if (isError)

@@ -17,7 +17,7 @@ export function useSignOut() {
     onSuccess: () => {
       queryClient.clear();
       toast.success("Signed out successfully!");
-      router.push("/login");
+      router.push("/auth");
     },
     onError: (error) => {
       toast.success(error.message ?? "Failed to sign out");
