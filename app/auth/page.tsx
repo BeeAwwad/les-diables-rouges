@@ -10,14 +10,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useOauthSignIn } from "@/mutations/useOauthSignIn";
-import { useRouter } from "next/navigation";
 import { User } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
 import { useAnonymousSignIn } from "@/mutations/useAnonymousSignIn";
 
 const AuthLogin = () => {
-  const router = useRouter();
   const { mutate: SignInWith, isPending: isOauthPending } = useOauthSignIn();
   const { mutate: SignInAnonymously, isPending: isAnonymousPending } =
     useAnonymousSignIn();
@@ -41,8 +39,6 @@ const AuthLogin = () => {
   const handleAnonymousSignIn = async () => {
     try {
       await SignInAnonymously();
-
-      router.push("/predict-eleven");
     } catch (error) {
       throw error;
     }
