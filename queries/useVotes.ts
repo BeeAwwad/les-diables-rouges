@@ -6,11 +6,11 @@ import type { VoteProps } from "@/lib/types";
 export function useVotes({matchId, userId} : {matchId: number, userId: string}) {
     const supabase = getSupabaseBrowerClient()
   return useQuery({
-    queryKey: ["players"],
+    queryKey: ["votes"],
     queryFn: async (): Promise<VoteProps[]> => {
         const { data, error } = await supabase
         .from("votes")
-        .select("player_id, position_number")
+        .select("*")
         .eq("match_id", matchId)
         .eq("user_id", userId);
 

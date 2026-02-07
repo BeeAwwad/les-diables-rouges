@@ -58,6 +58,14 @@ export type PlayerProps = {
     created_at: Date;
 }
 
+export type PlayerXiProps = {
+    match_id: number;
+    position_number: number;
+    player_id: string;
+    votes_received: number;
+    vote_percentage: number;
+}
+
  type ScorePair = {
     away: number | null;
     home: number | null;

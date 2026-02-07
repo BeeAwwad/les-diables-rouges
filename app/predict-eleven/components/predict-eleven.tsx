@@ -21,7 +21,7 @@ const PredictEleven = ({ user }: { user: User }) => {
   const supabase = getSupabaseBrowerClient();
 
   const { mutate: signOut } = useSignOut();
-  const { data: Fixtures, isLoading: isFixturesLoading } = useFixtures();
+  const { data: fixtures, isLoading: isFixturesLoading } = useFixtures();
   const [now, setNow] = useState<Date | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(user);
 
@@ -42,7 +42,7 @@ const PredictEleven = ({ user }: { user: User }) => {
   }, []);
 
   const nextMatch = now
-    ? Fixtures?.find((f) => new Date(f.utc_date) > now)
+    ? fixtures?.find((f) => new Date(f.utc_date) > now)
     : null;
 
   if (isFixturesLoading) {
@@ -53,7 +53,7 @@ const PredictEleven = ({ user }: { user: User }) => {
     );
   }
 
-  if (!user || !nextMatch) {
+  if (!currentUser || !nextMatch) {
     return (
       <div className="flex items-center justify-center">
         <p className="text-primary">Error. missing user or match data</p>
@@ -132,7 +132,11 @@ const PredictEleven = ({ user }: { user: User }) => {
           ⚠️ Your votes will not be saved unless you sign in.
         </div>
       )}
-      <VotingForm userId={user.id} match={nextMatch} isGuest={isGuest} />
+      <VotingForm
+        userId={currentUser?.id}
+        match={nextMatch}
+        isGuest={isGuest}
+      />
       {/* Guest Actions */}
       {isGuest && (
         <div className="my-5 flex flex-col items-center">
