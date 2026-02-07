@@ -9,40 +9,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useOauthSignIn } from "@/mutations/useOauthSignIn";
 import { User } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
 import { useAnonymousSignIn } from "@/mutations/useAnonymousSignIn";
+import { getSupabaseBrowerClient } from "@/lib/supabase/browser-client";
+
+export function signInWithProvider(provider: "google" | "github") {
+  const supabase = getSupabaseBrowerClient();
+
+  const redirectTo = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?next=/predict-eleven`;
+  supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo,
+    },
+  });
+}
 
 const AuthLogin = () => {
-  const { mutate: SignInWith, isPending: isOauthPending } = useOauthSignIn();
   const { mutate: SignInAnonymously, isPending: isAnonymousPending } =
     useAnonymousSignIn();
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await SignInWith({ provider: "google" });
-    } catch (error) {
-      console.error("Google sign-in failed", error);
-    }
-  };
-
-  const handleGithubSignIn = async () => {
-    try {
-      await SignInWith({ provider: "github" });
-    } catch (error) {
-      console.error("Github sign-in failed", error);
-    }
-  };
-
-  const handleAnonymousSignIn = async () => {
-    try {
-      await SignInAnonymously();
-    } catch (error) {
-      throw error;
-    }
-  };
 
   return (
     <section className="flex items-center justify-center px-3">
@@ -51,9 +38,7 @@ const AuthLogin = () => {
           <CardTitle>Sign In</CardTitle>
           <CardDescription className="flex justify-between">
             <p>Choose a provider to sign in with</p>
-            <Activity
-              mode={isOauthPending || isAnonymousPending ? "visible" : "hidden"}
-            >
+            <Activity mode={isAnonymousPending ? "visible" : "hidden"}>
               <Spinner />
             </Activity>
           </CardDescription>{" "}
@@ -61,8 +46,7 @@ const AuthLogin = () => {
         <CardContent className="flex flex-col gap-4">
           <Button
             variant="outline"
-            onClick={handleGoogleSignIn}
-            disabled={isOauthPending}
+            onClick={() => signInWithProvider("google")}
           >
             <Image
               className="mr-2 size-5"
@@ -76,8 +60,7 @@ const AuthLogin = () => {
           </Button>
           <Button
             variant="outline"
-            onClick={handleGithubSignIn}
-            disabled={isOauthPending}
+            onClick={() => signInWithProvider("github")}
           >
             <Image
               src={"/github.svg"}
@@ -90,7 +73,7 @@ const AuthLogin = () => {
           </Button>
           <Button
             variant="outline"
-            onClick={handleAnonymousSignIn}
+            onClick={() => SignInAnonymously()}
             disabled={isAnonymousPending}
           >
             <User className="mr-2 size-5" />
