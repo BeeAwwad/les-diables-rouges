@@ -36,7 +36,7 @@ export default function RootLayout({
         {/* <Overlay /> */}
         <NavProvider>
           <QueryProvider>
-            <Toaster richColors />
+            <Toaster />
             <Header />
             <MobileNavOverlay />
             <main className="sm:grid-cols-base-sm md:grid-cols-base-md relative mt-24 grid grid-cols-1 gap-7 sm:mt-0 sm:h-[calc(80vh-1.75rem)]">

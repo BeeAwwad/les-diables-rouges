@@ -7,6 +7,7 @@ const protectedRoutes = ["/predict-eleven", "/admin"];
 const { supabaseAnonKey, supabaseUrl} = getEnvironmentVariable()
 
 export async function updateSession(request: NextRequest) {
+  
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -34,16 +35,21 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
- const pathname = request.nextUrl.pathname;
+  const pathname = request.nextUrl.pathname;
 
   const isProtectedRoute = protectedRoutes.includes(pathname);
 
-  const session = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  console.log({ session })
+  if (pathname.startsWith("/auth/callback")) {
+    return NextResponse.next();
+  }
 
-  if (isProtectedRoute && session.error) {
+  if (isProtectedRoute && !user) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }
+
   return supabaseResponse;
 }

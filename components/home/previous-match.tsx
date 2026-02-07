@@ -43,8 +43,6 @@ const PreviousMatch = () => {
     (team) => team.id === previousMatch?.away_team_id,
   );
 
-  console.log(previousMatchData?.data);
-
   if (!previousMatchData?.data) return null;
 
   const { events, statisticsSummary } = previousMatchData?.data;

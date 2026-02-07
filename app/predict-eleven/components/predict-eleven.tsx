@@ -80,10 +80,7 @@ const PredictEleven = ({ user }: { user: User }) => {
     const isAlreadyLinked = existingIdentities.some(
       (identity) => identity.provider === provider,
     );
-    console.log(
-      "🚀 ~ handleLinkIdentity ~ existingIdentities:",
-      existingIdentities,
-    );
+
     if (isAlreadyLinked) {
       toast.error("This account is already linked.");
       return;

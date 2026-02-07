@@ -42,15 +42,9 @@ const Players = () => {
 
   const groupedPlayers = groupByPosition(players);
 
-  const showPlayerType = (type: FilterType) => {
-    setPlayerType(type);
-  };
-
   const filteredGroupedPlayers = Object.entries(groupedPlayers).filter(
     (group) => playerType === "All" || playerType === group[0],
   );
-
-  console.log({ filteredGroupedPlayers });
 
   return (
     <div className="space-y-10 pl-3 md:pl-0 pb-6 pr-3 md:pr-6 overflow-y-scroll">
