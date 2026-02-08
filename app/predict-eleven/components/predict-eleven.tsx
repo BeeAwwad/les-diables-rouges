@@ -86,7 +86,7 @@ const PredictEleven = ({ user }: { user: User }) => {
       return;
     }
 
-    const auth_callback_url = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?next=/predict-eleven`;
+    const auth_callback_url = `${window.location.origin}/auth/callback?next=/predict-eleven`;
     const { error } = await supabase.auth.linkIdentity({
       provider: provider,
       options: {
