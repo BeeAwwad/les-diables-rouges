@@ -18,7 +18,7 @@ const AuthLogin = () => {
   const supabase = getSupabaseBrowerClient();
 
   function signInWithProvider(provider: "google" | "github") {
-    const redirectTo = `${window.location.origin}/auth/callback?next=/predict-eleven`;
+    const redirectTo = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?next=/predict-eleven`;
     supabase.auth.signInWithOAuth({
       provider,
       options: {

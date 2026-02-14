@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getEnvironmentVariable } from "../utils";
 
 const protectedRoutes = ["/predict-eleven", "/admin"];
+
 const { supabaseAnonKey, supabaseUrl} = getEnvironmentVariable()
 
 export async function updateSession(request: NextRequest) {
@@ -34,13 +35,13 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  const pathname = request.nextUrl.pathname;
-
-  const isProtectedRoute = protectedRoutes.includes(pathname);
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const pathname = request.nextUrl.pathname;
+  const isProtectedRoute = protectedRoutes.includes(pathname);
 
   if (pathname.startsWith("/auth/callback")) {
     return NextResponse.next();
