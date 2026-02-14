@@ -36,9 +36,9 @@ export async function updateSession(request: NextRequest) {
   );
 
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getClaims();
+
+  const user = data?.claims;
 
   const pathname = request.nextUrl.pathname;
   const isProtectedRoute =  pathname.startsWith("/predict-eleven");
@@ -48,7 +48,9 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  if (isProtectedRoute && !user) {
+  if (isProtectedRoute && !user &&
+      !request.nextUrl.pathname.startsWith("/auth")
+    ) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth";
     return NextResponse.redirect(url);
