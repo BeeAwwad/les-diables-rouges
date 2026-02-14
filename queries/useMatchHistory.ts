@@ -7,11 +7,11 @@ export function useMatchHistory() {
     const supabase = getSupabaseBrowerClient()
   return useQuery({
     queryKey: ["match-history"],
-    queryFn: async (): Promise<MatchHistoryProps> => {
+    queryFn: async (): Promise<MatchHistoryProps[]> => {
       const { data, error } = await supabase
         .from("match_history")
         .select("*")
-        .single();
+        .order("match_date", { ascending: false});
       
         if (error) {
         toast.error(error?.message ?? "Error fetching recent match history.");

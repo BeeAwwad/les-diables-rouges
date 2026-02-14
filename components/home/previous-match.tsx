@@ -10,12 +10,7 @@ import { FixtureProps } from "@/lib/types";
 import { useTeams } from "@/queries/useTeams";
 
 const PreviousMatch = () => {
-  const {
-    data: previousMatchData,
-    isError,
-    isLoading,
-    error,
-  } = useMatchHistory();
+  const { data: previousMatchData, isError, isLoading } = useMatchHistory();
   const { data: AllFixtures } = useFixtures();
   const { data: teams } = useTeams();
 
@@ -43,9 +38,9 @@ const PreviousMatch = () => {
     (team) => team.id === previousMatch?.away_team_id,
   );
 
-  if (!previousMatchData?.data) return null;
+  if (!previousMatchData?.[0]?.data) return null;
 
-  const { events, statisticsSummary } = previousMatchData?.data;
+  const { events, statisticsSummary } = previousMatchData[0].data;
 
   //const MatchData = Match?.data;
 
@@ -93,11 +88,11 @@ const PreviousMatch = () => {
       <div className="px-4">
         <div className="flex justify-between">
           <span>
-            {previousMatchData?.data.statisticsSummary[0].ballPossession}
+            {previousMatchData[0]?.data.statisticsSummary[0].ballPossession}
           </span>
           <span>Possession</span>
           <span>
-            {previousMatchData?.data.statisticsSummary[1].ballPossession}
+            {previousMatchData[0]?.data.statisticsSummary[1].ballPossession}
           </span>
         </div>
         <Progress
