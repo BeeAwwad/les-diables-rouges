@@ -155,3 +155,24 @@ export type MatchHistoryProps = {
     match_date: Date;
     created_at: Date;
 }
+
+export interface PlayerDetails {
+  id: number;
+  pos: "G" | "D" | "M" | "F";
+  grid: string;
+  name: string;
+  number: number;
+}
+
+export interface LineupEntry {
+  player: PlayerDetails;
+}
+
+export type LineupProps = {
+    id: number;
+    match_date: Date;
+    updated_at: Date;
+    created_at: Date;
+    formation: string;
+    lineup_data: LineupEntry[];
+} 

@@ -3,6 +3,7 @@
 import * as React from "react";
 import clsx from "clsx";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { abrilFatface } from "@/fonts/fonts";
 
 export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   items: React.ReactNode[];
@@ -37,7 +38,11 @@ export const PlayerSlide = ({ name, number }: RatingProps) => {
   return (
     <div className="flex h-full w-full flex-col items-center gap-2 rounded-lg bg-white p-3 py-5 sm:gap-4 sm:p-6 sm:py-8">
       <span className="text-lg font-medium">{name}</span>
-      <span className="text-3xl font-semibold lg:text-5xl">{number}</span>
+      <span
+        className={`${abrilFatface.className} text-7xl font-semibold lg:text-5xl`}
+      >
+        {number}
+      </span>
     </div>
   );
 };

@@ -37,6 +37,7 @@ const NextMatch = () => {
         <p>Failed to load next match</p>
       </div>
     );
+
   const date = new Date(nextMatch?.utc_date || new Date());
 
   const formattedDay = date?.toLocaleString("en-US", {

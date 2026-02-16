@@ -6,11 +6,11 @@ import Link from "next/link";
 import gsap from "gsap";
 import { useNav } from "@/context/nav-context";
 import {
-  LayoutPanelTop,
   Calendar,
   ShieldHalf,
   Trophy,
-  Vote,
+  LayoutDashboard,
+  Newspaper,
 } from "lucide-react";
 
 type navType = {
@@ -24,7 +24,7 @@ const navLinks: navType[] = [
     name: "Overview",
     href: "/",
     icon: (
-      <LayoutPanelTop className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
+      <LayoutDashboard className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
     ),
   },
   {
@@ -49,10 +49,10 @@ const navLinks: navType[] = [
     ),
   },
   {
-    name: "Predict XI",
-    href: "/predict-eleven",
+    name: "Starting XI",
+    href: "/starting-eleven",
     icon: (
-      <Vote className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
+      <Newspaper className="size-6 text-primary-100 group-hover:text-primary-400 group-active:text-primary-400" />
     ),
   },
 ];

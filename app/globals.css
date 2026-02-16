@@ -227,9 +227,9 @@
     grid-template-rows: repeat(4, 17rem);
     grid-template-areas:
       "itemOne itemOne"
-      "itemTwo itemThree"
-      "itemFour itemFive"
-      "itemSix itemSix";
+      "itemFive itemThree"
+      "itemSix itemSix"
+      "itemFour itemTwo";
   }
 }
 

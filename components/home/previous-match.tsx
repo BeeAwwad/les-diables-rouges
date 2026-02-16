@@ -8,6 +8,7 @@ import { useMatchHistory } from "@/queries/useMatchHistory";
 import { useFixtures } from "@/queries/useFixtures";
 import { FixtureProps } from "@/lib/types";
 import { useTeams } from "@/queries/useTeams";
+import { abrilFatface } from "@/fonts/fonts";
 
 const PreviousMatch = () => {
   const { data: previousMatchData, isError, isLoading } = useMatchHistory();
@@ -64,7 +65,9 @@ const PreviousMatch = () => {
               src={homeTeam?.crest ?? "/placeholder_1.png"}
               alt="home team crest"
             />
-            <span>{homeTeam?.short_name}</span>
+            <span className={`${abrilFatface.className}`}>
+              {homeTeam?.short_name}
+            </span>
           </div>
         </div>
         <div>
@@ -81,7 +84,9 @@ const PreviousMatch = () => {
               alt="away team crest"
               src={awayTeam?.crest ?? "/placeholder_2.png"}
             />
-            <span>{awayTeam?.short_name}</span>
+            <span className={`${abrilFatface.className}`}>
+              {awayTeam?.short_name}
+            </span>
           </div>
         </div>
       </div>
