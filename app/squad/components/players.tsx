@@ -4,7 +4,6 @@ import { usePlayers } from "@/queries/usePlayers";
 import type { PlayerProps } from "@/lib/types";
 import PlayerCard from "./player-card";
 import Loader from "@/components/custom-ui/loader";
-import { abrilFatface } from "@/fonts/fonts";
 import { useState } from "react";
 import CustomButton from "@/components/custom-ui/button";
 
@@ -47,12 +46,7 @@ const Players = () => {
   );
 
   return (
-    <div className="space-y-10 pl-3 md:pl-0 pb-6 pr-3 md:pr-6 overflow-y-scroll">
-      <h1
-        className={`text-primary mb-4 text-3xl font-semibold md:text-5xl ${abrilFatface.className}`}
-      >
-        Team Squad
-      </h1>
+    <>
       <div className="flex flex-wrap gap-2 my-8">
         {["All", "Goalkeeper", "Defender", "Midfielder", "Attacker"].map(
           (type) => {
@@ -89,7 +83,7 @@ const Players = () => {
           )}
         </section>
       ))}
-    </div>
+    </>
   );
 };
 

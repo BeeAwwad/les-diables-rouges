@@ -6,8 +6,10 @@ import { useSyncMatchStore } from "@/hooks/useSyncMatchStore";
 import { useMatchStore } from "@/stores/useMatchStore";
 import { useTeams } from "@/queries/useTeams";
 import { abrilFatface } from "@/fonts/fonts";
+import { useRouter } from "next/navigation";
 
 const StartingXI = () => {
+  const router = useRouter();
   const { data: lineup, isLoading, isError } = useLineup();
   const { data: teams } = useTeams();
   useSyncMatchStore();
@@ -47,10 +49,13 @@ const StartingXI = () => {
 
   console.log({ groupedByRow });
   return (
-    <div className="item-three no-scrollbar overflow-hidden rounded-lg">
+    <div
+      onClick={() => router.push("/starting-eleven")}
+      className="item-three no-scrollbar overflow-hidden rounded-lg cursor-pointer"
+    >
       <div className="relative aspect-3/4 w-full bg-emerald-600 shadow-md">
         <p
-          className={`${abrilFatface.className} mx-auto w-fit pt-4 pb-3 text-xs md:text-sm font-semibold text-white`}
+          className={`${abrilFatface.className} mx-auto w-fit py-2 text-xs md:text-sm font-semibold text-white`}
         >
           <span>{homeTeam?.short_name}</span> vs{" "}
           <span>{awayTeam?.short_name}</span>
