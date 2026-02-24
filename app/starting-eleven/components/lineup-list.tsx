@@ -21,12 +21,12 @@ const LineupList = () => {
   if (isError || !lineup) {
     return (
       <div className="flex items-center justify-center md:w-[66%] md:max-h-[70vh] relative">
-        <p className="text-primary-300">Lineup isn't available yet.</p>
+        <p className="text-primary-300">Error: </p>
       </div>
     );
   }
   return (
-    <div className="md:w-[40%] order-2 md:order-1">
+    <div className="md:w-[40%] order-2 md:order-1 py-4 md:py-0">
       <h2
         className={`text-primary mb-4 text-3xl font-semibold md:text-5xl ${abrilFatface.className} hidden md:block`}
       >
