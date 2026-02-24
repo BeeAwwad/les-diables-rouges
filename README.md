@@ -1,3 +1,4 @@
+<img width="2560" height="421" alt="ldrHeader" src="https://github.com/user-attachments/assets/24c49989-4b3b-44ed-8b39-0d2082d23e59" />
 # Les Diables Rouges
 
 **A Manchester United Fan Dashboard & Data Visualization App**
@@ -15,16 +16,23 @@ I used a couple of free apis together since I couldn't afford the premium versio
 ### Pages:
 
 - **Dashboard:** Shows the next match, previous match, pie chart of our win/loss/draw, starting 11, squad carousel, premier league table.
-
+ <img width="1920" height="868" alt="Screenshot 2026-02-24 122805" src="https://github.com/user-attachments/assets/0be88c30-cd04-4909-bc79-1ccdece710cf" />
+ 
 - **Matches:** Shows premier league matches we've played and haven't played.
+<img width="1920" height="869" alt="Screenshot 2026-02-08 102005" src="https://github.com/user-attachments/assets/22f0522a-3d61-48da-b2d5-84e71a65b7bf" />
 
 - **Table:** Show the premier league table.
+<img width="1920" height="868" alt="Screenshot 2026-02-08 102114" src="https://github.com/user-attachments/assets/621c6376-e63f-4cf6-a686-7582d8785f9b" />
 
 - **Starting 11:** Show the starting 11 of the previous match or the match that's about to be played.
+<img width="1920" height="873" alt="Screenshot 2026-02-24 122710" src="https://github.com/user-attachments/assets/5867d305-6f9f-44d9-ab84-81c6bb030ac2" />
 
 - **Squad:** Show the team and thier respective jersey numbers.
+<img width="1919" height="871" alt="Screenshot 2026-02-24 122741" src="https://github.com/user-attachments/assets/8d7f7552-b5f4-40da-9b52-310a1266a710" />
 
 ---
+
+
 
 ## Tech Stack
 
