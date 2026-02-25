@@ -1,4 +1,4 @@
-<img width="2560" height="421" alt="ldrHeader" src="https://github.com/user-attachments/assets/24c49989-4b3b-44ed-8b39-0d2082d23e59" />
+<img width="1059" height="167" alt="Screenshot 2026-02-25 104353" src="https://github.com/user-attachments/assets/2f20ee6e-f0a9-4970-9e26-f5974a669601" />
 # Les Diables Rouges
 
 **A Manchester United Fan Dashboard & Data Visualization App**
